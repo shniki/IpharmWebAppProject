@@ -14,21 +14,30 @@ namespace IpharmWebAppProject.Models
     {
         public int ProductID { get; set; }
 
+        [Required]
         public string Name { get; set; }
 
+        [Required]
+        [DataType(DataType.Currency)]
         public float Price { get; set; } //$ >0
 
+        [Required]
         public int Amount { get; set; } //ml >0
 
         //description
+        [Required]
         public Genders Gender { get; set; }
 
+        [Required]
         public Categories Category { get; set; }
 
+        [Required]
         public string Type { get; set; } //select by...
-        
+
+        [Required]
         public string Brand { get; set; } //select by...
 
+        [Required]
         [DataType(DataType.MultilineText)]
         public string Description { get; set; }
 

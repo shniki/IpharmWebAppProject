@@ -14,6 +14,7 @@ namespace IpharmWebAppProject.Models
         public int ProductId { get; set; }
 
         //user email
+        [Required]
         [DataType(DataType.EmailAddress)]
         public string Email { get; set; }
 

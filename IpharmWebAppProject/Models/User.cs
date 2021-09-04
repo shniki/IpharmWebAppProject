@@ -14,32 +14,46 @@ namespace IpharmWebAppProject.Models
         public string Email { get; set; }
 
         //name
+        [Required]
+        [DataType(DataType.Text)]
+        [RegularExpression(@"^[a-zA-Z''-'\s]{1,40}$",
+         ErrorMessage = "Characters are not allowed.")]
         public string FirstName { get; set; }
+        [Required]
+        [DataType(DataType.Text)]
         public string LastName { get; set; }
 
         //birthday
+        [Required]
         [DataType(DataType.Date)]
         public DateTime Birthday { get; set; }
 
         //mobile
+        [Required]
         [DataType(DataType.PhoneNumber)]
         public string Mobile { get; set; }
 
         //password
+        [Required]
         [DataType(DataType.Password)]
         public string Password { get; set; }
 
         //adress
+        [Required]
         [DataType(DataType.PostalCode)]
         public string PostalCode { get; set; }
+        [Required]
+        [DataType(DataType.Text)]
         public string Country { get; set; }
+        [Required]
+        [DataType(DataType.Text)]
         public string City { get; set; }
 
         [DataType(DataType.MultilineText)]
         public string Adress { get; set; }
 
         //activation
-        public Type Type { get; set; }
+        public Type Type { get; set; } = Type.Customer;
         public bool Active { get; set; } = true;
 
         //orders
