@@ -133,6 +133,17 @@ namespace IpharmWebAppProject.Controllers
 
             return View(product);
         }
+        public async Task<IActionResult> Search(string Pname)
+        {
+            if (Pname == null)
+            {
+                return NotFound();
+            }
+            var products = await _context.Products.Where(c => c.Name.Contains(Pname)).ToListAsync();
+            return View(products);
+        }
+        
+
 
         // POST: Products/Delete/5
         [HttpPost, ActionName("Delete")]
