@@ -13,6 +13,8 @@ namespace IpharmWebAppProject.Controllers
     public class ProductsController : Controller
     {
         private readonly IpharmContext _context;
+        private List<string> brands; //create brand page
+        private List<List<string>> types; //create type page, create product -> category -> type
 
         public ProductsController(IpharmContext context)
         {

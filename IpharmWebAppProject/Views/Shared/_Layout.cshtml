@@ -6,6 +6,7 @@
     <title>@ViewData["Title"] - IpharmWebAppProject</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="~/css/SearchStyleSheet.css" />
 </head>
 <body>
     <header>
@@ -29,6 +30,26 @@
             </div>
         </nav>
     </header>
+
+    <form class="search" asp-controller="Products" asp-action="Search">
+
+        <div class="one">
+            <div class="two">
+                <div class="three">
+                    <input asp-for="Pname" type="search" class="four" placeholder="Search iPharm" />
+                </div>
+                <div class="stick"></div>
+            </div>
+        </div>
+
+    </form>
+
+    <script>
+        document.querySelector('.stick').addEventListener('click', () => {
+            document.querySelector('.four').value = '';
+        });
+    </script>
+
     <div class="container">
         <main role="main" class="pb-3">
             @RenderBody()
