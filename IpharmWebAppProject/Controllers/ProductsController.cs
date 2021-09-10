@@ -135,13 +135,13 @@ namespace IpharmWebAppProject.Controllers
 
             return View(product);
         }
-        public async Task<IActionResult> Search(string Pname)
+        public async Task<IActionResult> Search(string query)
         {
-            if (Pname == null)
+            if (query == null)
             {
                 return NotFound();
             }
-            var products = await _context.Products.Where(c => c.Name.Contains(Pname)).ToListAsync();
+            var products = await _context.Products.Where(c => c.Name.Contains(query)).ToListAsync();
             return View(products);
         }
         
