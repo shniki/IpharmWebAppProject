@@ -10,7 +10,7 @@ namespace IpharmWebAppProject.Models
         public int ProductInWishListID { get; set; }
 
         //order
-        public int WishListID { get; set; }
+        public string WishListID { get; set; }
         public WishList WishList { get; set; }
 
         //product

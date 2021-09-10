@@ -30,6 +30,8 @@ namespace IpharmWebAppProject
                 try
                 {
                     var context = services.GetRequiredService<IpharmContext>();
+                    DbInitializer.Initialize(context);
+                    //context.Database.EnsureCreated();
                 }
                 catch (Exception ex)
                 {
@@ -41,7 +43,7 @@ namespace IpharmWebAppProject
             }
 
 
-          //  throw new NotImplementedException();
+            // throw new NotImplementedException();
         }
 
 
