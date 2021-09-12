@@ -2,44 +2,38 @@
     box-sizing: border-box;
 }
 
-body {
-    background: #f6f5f7;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    font-family: 'Montserrat', sans-serif;
-}
 
 h1 {
     font-weight: bold;
     margin: 0;
 }
-
-button {
-    border-radius: 20px;
+input[type="submit"] {
+    background: #FF416C;
     border: 1px solid #FF4B2B;
-    background-color: #FF416C;
-    color: #FFFFFF;
-    font-size: 12px;
-    font-weight: bold;
-    padding: 12px 45px;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    transition: transform 80ms ease-in;
+    margin-top:10px;
 }
 
-    button:active {
-        transform: scale(0.95);
+    input[type="submit"]:hover {
+        background: #fc6084;
     }
 
-    button:focus {
-        outline: none;
+    input[type="submit"]:active{
+        transform:scale(0.95);
     }
-
-    button.ghost {
-        background-color: transparent;
-        border-color: #FFFFFF;
+    input[type="submit"]:focus{
+        outline:none;
+    }
+  
+    .login {
+        color: white;
+        margin: 20px 0;
+        font-family: 'Poppins', sans-serif;
+    }
+    p{
+        margin-top:40px;
+    }
+    .signup{
+        margin-bottom:8px;
     }
 
 form {
@@ -53,14 +47,42 @@ form {
     text-align: center;
 }
 
-input {
+.form-group {
+    position: relative;
+    height: 45px;
+    width: 100%;
+    background: rgba(255,255,255,0.94);
+}
+
+    .form-group input {
+        height: 100%;
+        width: 100%;
+        background: #eee;
+        border: #222;
+        outline: none;
+        color: #222;
+        font-size: 16px;
+        font-family: 'Poppins',sans-serif;
+    }
+.bi bi-lock-fill {
+    color: #222;
+    width: 40px;
+    line-height: 45px;
+    display: inline;
+}
+.bi bi-person-fill {
+    color: #222;
+    width: 40px;
+    line-height: 45px;
+    display: inline;
+}
+/*input {
     background-color: #eee;
     border: none;
     padding: 12px 15px;
     margin: 8px 0;
     width: 100%;
-}
-
+}*/
 .container {
     background-color: #fff;
     border-radius: 10px;
@@ -96,12 +118,7 @@ input {
     z-index: 1;
 }
 
-.container.right-panel-active .sign-up-container {
-    transform: translateX(100%);
-    opacity: 1;
-    z-index: 5;
-    animation: show 0.6s;
-}
+
 
 @keyframes show {
     0%, 49.99% {

@@ -3,34 +3,48 @@
 @{
     ViewData["Title"] = "Login";
 }
+@{ ViewData["Title"] = "Login";
+    Layout = "Login_layout"; }
 
 <link rel="stylesheet" href="~/css/Login.css" />
 
 <div class="container" id="container">
     <div class="form-container sign-in-container">
-        <form asp-action="Register">
+        <form asp-action="Login">
             <h1>Login</h1>
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="Email" class="control-label"></label>
-                <input type="email" asp-for="Email" class="form-control" />
-                <span asp-validation-for="Email" class="text-danger"></span>
+                <span>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16">
+                        <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
+                    </svg>
+                </span>
+                <input type="email" autocomplete="off" asp-for="Email" placeholder="aaa@bbbb.com" class="form-control" />
+                <span  asp-validation-for="Email" class="text-danger"></span>
             </div>
 
-            <div class="form-group">
-                <label asp-for="Password" class="control-label"></label>
-                <input type="password" asp-for="Password" class="form-control" />
-                <span asp-validation-for="Password" class="text-danger"></span>
+            <div class="form-group space">
+                <span>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-lock-fill" viewBox="0 0 16 16">
+                        <path d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2zm3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z" />
+                    </svg>
+                </span>
+                <input type="password" autocomplete="off" asp-for="Password" placeholder="Password" class="form-control" />
+                <span  asp-validation-for="Password" class="text-danger"></span>
             </div>
-            <button type="submit" />login
+            <div class="login">
+                <input type="submit" value="LOGIN" /><a asp-action="Login" asp-controller="Users"></a>
+            </div>
+            <div class="signup">
+                <p>  Don't have account? <a asp-action="Register" asp-controller="Users">Click Here</a> to register</p>
+            </div>
         </form>
     </div>
     <div class="overlay-container">
         <div class="overlay">
             <div class="overlay-panel overlay-right">
                 <h1>Hello, Friend!</h1>
-                <p>Enter your personal details and start journey with us</p>
-                <button  asp-action="Register" id="signUp">Sign Up</button>
+                <p>Enter your personal details and start journey with us :)</p>
             </div>
         </div>
         @if (ViewBag.Error != null)
