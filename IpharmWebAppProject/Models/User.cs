@@ -51,6 +51,7 @@ namespace IpharmWebAppProject.Models
         public string City { get; set; }
 
         [DataType(DataType.MultilineText)]
+        [Required]
         public string Adress { get; set; }
 
         //activation

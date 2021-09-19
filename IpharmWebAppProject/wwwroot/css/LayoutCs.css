@@ -1,29 +1,13 @@
-﻿* {
-    margin: 0;
-    padding: 0;
-    font-family: 'Century Gothic';
-}
-.bg-grey {
-    background: #292929;
-}
-
-.logo-footer {
-    margin-bottom: 20px;
-    margin-right:5px;
-}
-footer {
-   color: grey;
-   height:25vh;
-  bottom:0px;
-   position:absolute;
+﻿footer {
+    color: grey;
 }
 
     footer p, a {
-        font-size: 13px;
+        font-size: 14px;
         font-family: 'Roboto', sans-serif;
     }
 
-    footer h3{
+    footer h3 {
         font-family: 'Playfair Display', serif;
         margin-bottom: 40px;
         position: relative;
@@ -61,7 +45,7 @@ footer {
 }
 
 ::placeholder {
-    font-size: 13px;
+    font-size: 10px;
     padding-left: 10px;
     font-style: italic;
 }
@@ -105,13 +89,5 @@ a:hover {
 
 .logo-part {
     border-right: 1px solid grey;
-    height: 70%;
+    height: 100%;
 }
-
-/*.footer {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  white-space: nowrap;
-  line-height: 60px;*/ /* Vertically center the text there */
-/*}*/
