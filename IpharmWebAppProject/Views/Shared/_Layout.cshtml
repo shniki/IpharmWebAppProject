@@ -7,7 +7,9 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
     <link rel="stylesheet" href="~/css/SearchStyleSheet.css" />
+    <script src="~/js/SearchJavaScript.js"></script>
 </head>
+
 <body>
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
@@ -31,24 +33,18 @@
         </nav>
     </header>
 
-    <form class="search" asp-controller="Products" asp-action="Search">
+    <form class="search" action="Products/Search" method="post">
 
-        @*<div class="one">
+        <div class="one">
             <div class="two">
                 <div class="three">
-                    <input asp-for="Name" type="search" class="four" placeholder="Search iPharm" />
+                    <input id="query" name="query" type="text" class="four" placeholder="Search iPharm" autocomplete="off"/>
                 </div>
                 <div class="stick"></div>
             </div>
-        </div>*@
+        </div>
 
     </form>
-
-    <script>
-        document.querySelector('.stick').addEventListener('click', () => {
-            document.querySelector('.four').value = '';
-        });
-    </script>
 
     <div class="container">
         <main role="main" class="pb-3">
