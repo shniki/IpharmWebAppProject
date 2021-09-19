@@ -17,11 +17,13 @@
     cursor: pointer;
     transition-property: opacity;
     transition-duration: 0.3s;
+    display: flex;
+    justify-content: center;
 }
 
-    .search:hover, .search:focus-within {
+    /*.search:hover, .search:focus-within {
         opacity: 1;
-    }
+    }*/
 
 .one {
     font-size: 5vw;
@@ -29,7 +31,12 @@
     width: calc(10em - 0.5em);
     height: 0.5em;
     z-index: 2;
+    opacity: 0.7;
 }
+
+    .one:hover, .one:focus-within {
+        opacity: 1;
+    }
 
 .two {
     width: calc(100% - 0.25em);
@@ -116,7 +123,7 @@ input[type=text] {
     }
 
 .one {
-    transform: translateX(50%) translateX(-0.25em);
+    transform: translateX(95%) translateX(-0.25em);
 }
 
 .two {
@@ -179,4 +186,31 @@ input[type=text] {
 *:after {
     position: relative;
     box-sizing: border-box;
+}
+
+/*icons*/
+.icons {
+    margin-top: 12px;
+    margin-left: 15px;
+    display: flex;
+    justify-content: left;
+    opacity: 0.7;
+}
+
+    .icons:hover, icons:focus-within {
+        opacity: 1;
+    }
+
+.small-icons {
+    margin-top: 15px;
+    margin-right: 10px;
+}
+
+.heart-icons {
+    margin-top: 17px;
+    margin-right: 10px;
+}
+
+.icons-div {
+    display: inline;
 }
