@@ -13,10 +13,10 @@ namespace IpharmWebAppProject.Data
             context.Database.EnsureCreated();
 
             //user create
-            if (context.Users.Any())
+            /*if (context.Users.Any())
             {
                 return; //DB exists
-            }
+            }*/
             var users = new User[]
             {   new User{Email="shnikimaor@gmail.com",
                     FirstName="Shani", LastName="Maor",
@@ -58,9 +58,9 @@ namespace IpharmWebAppProject.Data
             //order create
             var orders = new Order[]
             {   new Order{Email="shnikimaor@gmail.com",
-                    OrderDate=DateTime.Parse("2019-02-01"), Products=new List<ProductInOrder>() },
+                    OrderDate=DateTime.Parse("2019-02-01"), Products=new List<ProductInOrder>(), Price=0, Status=Status.Cart },
                 new Order{Email="noyhadad@gmail.com",
-                    OrderDate=DateTime.Parse("2021-03-21"), Products=new List<ProductInOrder>() },
+                    OrderDate=DateTime.Parse("2021-03-21"), Products=new List<ProductInOrder>(), Price=0, Status=Status.Cart },
             };
             //order add
             foreach (Order o in orders)

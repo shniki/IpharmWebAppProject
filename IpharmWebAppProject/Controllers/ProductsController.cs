@@ -24,7 +24,7 @@ namespace IpharmWebAppProject.Controllers
         // GET: Products
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Products.ToListAsync());
+            return View(await _context.Products.Where(p => p.Active==true).ToListAsync());
         }
 
         // GET: Products/Details/5

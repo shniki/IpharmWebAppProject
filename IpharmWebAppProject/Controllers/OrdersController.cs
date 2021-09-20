@@ -25,6 +25,95 @@ namespace IpharmWebAppProject.Controllers
             return View(await _context.Orders.ToListAsync());
         }
 
+        // GET: Orders/Checkout
+        public async Task<IActionResult> Checkout()
+        {
+            if (HttpContext.User == null && HttpContext.User.Claims == null && HttpContext.User.Claims.Count() == 0) //not logged in
+                return RedirectToAction("Login", "Users");
+
+            if (HttpContext.User != null && HttpContext.User.Claims != null && HttpContext.User.Claims.Count() > 0
+                && HttpContext.User.Claims.ElementAt(10).Value == "Manager") //logged in as manager
+                return NotFound();
+
+            var myOrder = await _context.Orders.Where(o => o.Email == HttpContext.User.Claims.ElementAt(1).Value && o.Status == Status.Cart).FirstOrDefaultAsync();
+
+            myOrder.Status = Status.Paid;
+            myOrder.OrderDate = DateTime.Now;
+
+            _context.Orders.Update(myOrder);
+            _context.Orders.Add(new Order { Email = HttpContext.User.Claims.ElementAt(1).Value, Price = 0, Status = Status.Cart, Products = new List<ProductInOrder>() });
+            _context.SaveChanges();
+
+            return View(myOrder);
+        }
+
+        // Post: Orders/Cart
+        public async Task<IActionResult> Cart(int? productid, bool addition, bool wishlist)
+        {
+            if (HttpContext.User == null && HttpContext.User.Claims == null && HttpContext.User.Claims.Count() == 0) //not logged in
+                return RedirectToAction("Login", "Users");
+
+            if (HttpContext.User != null && HttpContext.User.Claims != null && HttpContext.User.Claims.Count() > 0
+                && HttpContext.User.Claims.ElementAt(10).Value=="Manager") //logged in as manager
+                return NotFound();
+
+            //find user's cart in orders
+            var mycart = await _context.Orders.Include(o => o.Products)
+                .FirstOrDefaultAsync(m => (m.Email == HttpContext.User.Claims.ElementAt(1).Value && m.Status==Status.Cart));
+            
+            if (mycart.Products == null)
+            {
+                mycart.Products = new List<ProductInOrder>();
+            }
+
+            if (productid!=null) //there's a product
+            {
+                ProductInOrder productexists = (from p in mycart.Products where p.ProductID == productid select p).First();
+                Product product = _context.Products.Find(productid);
+
+                if (addition) //add product
+                {
+                    if (productexists != null) //in cart
+                    {
+                        productexists.Amount += 1;
+                    }
+                    else //not in cart
+                    {
+                        mycart.Products.Add(new ProductInOrder() {  ProductID=productid.Value, Product= product,
+                                                                    OrderID=mycart.OrderID, Order=mycart,
+                                                                    Amount = 1});
+                    }
+                    mycart.Price += product.Price;
+
+                    if(wishlist) //need to remove from wishlist
+                    {
+                        var mywishlist = await _context.WishLists.Include(o => o.Products).FirstOrDefaultAsync(m => (m.Email == HttpContext.User.Claims.ElementAt(1).Value));
+                        ProductInWishList productwl = (from p in mywishlist.Products where p.ProductID == productid select p).First();
+                        mywishlist.Products.Remove(productwl);
+                        _context.ProductInWishLists.Remove(productwl);
+                        _context.WishLists.Update(mywishlist);
+                        _context.SaveChanges();
+                    }
+                }
+                else //remove product
+                {
+                    if (productexists != null) //in cart
+                    {
+                        mycart.Price-=(product.Price*productexists.Amount);
+                        mycart.Products.Remove(productexists);
+                        _context.ProductInOrders.Remove(productexists);
+                    }
+                }
+                _context.Orders.Update(mycart);
+                _context.SaveChanges();
+            }
+
+            var list = mycart.Products;
+
+            //view cart only, without adding/removing products
+            return View(list);
+        }
+
         // GET: Orders/Details/5
         public async Task<IActionResult> Details(int? id)
         {
