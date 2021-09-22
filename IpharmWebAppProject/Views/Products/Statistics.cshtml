@@ -1,0 +1,248 @@
+﻿@using IpharmWebAppProject.Models;
+@using IpharmWebAppProject.Controllers;
+@model IpharmWebAppProject.Models.Product
+
+@{
+    ViewData["Title"] = "Statistics";
+}
+<div>
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/data.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script src="https://code.highcharts.com/modules/export-data.js"></script>
+    <div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+
+    <br />
+    <br />
+    <br />
+    <table id="datatable" style="display:none">
+        <thead>
+            <tr>
+                <th></th>
+                <th>Type</th>
+
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (var v in ViewBag.stat1 as ICollection<Stat>)
+            {
+                <tr>
+                    <th> @v.Key</th>
+                    <th>@v.Values</th>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <script>
+        Highcharts.chart('container', {
+            data: {
+                table: 'datatable'
+            },
+            chart: {
+                type: 'column'
+            },
+            title: {
+                text: 'The profit of each month'
+            },
+            yAxis: {
+                allowDecimals: false,
+                title: {
+                    text: 'Profit ($)'
+                }
+            },
+            tooltip: {
+                formatter: function () {
+                    return '<b>' + this.series.name + '</b><br/>' +
+                        this.point.y + ' ' + this.point.name.toLowerCase();
+                }
+            }
+
+        });
+    </script>
+
+</div>
+
+<div>
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/data.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script src="https://code.highcharts.com/modules/export-data.js"></script>
+    <div id="container2" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+
+    <br />
+    <br />
+    <br />
+    <table id="datatable2" style="display:none">
+        <thead>
+            <tr>
+                <th></th>
+                <th>Type</th>
+
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (var v in ViewBag.stat2 as ICollection<Stat>)
+            {
+                <tr>
+                    <th> @v.Key</th>
+                    <th>@v.Values</th>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <script>
+        Highcharts.chart('container2', {
+            data: {
+                table: 'datatable2'
+            },
+            chart: {
+                type: 'column'
+            },
+            title: {
+                text: 'Which products are the most popular'
+            },
+            yAxis: {
+                allowDecimals: false,
+                title: {
+                    text: 'Number of sales'
+                }
+            },
+            tooltip: {
+                formatter: function () {
+                    return '<b>' + this.series.name + '</b><br/>' +
+                        this.point.y + ' ' + this.point.name.toLowerCase();
+                }
+            }
+
+        });
+    </script>
+
+</div>
+
+<table id="datatable3" style="display:none">
+    <thead>
+        <tr>
+            <th></th>
+            <th>Number of orders</th>
+
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var v in ViewBag.stat3 as ICollection<Stat>)
+        {
+            <tr>
+                <th> @v.Key</th>
+                <th>@v.Values</th>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<div>
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/data.js"></script>
+    <script src="https://code.highcharts.com/modules/drilldown.js"></script>
+
+    <div id="container3" style="min-width: 310px; max-width: 600px; height: 400px; margin: 0 auto"></div>
+
+
+
+    <script>
+        Highcharts.chart('container3', {
+            data: {
+                table: 'datatable3'
+            },
+            chart: {
+                type: 'pie'
+            },
+            title: {
+                text: 'Which customers are the most active users'
+            },
+            plotOptions: {
+                series: {
+                    dataLabels: {
+                        enabled: true,
+                        format: '{point.name}: {point.percentage:.1f} %'
+                    }
+                }
+
+            },
+
+            /*tooltip: {
+                headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
+                pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.2f}%</b> of total<br/>'
+            }*/
+        });
+
+
+
+    </script>
+
+</div>
+
+<table id="datatable4" style="display:none">
+    <thead>
+        <tr>
+            <th></th>
+            <th>Number of sales</th>
+
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var v in ViewBag.stat4 as ICollection<Stat>)
+        {
+            <tr>
+                <th> @v.Key</th>
+                <th>@v.Values</th>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<div>
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/data.js"></script>
+    <script src="https://code.highcharts.com/modules/drilldown.js"></script>
+
+    <div id="container4" style="min-width: 310px; max-width: 600px; height: 400px; margin: 0 auto"></div>
+
+
+
+    <script>
+        Highcharts.chart('container4', {
+            data: {
+                table: 'datatable4'
+            },
+            chart: {
+                type: 'pie'
+            },
+            title: {
+                text: 'Which categories the customers like to order'
+            },
+            plotOptions: {
+                series: {
+                    dataLabels: {
+                        enabled: true,
+                        format: '{point.name}: {point.percentage:.1f} %'
+                    }
+                }
+
+            },
+
+            /*tooltip: {
+                headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
+                pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.2f}%</b> of total<br/>'
+            }*/
+        });
+
+
+
+    </script>
+
+</div>
