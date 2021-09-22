@@ -26,7 +26,7 @@ namespace IpharmWebAppProject.Controllers
         // GET: Users
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Users.ToListAsync());
+            return View(await _context.Users.Where(p=>p.Active==true).ToListAsync());
         }
 
         // GET: Users/Details/5
@@ -123,7 +123,7 @@ namespace IpharmWebAppProject.Controllers
 
         private async void Signin(User account)
         {
-          /*  List<User> list = _context.Users.ToList();
+            List<User> list = _context.Users.ToList();
             int index = -1;
             for (int i = 0; i < list.Count; i++)
             {
@@ -132,20 +132,22 @@ namespace IpharmWebAppProject.Controllers
                     index = i;
                     continue;
                 }
-            }*/
+            }
             var claims = new List<Claim>
                 {
-                    new Claim(ClaimTypes.Name, account.FirstName + " " + account.LastName),
-                    new Claim(ClaimTypes.Email, account.Email),
-                    new Claim(ClaimTypes.MobilePhone, account.Mobile),
-                    new Claim(ClaimTypes.Role, account.Type.ToString()),
-                    new Claim(ClaimTypes.StreetAddress, account.Adress),
-                    new Claim(ClaimTypes.StateOrProvince, account.City),
-                    new Claim(ClaimTypes.PostalCode, account.PostalCode.ToString()),
-                    new Claim(ClaimTypes.Country, account.Country),
-                    //new Claim(ClaimTypes.Rsa, index.ToString()),
-                    new Claim(ClaimTypes.Name, account.FirstName),
-                    new Claim(ClaimTypes.Name, account.LastName),
+                    new Claim(ClaimTypes.Name, account.FirstName + " " + account.LastName), //0
+                    new Claim(ClaimTypes.Email, account.Email), //1
+                    new Claim(ClaimTypes.Name, account.FirstName), //2
+                    new Claim(ClaimTypes.Name, account.LastName), //3
+                    new Claim(ClaimTypes.DateOfBirth, account.Birthday.ToString()), //4
+                    new Claim(ClaimTypes.MobilePhone, account.Mobile), //5
+                    new Claim(ClaimTypes.PostalCode, account.PostalCode.ToString()), //6
+                    new Claim(ClaimTypes.Country, account.Country), //7
+                    new Claim(ClaimTypes.StateOrProvince, account.City), //8
+                    new Claim(ClaimTypes.StreetAddress, account.Adress), //9
+                    new Claim(ClaimTypes.Role, account.Type.ToString()), //10
+                    new Claim(ClaimTypes.Rsa, index.ToString()) //11
+
                 };
 
             var claimsIdentity = new ClaimsIdentity(

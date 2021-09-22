@@ -20,9 +20,58 @@ namespace IpharmWebAppProject.Controllers
         }
 
         // GET: WishLists
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int? productid, bool addition)
         {
-            return View(await _context.WishLists.ToListAsync());
+            if (HttpContext.User == null && HttpContext.User.Claims == null && HttpContext.User.Claims.Count() == 0) //not logged in
+                return RedirectToAction("Login", "Users");
+
+            if (HttpContext.User != null && HttpContext.User.Claims != null && HttpContext.User.Claims.Count() > 0
+                && HttpContext.User.Claims.ElementAt(10).Value == "Manager") //logged in as manager
+                return NotFound();
+
+            //find user's cart in orders
+            var mywishlist = await _context.WishLists.Include(wl => wl.Products)
+                .FirstOrDefaultAsync(m => (m.Email == HttpContext.User.Claims.ElementAt(1).Value));
+
+            if (mywishlist.Products == null)
+            {
+                mywishlist.Products = new List<ProductInWishList>();
+            }
+
+            if (productid != null) //there's a product
+            {
+                ProductInWishList productexists = (from p in mywishlist.Products where p.ProductID == productid select p).First();
+                Product product = _context.Products.Find(productid);
+
+                if (addition) //add product
+                {
+                    if (productexists == null) //not in cart
+                    {
+                        mywishlist.Products.Add(new ProductInWishList()
+                        {
+                            ProductID = productid.Value,
+                            Product = product,
+                            WishListID = mywishlist.Email,
+                            WishList = mywishlist
+                        });
+                    }
+                }
+                else //remove product
+                {
+                    if (productexists != null) //in cart
+                    {
+                        mywishlist.Products.Remove(productexists);
+                        _context.ProductInWishLists.Remove(productexists);
+                    }
+                }
+                _context.WishLists.Update(mywishlist);
+                _context.SaveChanges();
+            }
+
+            var list = mywishlist.Products;
+
+            //view wishlist only, without adding/removing products
+            return View(list);
         }
 
         // GET: WishLists/Details/5
