@@ -28,7 +28,7 @@ namespace IpharmWebAppProject.Controllers
         // GET: Orders/Checkout
         public async Task<IActionResult> Checkout()
         {
-            if (HttpContext.User == null && HttpContext.User.Claims == null && HttpContext.User.Claims.Count() == 0) //not logged in
+            if (HttpContext.User == null || HttpContext.User.Claims == null || HttpContext.User.Claims.Count() == 0) //not logged in
                 return RedirectToAction("Login", "Users");
 
             if (HttpContext.User != null && HttpContext.User.Claims != null && HttpContext.User.Claims.Count() > 0
@@ -50,7 +50,7 @@ namespace IpharmWebAppProject.Controllers
         // Post: Orders/Cart
         public async Task<IActionResult> Cart(int? productid, bool addition, bool wishlist)
         {
-            if (HttpContext.User == null && HttpContext.User.Claims == null && HttpContext.User.Claims.Count() == 0) //not logged in
+            if (HttpContext.User == null || HttpContext.User.Claims == null || HttpContext.User.Claims.Count() == 0) //not logged in
                 return RedirectToAction("Login", "Users");
 
             if (HttpContext.User != null && HttpContext.User.Claims != null && HttpContext.User.Claims.Count() > 0
@@ -109,6 +109,21 @@ namespace IpharmWebAppProject.Controllers
             }
 
             var list = mycart.Products;
+
+            foreach (ProductInOrder p in list)
+            {
+                if (!p.Product.Active)
+                {
+                    mycart.Price -= (p.Product.Price * p.Amount);
+                    mycart.Products.Remove(p);
+                }
+            }
+
+            _context.Update(mycart.Products);
+            _context.Orders.Update(mycart);
+            _context.SaveChanges();
+
+            list = mycart.Products;
 
             //view cart only, without adding/removing products
             return View(list);

@@ -167,7 +167,7 @@ namespace IpharmWebAppProject.Controllers
         [HttpGet]
         public ActionResult Statistics()
         {
-            if (HttpContext.User == null && HttpContext.User.Claims == null && HttpContext.User.Claims.Count() == 0) //not logged in
+            if (HttpContext.User == null || HttpContext.User.Claims == null || HttpContext.User.Claims.Count() == 0) //not logged in
                 return RedirectToAction("Login", "Users");
 
             if (HttpContext.User != null && HttpContext.User.Claims != null && HttpContext.User.Claims.Count() > 0

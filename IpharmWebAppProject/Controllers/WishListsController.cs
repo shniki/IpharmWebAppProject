@@ -22,7 +22,7 @@ namespace IpharmWebAppProject.Controllers
         // GET: WishLists
         public async Task<IActionResult> Index(int? productid, bool addition)
         {
-            if (HttpContext.User == null && HttpContext.User.Claims == null && HttpContext.User.Claims.Count() == 0) //not logged in
+            if (HttpContext.User == null || HttpContext.User.Claims == null || HttpContext.User.Claims.Count() == 0) //not logged in
                 return RedirectToAction("Login", "Users");
 
             if (HttpContext.User != null && HttpContext.User.Claims != null && HttpContext.User.Claims.Count() > 0
@@ -69,6 +69,17 @@ namespace IpharmWebAppProject.Controllers
             }
 
             var list = mywishlist.Products;
+
+            foreach (ProductInWishList p in list)
+            {
+                if(!p.Product.Active)
+                    mywishlist.Products.Remove(p);
+            }
+
+            _context.Update(mywishlist.Products);
+            _context.SaveChanges();
+
+            list = mywishlist.Products;
 
             //view wishlist only, without adding/removing products
             return View(list);
