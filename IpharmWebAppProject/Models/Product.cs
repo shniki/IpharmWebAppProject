@@ -8,7 +8,7 @@ namespace IpharmWebAppProject.Models
 {
     public enum Genders { Women, Men, Unisex }
 
-    public enum Categories {Skincare, Haircare, Makeup, Perfume}
+    public enum Categories {Skincare, Haircare, Makeup}
 
     public class Product
     {
