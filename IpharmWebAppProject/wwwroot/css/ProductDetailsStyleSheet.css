@@ -1,0 +1,158 @@
+﻿@import url('https://fonts.googleapis.com/css?family=Oswald:500');
+
+/*canvas*/
+.gcanvas{
+    margin-top: -30px;
+    position: absolute;
+    z-index:-1;
+}
+
+/*image*/
+.imgs {
+    position: relative;
+    margin: 100px 40px;
+    width: 450px;
+}
+
+/*slideshow*/
+.mySlides {
+    margin: 0px;
+    display: none;
+    width: 450px;
+}
+
+.w3-left, .w3-right, .w3-badge {
+    cursor: pointer;
+}
+
+.w3-badge {
+    height: 13px;
+    width: 13px;
+    padding: 0;
+}
+
+ /*details*/
+.info {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 500;
+    position: absolute;
+    min-width: 50%;
+    margin-left: 40%;
+    top: 180px;
+}
+
+    .info h1 {
+        font-family: 'Oswald', sans-serif;
+        text-transform: uppercase;
+        font-size: 3rem;
+        font-style: italic;
+    }
+
+    .info h3 {
+        font-size: 20px;
+    }
+
+    .info h2 {
+        font-size: 50px;
+        font-weight: bold;
+    }
+
+    .info .abrand {
+        text-decoration: none;
+        color: #F5F5F5;
+        font-family: 'Oswald', sans-serif;
+        text-transform: uppercase;
+        font-size: 30px;
+        margin-bottom: -20px;
+    }
+
+/*star rate*/
+@charset "UTF-8";
+
+:root {
+    --star-size: 30px;
+    --star-color: #F5F5F5;
+    --star-background: #ede882;
+}
+
+.Stars {
+    --percent: calc(var(--rating) / 5 * 100%);
+    display: inline-block;
+    font-size: var(--star-size);
+    font-family: Times;
+    line-height: 1;
+}
+
+    .Stars::before {
+        content: "★★★★★";
+        letter-spacing: 3px;
+        background: linear-gradient(90deg, var(--star-background) var(--percent), var(--star-color) var(--percent));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+/*buttons*/
+
+.buttons {
+    width: 100%;
+    margin: 0 0 110px;
+    position: sticky;
+}
+
+.bt {
+    font-family: 'Oswald', sans-serif;
+    margin-bottom: 20px;
+    padding: 10px;
+    border-radius: 4px;
+    letter-spacing: 1px;
+    color: black;
+    cursor: pointer;
+    font-size: 20px;
+}
+
+.alert1 {
+    color: red;
+    font-size: 15px;
+}
+
+.edit {
+    width: 90%;
+    border: 2px solid #F5F5F5;
+}
+
+.wishlist {
+    width: 20%;
+    border: 2px solid #F5F5F5;
+}
+
+.bt:hover {
+    border: 2px solid black;
+    text-decoration: none;
+    color: black;
+}
+
+.cart {
+    width: 70%;
+    background: #46ff9c;
+    border: 2px solid #46ff9c;
+}
+
+/*reviews*/
+.w3-center h1 {
+    font-family: 'Oswald', sans-serif;
+    text-transform: uppercase;
+    font-size: 30px;
+}
+
+.w3-center h2 {
+    font-family: 'Oswald', sans-serif;
+    font-size: 20px;
+}
+
+.w3-center h3 {
+    font-size: 15px;
+}
+
+.w3-center .bold {
+    font-weight: bold;
+}

@@ -1,102 +1,235 @@
 ﻿@model IpharmWebAppProject.Models.Product
 
+<head>
+    <link rel="stylesheet" href="~/css/ProductDetailsStyleSheet.css" />
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+</head>
+
 @{
     ViewData["Title"] = "Details";
 }
 
-<h1>Details</h1>
+@*product info*@
+<div>
+    @{
+        if ((Model.Category.ToString().Equals("Skincare")))
+        {
+            <canvas class="gcanvas" id="GradientCanvas1" width="500" height="500"></canvas>
+            <script>
+                var c = document.getElementById("GradientCanvas1");
+                var ctx = c.getContext("2d");
+                // Create gradient
+                var grd = ctx.createLinearGradient(0, 0, 200, 0);
+                grd.addColorStop(0, "#ffc2df");
+                grd.addColorStop(1, "white");
+                // Fill with gradient
+                ctx.fillStyle = grd;
+                ctx.fillRect(0, 0, 200, 500);
+            </script>
+        }
+        else if ((Model.Category.ToString().Equals("Haircare")))
+        {
+            <canvas class="gcanvas" id="GradientCanvas2" width="500" height="500"></canvas>
+            <script>
+                var c = document.getElementById("GradientCanvas2");
+                var ctx = c.getContext("2d");
+                // Create gradient
+                var grd = ctx.createLinearGradient(0, 0, 200, 0);
+                grd.addColorStop(0, "#88e3e7");
+                grd.addColorStop(1, "white");
+                // Fill with gradient
+                ctx.fillStyle = grd;
+                ctx.fillRect(0, 0, 200, 500);
+            </script>
+        }
+        else
+        { //Makeup
+            <canvas class="gcanvas" id="GradientCanvas3" width="500" height="500"></canvas>
+            <script>
+                var c = document.getElementById("GradientCanvas3");
+                var ctx = c.getContext("2d");
+                // Create gradient
+                var grd = ctx.createLinearGradient(0, 0, 200, 0);
+                grd.addColorStop(0, "#ede882");
+                grd.addColorStop(1, "white");
+                // Fill with gradient
+                ctx.fillStyle = grd;
+                ctx.fillRect(0, 0, 200, 500);
+            </script>
+        }
+    }
 
-<div>
-    <h4>Product</h4>
+    <div class="imgs">
+        <img class="mySlides" src=@Html.DisplayFor(model => model.PicUrl1)>
+        @if (Model.PicUrl2 != null)
+        {<img class="mySlides" src=@Html.DisplayFor(model => model.PicUrl2)>
+        }
+        @if (Model.PicUrl3 != null)
+        {<img class="mySlides" src=@Html.DisplayFor(model => model.PicUrl3)>
+        }
+        <div class="w3-center w3-container w3-section w3-large w3-text-white w3-display-bottommiddle" style="width:100%">
+            @if (Model.PicUrl2 != null)
+            {
+                <span class="w3-badge demo w3-border w3-transparent w3-hover-white" onclick="currentDiv(1)"></span>
+                <span class="w3-badge demo w3-border w3-transparent w3-hover-white" onclick="currentDiv(2)"></span>
+            }
+            @if (Model.PicUrl3 != null)
+            {
+                <span class="w3-badge demo w3-border w3-transparent w3-hover-white" onclick="currentDiv(3)"></span>
+            }
+        </div>
+    </div>
+
+    <script>
+        var slideIndex = 1;
+        showDivs(slideIndex);
+
+        function plusDivs(n) {
+            showDivs(slideIndex += n);
+        }
+
+        function currentDiv(n) {
+            showDivs(slideIndex = n);
+        }
+
+        function showDivs(n) {
+            var i;
+            var x = document.getElementsByClassName("mySlides");
+            var dots = document.getElementsByClassName("demo");
+            if (n > x.length) { slideIndex = 1 }
+            if (n < 1) { slideIndex = x.length }
+            for (i = 0; i < x.length; i++) {
+                x[i].style.display = "none";
+            }
+            for (i = 0; i < dots.length; i++) {
+                dots[i].className = dots[i].className.replace(" w3-white", "");
+            }
+            x[slideIndex - 1].style.display = "block";
+            dots[slideIndex - 1].className += " w3-white";
+        }
+    </script>
+
+    <div class="info">
+        @{
+            if ((Model.Category.ToString().Equals("Skincare")))
+            {
+                <a asp-action="Brand" asp-route-id="@Html.DisplayFor(model => model.Brand)" class="abrand" style="text-shadow: 2px 2px #ffc2df;">@Html.DisplayFor(model => model.Brand)</a>
+            }
+            else if ((Model.Category.ToString().Equals("Haircare")))
+            {
+                <a asp-action="Brand" asp-route-id="@Html.DisplayFor(model => model.Brand)" class="abrand" style="text-shadow: 2px 2px #88e3e7;">@Html.DisplayFor(model => model.Brand)</a>
+            }
+            else
+            { //Makeup
+                <a asp-action="Brand" asp-route-id="@Html.DisplayFor(model => model.Brand)" class="abrand" style="text-shadow: 2px 2px #ede882;">@Html.DisplayFor(model => model.Brand)</a>
+            }
+        }
+
+        <h1>@Html.DisplayFor(model => model.Name)</h1>
+
+        <h3>@(Html.DisplayFor(model => model.Amount))ml</h3>
+
+        <div class="Stars" style="--rating: @(Html.DisplayFor(model => model.Rate));"
+             aria-label="Rating of this product is @(Html.DisplayFor(model => model.Rate)) out of 5.">
+
+        </div>
+
+        <h2>@(Html.DisplayFor(model => model.Price))</h2>
+
+        @if (Model.Stock > 0 && Model.Stock <= 10)
+        {<h3 class="alert1">Hurry up! Only @Html.DisplayFor(model => model.Stock) left in stock!!</h3>}
+
+
+        @if (Model.Stock == 0)
+        {
+            <h3 class="alert1">Item is out of stock!</h3>
+            <div class="buttons">
+                <a class="bt btn cart">Add to cart</a>
+                <a asp-controller="WishLists" asp-action="Index"
+                   asp-route-productid="@Model.ProductID" asp-route-addition="true"
+                   class="bt btn wishlist"><span>♥</span></a>
+            </div>
+        }
+        else
+        {
+            @if (Context.User != null && Context.User.Claims != null && Context.User.Claims.Count() > 0 && Context.User.Claims.ElementAt(10).Value == "Manager")
+            {
+                <div class="buttons">
+                    <a asp-controller="Products" asp-action="Edit"
+                       asp-route-id="@Model.ProductID"
+                       class="bt btn edit">Edit</a>
+                </div>
+            }
+            else
+            {
+                <div class="buttons">
+                    <a asp-controller="Orders" asp-action="Cart"
+                       asp-route-productid="@Model.ProductID" asp-route-addition="true" asp-route-wishlist="false"
+                       class="bt btn cart">Add to cart</a>
+                    <a asp-controller="WishLists" asp-action="Index"
+                       asp-route-productid="@Model.ProductID" asp-route-addition="true"
+                       class="bt btn wishlist"><span>♥</span></a>
+                </div>
+            }
+        }
+
+        <dl class="row">
+            <dt class="col-sm-1">
+                @Html.DisplayNameFor(model => model.Gender)
+            </dt>
+            <dd class="col-sm-2">
+                @Html.DisplayFor(model => model.Gender)
+            </dd>
+
+            <dt class="col-sm-1">
+                @Html.DisplayNameFor(model => model.Category)
+            </dt>
+            <dd class="col-sm-2">
+                @Html.DisplayFor(model => model.Category)
+            </dd>
+
+            <dt class="col-sm-1">
+                @Html.DisplayNameFor(model => model.Type)
+            </dt>
+            <dd class="col-sm-2">
+                @Html.DisplayFor(model => model.Type)
+            </dd>
+
+            <dt class="col-sm-4">
+                @Html.DisplayNameFor(model => model.Description)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Description)
+            </dd>
+        </dl>
+    </div>
+
+</div>
+
+@*reviews*@
+<br />
+<div class="w3-center">
+    <div class="Stars" style="--rating: @(Html.DisplayFor(model => model.Rate));"
+         aria-label="Rating of this product is @(Html.DisplayFor(model => model.Rate)) out of 5.">
+    </div>
+
+    <h1>@(Html.DisplayFor(model => model.Rate)) out of 5 stars</h1>
+    <h2>@(Model.Reviews.Count()) Reviews</h2>
+
+
+</div>
+
+<br />
+@foreach (var rev in Model.Reviews.ToList())
+{
     <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Price)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Price)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Amount)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Amount)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Gender)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Gender)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Category)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Category)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Type)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Type)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Brand)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Brand)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Description)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Rate)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Rate)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.PicUrl1)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.PicUrl1)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.PicUrl2)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.PicUrl2)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.PicUrl3)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.PicUrl3)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Stock)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Stock)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Active)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Active)
-        </dd>
-    </dl>
-</div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model.ProductID">Edit</a> |
-    <a asp-action="Index">Back to List</a>
-</div>
+    <section class="w3-center">
+        <h2>@(Html.DisplayFor(modelItem => rev.Title))</h2>
+        <div class="Stars" style="--rating: @(Html.DisplayFor(modelItem => rev.Rate));"
+             aria-label="Rating of this product is @(Html.DisplayFor(modelItem => rev.Rate)) out of 5.">
+        </div>
+        <h3>@(Html.DisplayFor(modelItem => rev.Description))</h3>
+        <h3 class="bold">@(Html.DisplayFor(modelItem => rev.Email))</h3>
+
+    </section>
+}

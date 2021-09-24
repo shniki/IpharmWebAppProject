@@ -7,8 +7,15 @@ body {
     overflow-x: hidden; /* Hide horizontal scrollbar */
 }
 
+main{
+    overflow:hidden;
+}
+
 header {
     height: 90px;
+    z-index: 10;
+    position: sticky;
+    width: 100%;
 }
 
 .top {

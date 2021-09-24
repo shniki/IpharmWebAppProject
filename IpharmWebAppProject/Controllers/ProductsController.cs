@@ -36,7 +36,7 @@ namespace IpharmWebAppProject.Controllers
                 return NotFound();
             }
 
-            var product = await _context.Products
+            var product = await _context.Products.Include(r => r.Reviews)
                 .FirstOrDefaultAsync(m => m.ProductID == id);
             if (product == null)
             {
