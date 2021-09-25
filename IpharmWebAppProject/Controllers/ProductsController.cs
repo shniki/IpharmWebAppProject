@@ -26,6 +26,25 @@ namespace IpharmWebAppProject.Controllers
             return View(await _context.Products.Where(p => p.Active == true).ToListAsync());
         }
 
+        //GET: Products with search
+        [HttpGet]
+        public IActionResult SearchIdOrName(string query)
+        {
+
+            if (query == null || query == "")
+            {
+                var p = _context.Products.Where(p => p.Active == true)
+                    .ToList();
+
+                return PartialView("_ProductsListView", p);
+            }
+            var products =  _context.Products.Where(p => p.Active == true).
+                Where(c => c.Name.Contains(query)||c.ProductId.ToString().Contains(query))
+                .ToList();
+
+            return PartialView("_ProductsListView",products);
+        }
+
         // GET: Products/Details/5
         public async Task<IActionResult> Details(int? id)
         {
