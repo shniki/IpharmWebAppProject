@@ -8,9 +8,12 @@ namespace IpharmWebAppProject.Models
 {
     public class Review
     {
-        public int ReviewID { get; set; }
+        [Key]
+        [Required]
+        public int ReviewId { get; set; }
 
         //product
+        [Required]
         public int ProductId { get; set; }
 
         //user email
@@ -18,11 +21,16 @@ namespace IpharmWebAppProject.Models
         [DataType(DataType.EmailAddress)]
         public string Email { get; set; }
 
+        [Required]
+        [DataType(DataType.Text)]
         public string Title { get; set; }
 
+        [Required]
         [DataType(DataType.MultilineText)]
         public string Description { get; set; }
 
+        [Required]
+        [Range(1,5)]
         public int Rate { get; set; } //1-5
 
     }

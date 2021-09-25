@@ -14,8 +14,6 @@ namespace IpharmWebAppProject.Controllers
     public class ProductsController : Controller
     {
         private readonly IpharmContext _context;
-        private List<string> brands; //create brand page
-        private List<List<string>> types; //create type page, create product -> category -> type
 
         public ProductsController(IpharmContext context)
         {
@@ -37,7 +35,7 @@ namespace IpharmWebAppProject.Controllers
             }
 
             var product = await _context.Products.Include(r => r.Reviews)
-                .FirstOrDefaultAsync(m => m.ProductID == id);
+                .FirstOrDefaultAsync(m => m.ProductId == id);
             if (product == null)
             {
                 return NotFound();
@@ -57,15 +55,18 @@ namespace IpharmWebAppProject.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ProductID,Name,Price,Amount,Gender,Category,Type,Brand,Description,Rate,PicUrl1,PicUrl2,PicUrl3,Stock,Active")] Product product)
+        public async Task<IActionResult> Create([Bind("ProductId,Name,Price,Amount,Gender,Category,Type,Brand,Description,Rate,PicUrl1,PicUrl2,PicUrl3,Stock,Active")] Product product)
         {
-            if (ModelState.IsValid)
-            {
+            //if (ModelState.IsValid)
+            //{
+                product.Reviews = new List<Review>();
+                product.InWishList = new List<ProductInWishList>();
+                product.InOrders = new List<ProductInOrder>();
                 _context.Add(product);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
-            }
-            return View(product);
+            //}
+            //return View(product);
         }
 
         // GET: Products/Edit/5
@@ -75,6 +76,9 @@ namespace IpharmWebAppProject.Controllers
             {
                 return NotFound();
             }
+
+            //ViewBag.brands = await _context.Products.GroupBy(p => p.Brand).Select(g => g.Key).ToListAsync();
+            ViewBag.types = await _context.Products.GroupBy(p => p.Type).Select(g => g.Key).ToListAsync();
 
             var product = await _context.Products.FindAsync(id);
             if (product == null)
@@ -89,9 +93,9 @@ namespace IpharmWebAppProject.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ProductID,Name,Price,Amount,Gender,Category,Type,Brand,Description,Rate,PicUrl1,PicUrl2,PicUrl3,Stock,Active")] Product product)
+        public async Task<IActionResult> Edit(int id, [Bind("ProductId,Name,Price,Amount,Gender,Category,Type,Brand,Description,Rate,PicUrl1,PicUrl2,PicUrl3,Stock,Active")] Product product)
         {
-            if (id != product.ProductID)
+            if (id != product.ProductId)
             {
                 return NotFound();
             }
@@ -105,7 +109,7 @@ namespace IpharmWebAppProject.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!ProductExists(product.ProductID))
+                    if (!ProductExists(product.ProductId))
                     {
                         return NotFound();
                     }
@@ -128,7 +132,7 @@ namespace IpharmWebAppProject.Controllers
             }
 
             var product = await _context.Products
-                .FirstOrDefaultAsync(m => m.ProductID == id);
+                .FirstOrDefaultAsync(m => m.ProductId == id);
             if (product == null)
             {
                 return NotFound();
@@ -161,7 +165,7 @@ namespace IpharmWebAppProject.Controllers
 
         private bool ProductExists(int id)
         {
-            return _context.Products.Any(e => e.ProductID == id);
+            return _context.Products.Any(e => e.ProductId == id);
         }
 
         [HttpGet]
@@ -193,14 +197,14 @@ namespace IpharmWebAppProject.Controllers
             var yearorders2 = from o in _context.Orders
                               where o.Status != Status.Cart & (o.OrderDate.Month <= DateTime.Today.Month & o.OrderDate.Year == DateTime.Today.Year)
                               | (o.OrderDate.Month > DateTime.Today.Month & o.OrderDate.AddYears(1).Year == DateTime.Today.Year)
-                              select new { key = o.OrderID }; //orders from the past year
+                              select new { key = o.OrderId }; //orders from the past year
             var sumpro2 = from proinord in _context.ProductInOrders
-                          join pro in yearorders2 on proinord.OrderID equals pro.key
-                          group proinord by proinord.ProductID into products2
+                          join pro in yearorders2 on proinord.OrderId equals pro.key
+                          group proinord by proinord.ProductId into products2
                           select new { Key = products2.Key, Amount = products2.Sum(products2 => products2.Amount) };
             //amount bought of each product (in past year)
             var maxpro2 = (from maxP in _context.Products
-                           join noy in sumpro2 on maxP.ProductID equals noy.Key
+                           join noy in sumpro2 on maxP.ProductId equals noy.Key
                            orderby noy.Amount descending
                            select new
                            {
@@ -231,7 +235,7 @@ namespace IpharmWebAppProject.Controllers
             //statistic 4 - most bought categories
             ICollection<Stat> statistic4 = new Collection<Stat>();
             var maxpro4 = from maxP in _context.Products
-                          join noy in sumpro2 on maxP.ProductID equals noy.Key
+                          join noy in sumpro2 on maxP.ProductId equals noy.Key
                           select new
                           {
                               Category = maxP.Category,

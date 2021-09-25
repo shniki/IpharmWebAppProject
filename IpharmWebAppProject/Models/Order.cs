@@ -9,7 +9,9 @@ namespace IpharmWebAppProject.Models
     public enum Status {Cart, Paid, Arrived}
     public class Order
     {
-        public int OrderID { get; set; }
+        [Key]
+        [Required]
+        public int OrderId { get; set; }
 
         [DataType(DataType.EmailAddress)]
         public string Email { get; set; }

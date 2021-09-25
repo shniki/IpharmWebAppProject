@@ -1,0 +1,72 @@
+﻿@import url('https://fonts.googleapis.com/css?family=Oswald:500');
+
+.title-edit, .title-create{
+    text-decoration: none;
+    font-family: 'Oswald', sans-serif;
+    font-size: 50px;
+    margin-bottom: -20px;
+    text-shadow: 2px 2px #aaeed5;
+    text-align: center;
+    color: #F5F5F5;
+    font-style: italic;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.title-create {
+    text-shadow: 2px 2px #d5a3e1;
+}
+
+.title-div {
+    display: flex;
+}
+
+/*cols*/
+
+.left-col-4{
+    position: absolute;
+    width: 30%;
+}
+
+.right-col-4 {
+    position: absolute;
+    margin-left: 40%;
+    width: 30%;
+}
+
+/*buttons*/
+
+.bt {
+    font-family: 'Oswald', sans-serif;
+    margin-bottom: 20px;
+    padding: 10px;
+    border-radius: 4px;
+    letter-spacing: 1px;
+    color: black;
+    cursor: pointer;
+    font-size: 20px;
+    width: 49.4%;
+    border: 2px solid #F5F5F5;
+
+}
+
+
+.bt100 {
+    width: 100%;
+}
+
+.bt:hover {
+    border: 2px solid black;
+    text-decoration: none;
+    color: black;
+}
+
+.del {
+    background: #ff8361;
+    border: 2px solid #ff8361;
+}
+
+/*text area*/
+.form-group textarea {
+    min-height: 86px;
+}

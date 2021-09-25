@@ -12,32 +12,41 @@ namespace IpharmWebAppProject.Models
 
     public class Product
     {
-        public int ProductID { get; set; }
-
+        [Key]
         [Required]
+        public int ProductId { get; set; }
+
+        [Required(ErrorMessage = "Name is required")]
+        [DataType(DataType.Text)]
         public string Name { get; set; }
 
-        [Required]
-        [DataType(DataType.Currency)]
+        [Required(ErrorMessage = "Price is required")]
+        [DataType(DataType.Currency,ErrorMessage = "Price isn't valid")]
+        [Range(0.01, 1000, ErrorMessage = "Price range is between 0$ to 1000$")]
         public float Price { get; set; } //$ >0
 
-        [Required]
+        [Required(ErrorMessage = "Amount is required")]
+        [Range(1, 999, ErrorMessage = "Amount range is between 1ml to 999ml")]
         public int Amount { get; set; } //ml >0
 
         //description
-        [Required]
+        [Required(ErrorMessage = "Gender is required")]
+        [DataType(DataType.Text)]
         public Genders Gender { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Category is required")]
+        [DataType(DataType.Text)]
         public Categories Category { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Type is required")]
+        [DataType(DataType.Text)]
         public string Type { get; set; } //select by...
 
-        [Required]
+        [Required(ErrorMessage = "Brand is required")]
+        [DataType(DataType.Text)]
         public string Brand { get; set; } //select by.....
 
-        [Required]
+        [Required(ErrorMessage = "Description is required")]
         [DataType(DataType.MultilineText)]
         public string Description { get; set; }
 
@@ -45,6 +54,7 @@ namespace IpharmWebAppProject.Models
         public double Rate { get; set; } = 0;
 
         //pictures
+        [Required(ErrorMessage = "At least 1 Picture URL is required")]
         [DataType(DataType.ImageUrl)]
         public string PicUrl1 { get; set; }
 
@@ -55,6 +65,8 @@ namespace IpharmWebAppProject.Models
         public string PicUrl3 { get; set; }
 
         //activation
+        [Required(ErrorMessage = "Stock is required")]
+        [Range(0, 999, ErrorMessage = "Stock range is between 0 to 999 items")]
         public int Stock { get; set; } //>=0
 
         public bool Active { get; set; } = true;

@@ -40,7 +40,7 @@ namespace IpharmWebAppProject.Controllers
 
             if (productid != null) //there's a product
             {
-                ProductInWishList productexists = (from p in mywishlist.Products where p.ProductID == productid select p).First();
+                ProductInWishList productexists = (from p in mywishlist.Products where p.ProductId == productid select p).First();
                 Product product = _context.Products.Find(productid);
 
                 if (addition) //add product
@@ -49,9 +49,9 @@ namespace IpharmWebAppProject.Controllers
                     {
                         mywishlist.Products.Add(new ProductInWishList()
                         {
-                            ProductID = productid.Value,
+                            ProductId = productid.Value,
                             Product = product,
-                            WishListID = mywishlist.Email,
+                            WishListId = mywishlist.Email,
                             WishList = mywishlist
                         });
                     }

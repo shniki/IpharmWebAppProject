@@ -4,110 +4,98 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<head>
+    <link rel="stylesheet" href="~/css/IndexStyleSheet.css" />
+    <script>
+        $(document).ready(function () {
+            $("#s-id").keyup(function () {
+                if ($("#s-id").val()) {
+                    for (let i = 1; i <= @(Model.Last().ProductId); i++) {
+                        if (i.toString().includes($("#s-id").val())) {
+                            $("#prod-" + i).show();
+                        }
+                        else {
+                            $("#prod-" + i).hide();
+                        }
+                    }
+                }
+                else {
+                    for (let i = 1; i <= @(Model.Count()); i++) {$("#prod-" + i).show();}
+                }
+            });
+        });
+    </script>
+</head>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
+<form class="search-space">
+    <div class="form-group has-search">
+        <input id="s-id" type="text" class="form-control" placeholder="Search by Id" autocomplete="off" />
+    </div>
+</form>
+
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Name)
+
+            </th>
+            <th>
+                Id
+            </th>
+            <th>
+                Product
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Price)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Amount)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Gender)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Category)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Type)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Brand)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Description)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Rate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.PicUrl1)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.PicUrl2)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.PicUrl3)
-            </th>
-            <th>
                 @Html.DisplayNameFor(model => model.Stock)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Active)
+                @Html.DisplayNameFor(model => model.Rate)
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Price)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Amount)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Gender)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Category)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Type)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Brand)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Rate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PicUrl1)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PicUrl2)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PicUrl3)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Stock)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Active)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.ProductID">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.ProductID">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.ProductID">Delete</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr id="prod-@(item.ProductId)">
+                <td>
+                    <a asp-action="Details" asp-route-id="@item.ProductId">
+                        <img src=@Html.DisplayFor(modelItem => item.PicUrl1) width="100">
+                    </a>
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ProductId)
+                </td>
+                <td>
+                    <b>@Html.DisplayFor(modelItem => item.Name)</b> (@(Html.DisplayFor(modelItem => item.Amount))ml)
+                    <p>
+                        @item.Brand.ToUpper() |
+                        @Html.DisplayFor(modelItem => item.Category) |
+                        @Html.DisplayFor(modelItem => item.Type) |
+                        @Html.DisplayFor(modelItem => item.Gender)
+                    </p>
+                    <p>
+                        @Html.DisplayFor(modelItem => item.Description)
+                    </p>
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Price)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Stock)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Rate)/5
+                </td>
+                <td>
+                    <a class="btn bt" asp-action="Edit" asp-route-id="@item.ProductId">
+                        Edit
+                    </a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>

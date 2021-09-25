@@ -15,12 +15,12 @@ namespace IpharmWebAppProject.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder) //Create connections (M2M)
         {
-            modelBuilder.Entity<ProductInOrder>().HasKey(po => new { po.ProductID, po.OrderID});
-            modelBuilder.Entity<ProductInOrder>().HasOne(po => po.Product).WithMany(o => o.InOrders).HasForeignKey(po => po.ProductID);
-            modelBuilder.Entity<ProductInOrder>().HasOne(po => po.Order).WithMany(o => o.Products).HasForeignKey(po => po.OrderID);
-            modelBuilder.Entity<ProductInWishList>().HasKey(po => new { po.ProductID, po.WishListID });
-            modelBuilder.Entity<ProductInWishList>().HasOne(po => po.Product).WithMany(o => o.InWishList).HasForeignKey(po => po.ProductID);
-            modelBuilder.Entity<ProductInWishList>().HasOne(po => po.WishList).WithMany(o => o.Products).HasForeignKey(po => po.WishListID);
+            modelBuilder.Entity<ProductInOrder>().HasKey(po => new { po.ProductId, po.OrderId});
+            modelBuilder.Entity<ProductInOrder>().HasOne(po => po.Product).WithMany(o => o.InOrders).HasForeignKey(po => po.ProductId);
+            modelBuilder.Entity<ProductInOrder>().HasOne(po => po.Order).WithMany(o => o.Products).HasForeignKey(po => po.OrderId);
+            modelBuilder.Entity<ProductInWishList>().HasKey(po => new { po.ProductId, po.WishListId });
+            modelBuilder.Entity<ProductInWishList>().HasOne(po => po.Product).WithMany(o => o.InWishList).HasForeignKey(po => po.ProductId);
+            modelBuilder.Entity<ProductInWishList>().HasOne(po => po.WishList).WithMany(o => o.Products).HasForeignKey(po => po.WishListId);
 
         }
 

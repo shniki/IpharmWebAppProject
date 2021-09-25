@@ -1,0 +1,33 @@
+﻿tr td img{
+    border-radius: 10px;
+}
+
+.table tr, .table td {
+    vertical-align: middle;
+}
+
+@import url('https://fonts.googleapis.com/css?family=Oswald:500');
+
+.bt {
+    font-family: 'Oswald', sans-serif;
+    margin-bottom: 20px;
+    padding: 10px;
+    border-radius: 4px;
+    letter-spacing: 1px;
+    color: black;
+    cursor: pointer;
+    font-size: 20px;
+    width: 100%;
+    border: 2px solid #F5F5F5;
+}
+
+.bt:hover {
+    border: 2px solid black;
+    text-decoration: none;
+    color: black;
+}
+
+.search-space{
+    margin: 15px;
+
+}

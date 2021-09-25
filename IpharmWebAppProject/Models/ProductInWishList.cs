@@ -7,14 +7,14 @@ namespace IpharmWebAppProject.Models
 {
     public class ProductInWishList
     {
-        public int ProductInWishListID { get; set; }
+        public int ProductInWishListId { get; set; }
 
         //order
-        public string WishListID { get; set; }
+        public string WishListId { get; set; }
         public WishList WishList { get; set; }
 
         //product
-        public int ProductID { get; set; }
+        public int ProductId { get; set; }
         public Product Product { get; set; }
     }
 }

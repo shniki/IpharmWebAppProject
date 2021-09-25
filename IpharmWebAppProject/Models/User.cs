@@ -10,48 +10,53 @@ namespace IpharmWebAppProject.Models
     public class User
     {
         [Key]
+        [Required(ErrorMessage = "Email is required")]
         [DataType(DataType.EmailAddress)]
-        [Required]
         public string Email { get; set; }
 
         //name
-        [Required]
+        [Required(ErrorMessage = "First name is required")]
         [DataType(DataType.Text)]
         [RegularExpression(@"^[a-zA-Z''-'\s]{1,40}$",
-         ErrorMessage = "Characters are not allowed.")]
+         ErrorMessage = "Characters are not allowed")]
         public string FirstName { get; set; }
-        [Required]
+
+        [Required(ErrorMessage = "Last name is required")]
         [DataType(DataType.Text)]
+        [RegularExpression(@"^[a-zA-Z''-'\s]{1,40}$",
+         ErrorMessage = "Characters are not allowed")]
         public string LastName { get; set; }
 
         //birthday
-        [Required]
+        [Required(ErrorMessage = "Birthday is required")]
         [DataType(DataType.Date)]
         public DateTime Birthday { get; set; }
 
         //mobile
-        [Required]
-        [DataType(DataType.PhoneNumber)]
+        [Required(ErrorMessage = "Phone is required")]
+        [DataType(DataType.PhoneNumber,ErrorMessage = "Phone isn't valid")]
         public string Mobile { get; set; }
 
         //password
-        [Required]
-        [DataType(DataType.Password)]
+        [Required(ErrorMessage = "Password is required")]
+        [DataType(DataType.Password, ErrorMessage = "Password isn't valid")]
         public string Password { get; set; }
 
         //adress
-        [Required]
-        [DataType(DataType.PostalCode)]
+        [Required(ErrorMessage = "Postal code is required")]
+        [DataType(DataType.PostalCode, ErrorMessage = "Postal code isn't valid")]
         public string PostalCode { get; set; }
-        [Required]
-        [DataType(DataType.Text)]
+
+        [Required(ErrorMessage = "Country is required")]
+        [DataType(DataType.Text,ErrorMessage = "Country isn't valid")]
         public string Country { get; set; }
-        [Required]
-        [DataType(DataType.Text)]
+
+        [Required(ErrorMessage = "City is required")]
+        [DataType(DataType.Text, ErrorMessage = "City isn't valid")]
         public string City { get; set; }
 
-        [DataType(DataType.MultilineText)]
-        [Required]
+        [Required(ErrorMessage = "Adress is required")]
+        [DataType(DataType.MultilineText, ErrorMessage = "Adress isn't valid")]
         public string Adress { get; set; }
 
         //activation

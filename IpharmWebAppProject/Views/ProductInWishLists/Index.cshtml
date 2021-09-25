@@ -13,7 +13,7 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.WishListID)
+                @Html.DisplayNameFor(model => model.WishListId)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Product)
@@ -25,15 +25,15 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.WishListID)
+                @Html.DisplayFor(modelItem => item.WishListId)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Product.ProductID)
+                @Html.DisplayFor(modelItem => item.Product.ProductId)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.ProductInWishListID">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.ProductInWishListID">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.ProductInWishListID">Delete</a>
+                <a asp-action="Edit" asp-route-id="@item.ProductInWishListId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.ProductInWishListId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.ProductInWishListId">Delete</a>
             </td>
         </tr>
 }

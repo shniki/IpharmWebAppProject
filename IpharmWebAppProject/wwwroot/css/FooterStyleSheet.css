@@ -17,7 +17,7 @@ footer {
    position:absolute;
 }
 
-    footer p, a {
+    footer p, footer a {
         font-size: 13px;
         font-family: 'Roboto', sans-serif;
     }

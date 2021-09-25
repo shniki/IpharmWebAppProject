@@ -36,7 +36,7 @@ namespace IpharmWebAppProject.Controllers
 
             var productInWishList = await _context.ProductInWishLists
                 .Include(p => p.Product)
-                .FirstOrDefaultAsync(m => m.ProductInWishListID == id);
+                .FirstOrDefaultAsync(m => m.ProductInWishListId == id);
             if (productInWishList == null)
             {
                 return NotFound();
@@ -48,7 +48,7 @@ namespace IpharmWebAppProject.Controllers
         // GET: ProductInWishLists/Create
         public IActionResult Create()
         {
-            ViewData["ProductID"] = new SelectList(_context.Products, "ProductID", "ProductID");
+            ViewData["ProductId"] = new SelectList(_context.Products, "ProductId", "ProductId");
             return View();
         }
 
@@ -57,7 +57,7 @@ namespace IpharmWebAppProject.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ProductInWishListID,WishListID,ProductID")] ProductInWishList productInWishList)
+        public async Task<IActionResult> Create([Bind("ProductInWishListId,WishListId,ProductId")] ProductInWishList productInWishList)
         {
             if (ModelState.IsValid)
             {
@@ -65,7 +65,7 @@ namespace IpharmWebAppProject.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["ProductID"] = new SelectList(_context.Products, "ProductID", "ProductID", productInWishList.ProductID);
+            ViewData["ProductId"] = new SelectList(_context.Products, "ProductId", "ProductId", productInWishList.ProductId);
             return View(productInWishList);
         }
 
@@ -82,7 +82,7 @@ namespace IpharmWebAppProject.Controllers
             {
                 return NotFound();
             }
-            ViewData["ProductID"] = new SelectList(_context.Products, "ProductID", "ProductID", productInWishList.ProductID);
+            ViewData["ProductId"] = new SelectList(_context.Products, "ProductId", "ProductId", productInWishList.ProductId);
             return View(productInWishList);
         }
 
@@ -91,9 +91,9 @@ namespace IpharmWebAppProject.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ProductInWishListID,WishListID,ProductID")] ProductInWishList productInWishList)
+        public async Task<IActionResult> Edit(int id, [Bind("ProductInWishListId,WishListId,ProductId")] ProductInWishList productInWishList)
         {
-            if (id != productInWishList.ProductInWishListID)
+            if (id != productInWishList.ProductInWishListId)
             {
                 return NotFound();
             }
@@ -107,7 +107,7 @@ namespace IpharmWebAppProject.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!ProductInWishListExists(productInWishList.ProductInWishListID))
+                    if (!ProductInWishListExists(productInWishList.ProductInWishListId))
                     {
                         return NotFound();
                     }
@@ -118,7 +118,7 @@ namespace IpharmWebAppProject.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["ProductID"] = new SelectList(_context.Products, "ProductID", "ProductID", productInWishList.ProductID);
+            ViewData["ProductId"] = new SelectList(_context.Products, "ProductId", "ProductId", productInWishList.ProductId);
             return View(productInWishList);
         }
 
@@ -132,7 +132,7 @@ namespace IpharmWebAppProject.Controllers
 
             var productInWishList = await _context.ProductInWishLists
                 .Include(p => p.Product)
-                .FirstOrDefaultAsync(m => m.ProductInWishListID == id);
+                .FirstOrDefaultAsync(m => m.ProductInWishListId == id);
             if (productInWishList == null)
             {
                 return NotFound();
@@ -154,7 +154,7 @@ namespace IpharmWebAppProject.Controllers
 
         private bool ProductInWishListExists(int id)
         {
-            return _context.ProductInWishLists.Any(e => e.ProductInWishListID == id);
+            return _context.ProductInWishLists.Any(e => e.ProductInWishListId == id);
         }
     }
 }

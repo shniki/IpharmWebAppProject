@@ -68,7 +68,7 @@ namespace IpharmWebAppProject.Controllers
 
             if (productid!=null) //there's a product
             {
-                ProductInOrder productexists = (from p in mycart.Products where p.ProductID == productid select p).First();
+                ProductInOrder productexists = (from p in mycart.Products where p.ProductId == productid select p).First();
                 Product product = _context.Products.Find(productid);
 
                 if (addition) //add product
@@ -79,8 +79,8 @@ namespace IpharmWebAppProject.Controllers
                     }
                     else //not in cart
                     {
-                        mycart.Products.Add(new ProductInOrder() {  ProductID=productid.Value, Product= product,
-                                                                    OrderID=mycart.OrderID, Order=mycart,
+                        mycart.Products.Add(new ProductInOrder() {  ProductId=productid.Value, Product= product,
+                                                                    OrderId=mycart.OrderId, Order=mycart,
                                                                     Amount = 1});
                     }
                     mycart.Price += product.Price;
@@ -88,7 +88,7 @@ namespace IpharmWebAppProject.Controllers
                     if(wishlist) //need to remove from wishlist
                     {
                         var mywishlist = await _context.WishLists.Include(o => o.Products).FirstOrDefaultAsync(m => (m.Email == HttpContext.User.Claims.ElementAt(1).Value));
-                        ProductInWishList productwl = (from p in mywishlist.Products where p.ProductID == productid select p).First();
+                        ProductInWishList productwl = (from p in mywishlist.Products where p.ProductId == productid select p).First();
                         mywishlist.Products.Remove(productwl);
                         _context.ProductInWishLists.Remove(productwl);
                         _context.WishLists.Update(mywishlist);
@@ -138,7 +138,7 @@ namespace IpharmWebAppProject.Controllers
             }
 
             var order = await _context.Orders
-                .FirstOrDefaultAsync(m => m.OrderID == id);
+                .FirstOrDefaultAsync(m => m.OrderId == id);
             if (order == null)
             {
                 return NotFound();
@@ -190,9 +190,9 @@ namespace IpharmWebAppProject.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("OrderID,Email,Status,Price,OrderDate")] Order order)
+        public async Task<IActionResult> Edit(int id, [Bind("OrderId,Email,Status,Price,OrderDate")] Order order)
         {
-            if (id != order.OrderID)
+            if (id != order.OrderId)
             {
                 return NotFound();
             }
@@ -206,7 +206,7 @@ namespace IpharmWebAppProject.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!OrderExists(order.OrderID))
+                    if (!OrderExists(order.OrderId))
                     {
                         return NotFound();
                     }
@@ -229,7 +229,7 @@ namespace IpharmWebAppProject.Controllers
             }
 
             var order = await _context.Orders
-                .FirstOrDefaultAsync(m => m.OrderID == id);
+                .FirstOrDefaultAsync(m => m.OrderId == id);
             if (order == null)
             {
                 return NotFound();
@@ -251,7 +251,7 @@ namespace IpharmWebAppProject.Controllers
 
         private bool OrderExists(int id)
         {
-            return _context.Orders.Any(e => e.OrderID == id);
+            return _context.Orders.Any(e => e.OrderId == id);
         }
     }
 }

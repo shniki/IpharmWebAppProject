@@ -146,7 +146,7 @@
             <div class="buttons">
                 <a class="bt btn cart">Add to cart</a>
                 <a asp-controller="WishLists" asp-action="Index"
-                   asp-route-productid="@Model.ProductID" asp-route-addition="true"
+                   asp-route-productid="@Model.ProductId" asp-route-addition="true"
                    class="bt btn wishlist"><span>♥</span></a>
             </div>
         }
@@ -156,7 +156,7 @@
             {
                 <div class="buttons">
                     <a asp-controller="Products" asp-action="Edit"
-                       asp-route-id="@Model.ProductID"
+                       asp-route-id="@Model.ProductId"
                        class="bt btn edit">Edit</a>
                 </div>
             }
@@ -164,10 +164,10 @@
             {
                 <div class="buttons">
                     <a asp-controller="Orders" asp-action="Cart"
-                       asp-route-productid="@Model.ProductID" asp-route-addition="true" asp-route-wishlist="false"
+                       asp-route-productid="@Model.ProductId" asp-route-addition="true" asp-route-wishlist="false"
                        class="bt btn cart">Add to cart</a>
                     <a asp-controller="WishLists" asp-action="Index"
-                       asp-route-productid="@Model.ProductID" asp-route-addition="true"
+                       asp-route-productid="@Model.ProductId" asp-route-addition="true"
                        class="bt btn wishlist"><span>♥</span></a>
                 </div>
             }

@@ -31,15 +31,15 @@
                 @Html.DisplayFor(modelItem => item.Amount)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Order.OrderID)
+                @Html.DisplayFor(modelItem => item.Order.OrderId)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Product.ProductID)
+                @Html.DisplayFor(modelItem => item.Product.ProductId)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.ProductInOrderID">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.ProductInOrderID">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.ProductInOrderID">Delete</a>
+                <a asp-action="Edit" asp-route-id="@item.ProductInOrderId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.ProductInOrderId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.ProductInOrderId">Delete</a>
             </td>
         </tr>
 }

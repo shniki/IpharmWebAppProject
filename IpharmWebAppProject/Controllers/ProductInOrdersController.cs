@@ -37,7 +37,7 @@ namespace IpharmWebAppProject.Controllers
             var productInOrder = await _context.ProductInOrders
                 .Include(p => p.Order)
                 .Include(p => p.Product)
-                .FirstOrDefaultAsync(m => m.ProductInOrderID == id);
+                .FirstOrDefaultAsync(m => m.ProductInOrderId == id);
             if (productInOrder == null)
             {
                 return NotFound();
@@ -49,8 +49,8 @@ namespace IpharmWebAppProject.Controllers
         // GET: ProductInOrders/Create
         public IActionResult Create()
         {
-            ViewData["OrderID"] = new SelectList(_context.Orders, "OrderID", "OrderID");
-            ViewData["ProductID"] = new SelectList(_context.Products, "ProductID", "ProductID");
+            ViewData["OrderId"] = new SelectList(_context.Orders, "OrderId", "OrderId");
+            ViewData["ProductId"] = new SelectList(_context.Products, "ProductId", "ProductId");
             return View();
         }
 
@@ -59,7 +59,7 @@ namespace IpharmWebAppProject.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ProductInOrderID,Amount,OrderID,ProductID")] ProductInOrder productInOrder)
+        public async Task<IActionResult> Create([Bind("ProductInOrderId,Amount,OrderId,ProductId")] ProductInOrder productInOrder)
         {
             if (ModelState.IsValid)
             {
@@ -67,8 +67,8 @@ namespace IpharmWebAppProject.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["OrderID"] = new SelectList(_context.Orders, "OrderID", "OrderID", productInOrder.OrderID);
-            ViewData["ProductID"] = new SelectList(_context.Products, "ProductID", "ProductID", productInOrder.ProductID);
+            ViewData["OrderId"] = new SelectList(_context.Orders, "OrderId", "OrderId", productInOrder.OrderId);
+            ViewData["ProductId"] = new SelectList(_context.Products, "ProductId", "ProductId", productInOrder.ProductId);
             return View(productInOrder);
         }
 
@@ -85,8 +85,8 @@ namespace IpharmWebAppProject.Controllers
             {
                 return NotFound();
             }
-            ViewData["OrderID"] = new SelectList(_context.Orders, "OrderID", "OrderID", productInOrder.OrderID);
-            ViewData["ProductID"] = new SelectList(_context.Products, "ProductID", "ProductID", productInOrder.ProductID);
+            ViewData["OrderId"] = new SelectList(_context.Orders, "OrderId", "OrderId", productInOrder.OrderId);
+            ViewData["ProductId"] = new SelectList(_context.Products, "ProductId", "ProductId", productInOrder.ProductId);
             return View(productInOrder);
         }
 
@@ -95,9 +95,9 @@ namespace IpharmWebAppProject.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ProductInOrderID,Amount,OrderID,ProductID")] ProductInOrder productInOrder)
+        public async Task<IActionResult> Edit(int id, [Bind("ProductInOrderId,Amount,OrderId,ProductId")] ProductInOrder productInOrder)
         {
-            if (id != productInOrder.ProductInOrderID)
+            if (id != productInOrder.ProductInOrderId)
             {
                 return NotFound();
             }
@@ -111,7 +111,7 @@ namespace IpharmWebAppProject.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!ProductInOrderExists(productInOrder.ProductInOrderID))
+                    if (!ProductInOrderExists(productInOrder.ProductInOrderId))
                     {
                         return NotFound();
                     }
@@ -122,8 +122,8 @@ namespace IpharmWebAppProject.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["OrderID"] = new SelectList(_context.Orders, "OrderID", "OrderID", productInOrder.OrderID);
-            ViewData["ProductID"] = new SelectList(_context.Products, "ProductID", "ProductID", productInOrder.ProductID);
+            ViewData["OrderId"] = new SelectList(_context.Orders, "OrderId", "OrderId", productInOrder.OrderId);
+            ViewData["ProductId"] = new SelectList(_context.Products, "ProductId", "ProductId", productInOrder.ProductId);
             return View(productInOrder);
         }
 
@@ -138,7 +138,7 @@ namespace IpharmWebAppProject.Controllers
             var productInOrder = await _context.ProductInOrders
                 .Include(p => p.Order)
                 .Include(p => p.Product)
-                .FirstOrDefaultAsync(m => m.ProductInOrderID == id);
+                .FirstOrDefaultAsync(m => m.ProductInOrderId == id);
             if (productInOrder == null)
             {
                 return NotFound();
@@ -160,7 +160,7 @@ namespace IpharmWebAppProject.Controllers
 
         private bool ProductInOrderExists(int id)
         {
-            return _context.ProductInOrders.Any(e => e.ProductInOrderID == id);
+            return _context.ProductInOrders.Any(e => e.ProductInOrderId == id);
         }
     }
 }

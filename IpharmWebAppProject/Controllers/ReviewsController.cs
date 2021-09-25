@@ -34,7 +34,7 @@ namespace IpharmWebAppProject.Controllers
             }
 
             var review = await _context.Reviews
-                .FirstOrDefaultAsync(m => m.ReviewID == id);
+                .FirstOrDefaultAsync(m => m.ReviewId == id);
             if (review == null)
             {
                 return NotFound();
@@ -54,7 +54,7 @@ namespace IpharmWebAppProject.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ReviewID,ProductId,Email,Title,Description,Rate")] Review review)
+        public async Task<IActionResult> Create([Bind("ReviewId,ProductId,Email,Title,Description,Rate")] Review review)
         {
             if (ModelState.IsValid)
             {
@@ -86,9 +86,9 @@ namespace IpharmWebAppProject.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ReviewID,ProductId,Email,Title,Description,Rate")] Review review)
+        public async Task<IActionResult> Edit(int id, [Bind("ReviewId,ProductId,Email,Title,Description,Rate")] Review review)
         {
-            if (id != review.ReviewID)
+            if (id != review.ReviewId)
             {
                 return NotFound();
             }
@@ -102,7 +102,7 @@ namespace IpharmWebAppProject.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!ReviewExists(review.ReviewID))
+                    if (!ReviewExists(review.ReviewId))
                     {
                         return NotFound();
                     }
@@ -125,7 +125,7 @@ namespace IpharmWebAppProject.Controllers
             }
 
             var review = await _context.Reviews
-                .FirstOrDefaultAsync(m => m.ReviewID == id);
+                .FirstOrDefaultAsync(m => m.ReviewId == id);
             if (review == null)
             {
                 return NotFound();
@@ -147,7 +147,7 @@ namespace IpharmWebAppProject.Controllers
 
         private bool ReviewExists(int id)
         {
-            return _context.Reviews.Any(e => e.ReviewID == id);
+            return _context.Reviews.Any(e => e.ReviewId == id);
         }
     }
 }
