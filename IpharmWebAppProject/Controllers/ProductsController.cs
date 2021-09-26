@@ -88,6 +88,7 @@ namespace IpharmWebAppProject.Controllers
             //return View(product);
         }
 
+
         // GET: Products/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {

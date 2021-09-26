@@ -1,0 +1,78 @@
+﻿@model IEnumerable<IpharmWebAppProject.Models.User>
+
+<head>
+    <link rel="stylesheet" href="~/css/IndexStyleSheet.css" />
+</head>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+
+            </th>
+            <th>
+                Name
+            </th>
+            <th>
+                Contact
+            </th>
+            <th>
+                Adress
+            </th>
+            <th>
+                Birthday
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+
+
+            <tr>
+                <td>
+                    @if (item.Type == IpharmWebAppProject.Models.Type.Customer)
+                    {
+                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16">
+                            <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
+                        </svg>
+                    }
+                    else
+                    {
+                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-person-lines-fill" viewBox="0 0 16 16">
+                            <path d="M6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm-5 6s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H1zM11 3.5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5zm.5 2.5a.5.5 0 0 0 0 1h4a.5.5 0 0 0 0-1h-4zm2 3a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1h-2zm0 3a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1h-2z" />
+                        </svg>
+                    }
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FirstName) @Html.DisplayFor(modelItem => item.LastName)
+                </td>
+                <td>
+                    <p>
+                        @Html.DisplayFor(modelItem => item.Email)
+                    </p>
+                    <p>
+                        @Html.DisplayFor(modelItem => item.Mobile)
+                    </p>
+                </td>
+                <td>
+                    <b>@Html.DisplayFor(modelItem => item.Adress)</b>
+                    (@Html.DisplayFor(modelItem => item.PostalCode))
+                    <p>
+                        @Html.DisplayFor(modelItem => item.City) |
+                        @Html.DisplayFor(modelItem => item.Country)
+                    </p>
+                </td>
+                <td>
+                    @item.Birthday.ToShortDateString()
+                </td>
+                <td>
+                    <a class="btn bt" asp-action="Details" asp-route-id="@item.Email">
+                        Details
+                    </a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

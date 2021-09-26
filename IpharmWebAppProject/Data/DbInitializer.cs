@@ -22,17 +22,17 @@ namespace IpharmWebAppProject.Data
                     FirstName="Shani", LastName="Maor",
                     Birthday=DateTime.Parse("2003-08-24"),Mobile="054-2081428",Password="12341234",
                     PostalCode="7544760",Country="Israel",City="Rishon Letzion",Adress="Inbar 7",
-                    Type=Models.Type.Customer, Orders=new List<Order>()},
+                    Type=Models.Type.Customer, Orders=new List<Order>(), Reviews=new List<Review>()},
                 new User{Email="noyhadad@gmail.com",
                     FirstName="Noy", LastName="Hadad",
                     Birthday=DateTime.Parse("2003-09-15"),Mobile="058-4232011",Password="43214321",
                     PostalCode="7591819",Country="Israel",City="Rishon Letzion",Adress="Noam Launer 47",
-                    Type=Models.Type.Customer, Orders=new List<Order>()},
+                    Type=Models.Type.Customer, Orders=new List<Order>(), Reviews=new List<Review>()},
                 new User{Email="yaari@gmail.com",
                     FirstName="Yaari", LastName="Sternberg",
                     Birthday=DateTime.Parse("1996-03-27"),Mobile="053-6215183",Password="12345678",
                     PostalCode="4634805",Country="Israel",City="Herzliya",Adress="Malkei Yehuda 5",
-                    Type=Models.Type.Manager, Orders=null}
+                    Type=Models.Type.Manager, Orders=null, Reviews=null}
             };
             //user add
             foreach (User u in users)
