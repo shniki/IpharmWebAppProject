@@ -65,5 +65,8 @@ namespace IpharmWebAppProject.Models
 
         //orders
         public ICollection<Order> Orders { get; set; }
+
+        //orders
+        public ICollection<Review> Reviews { get; set; }
     }
 }

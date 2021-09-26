@@ -1,0 +1,72 @@
+﻿@model IEnumerable<IpharmWebAppProject.Models.Product>
+
+<head>
+    <link rel="stylesheet" href="~/css/IndexStyleSheet.css" />
+</head>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+
+            </th>
+            <th>
+                Id
+            </th>
+            <th>
+                Product
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Price)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Stock)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Rate)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr id="prod-@(item.ProductId)">
+                <td>
+                    <a asp-action="Details" asp-route-id="@item.ProductId">
+                        <img src=@Html.DisplayFor(modelItem => item.PicUrl1) width="100">
+                    </a>
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ProductId)
+                </td>
+                <td>
+                    <b>@Html.DisplayFor(modelItem => item.Name)</b> (@(Html.DisplayFor(modelItem => item.Amount))ml)
+                    <p>
+                        @item.Brand.ToUpper() |
+                        @Html.DisplayFor(modelItem => item.Category) |
+                        @Html.DisplayFor(modelItem => item.Type) |
+                        @Html.DisplayFor(modelItem => item.Gender)
+                    </p>
+                    <p>
+                        @Html.DisplayFor(modelItem => item.Description)
+                    </p>
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Price)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Stock)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Rate)/5
+                </td>
+                <td>
+                    <a class="btn bt" asp-action="Edit" asp-route-id="@item.ProductId">
+                        Edit
+                    </a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

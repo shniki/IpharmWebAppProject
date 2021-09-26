@@ -4,50 +4,92 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Email)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Status)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Price)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.OrderDate)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Email)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Status)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Price)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.OrderDate)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.OrderId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.OrderId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.OrderId">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+<head>
+    <link rel="stylesheet" href="~/css/IndexStyleSheet.css" />
+    @section scripts{
+        <script>
+            $(document).ready(function () {
+                $("#s-query").keyup(function () {
+                    ajaxfunc();
+                });
+                $(".dropdown").change(function () {
+                    ajaxfunc();
+                });
+            });
+
+            function ajaxfunc(){
+                    $.ajax({
+                        url: '@Url.Action("SearchId", "Orders")',
+                        data: {
+                            query: $("#s-query").val(),
+                            status: $('#status').val(),
+                            price: $('#price').val(),
+                            date: $('#date').val()
+                        },
+                        //cache: false,
+                        type: "Get",
+                        dataType: "html",
+                        success: function (response) {
+                            $('#partial-load').html(response);
+                        },
+                        failure: function (response) {
+                            alert("f: " + response.responseText);
+                        },
+                        error: function (response) {
+                            alert("e: " + response.responseText);
+                        }
+                    });
+
+            }
+        </script>
+    }
+</head>
+
+<form class="search-space">
+    <div class="form-group has-search">
+        <input id="s-query" type="text" class="form-control" placeholder="Search by Id" autocomplete="off" />
+    </div>
+
+    @*fix the DROPDOWNS*@
+
+    <div id="status" class="dropdown">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
+            Status
+        </button>
+        <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton2">
+            <li><a value="" class="dropdown-item active" href="#">All</a></li>
+            <li><a value="Paid" class="dropdown-item" href="#">Paid</a></li>
+            <li><a value="Arrived" class="dropdown-item" href="#">Arrived</a></li>
+        </ul>
+    </div>
+
+    <div id="price" class="dropdown">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
+            Price
+        </button>
+        <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton2">
+            <li><a value="1" class="dropdown-item active" href="#">0$+</a></li>
+            <li><a value="2" class="dropdown-item" href="#">0$-25$</a></li>
+            <li><a value="3" class="dropdown-item" href="#">25$-50$</a></li>
+            <li><a value="4" class="dropdown-item" href="#">50$-100$</a></li>
+            <li><a value="5" class="dropdown-item" href="#">100$+</a></li>
+        </ul>
+    </div>
+
+    <div id="date" class="dropdown">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
+            Order Date
+        </button>
+        <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton2">
+            <li><a value="" class="dropdown-item active" href="#">All</a></li>
+            <li><a value="Week" class="dropdown-item" href="#">Last Week</a></li>
+            <li><a value="Month" class="dropdown-item" href="#">Last Month</a></li>
+            <li><a value="Year" class="dropdown-item" href="#">Last Year</a></li>
+        </ul>
+    </div>
+</form>
+
+<div id="partial-load">
+    @Html.Partial("~/Views/Orders/SearchId.cshtml")
+</div>

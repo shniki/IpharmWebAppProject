@@ -26,8 +26,31 @@ namespace IpharmWebAppProject.Controllers
         // GET: Users
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Users.Where(p=>p.Active==true).ToListAsync());
+            return View(await _context.Users.
+                Where(p => p.Active == true).ToListAsync());
         }
+
+        //GET: Users with search
+        [HttpGet]
+        public IActionResult SearchEmailOrName(string query)
+        {
+
+            if (query == null || query == "")
+            {
+                var p = _context.Users.Where(p => p.Active == true)
+                    .ToList();
+
+                return PartialView("_UsersListView", p);
+            }
+            var products = _context.Users.Where(p => p.Active == true).
+                Where(c => (c.FirstName.Contains(query) ||
+                c.LastName.Contains(query) ||
+                c.Email.Contains(query)))
+                .ToList();
+
+            return PartialView("_UsersListView", products);
+        }
+
 
         // GET: Users/Details/5
         public async Task<IActionResult> Details(string id)
@@ -65,7 +88,25 @@ namespace IpharmWebAppProject.Controllers
                 var q = _context.Users.FirstOrDefault(u => u.Email == user.Email);
                 if (q == null)
                 {
+                    //orders
+                    user.Orders = new List<Order>();
+                    //cart
+                    Order cart = new Order() {
+                        Email = user.Email,
+                        Status = Status.Cart,
+                        Price = 0,
+                        Products = new List<ProductInOrder>()};
+                    user.Orders.Add(cart);
+                    //reviews
+                    user.Reviews = new List<Review>();
+                    //wishlist
+                    WishList wishlist = new WishList(){ Email = user.Email, Counter = 0 };
+                    wishlist.Products = new List<ProductInWishList>();
+
                     _context.Add(user);
+                    _context.Add(wishlist);
+                    _context.Add(cart);
+
                     await _context.SaveChangesAsync();
 
 
@@ -209,7 +250,7 @@ namespace IpharmWebAppProject.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Details", new { id=id});
             }
             return View(user);
         }

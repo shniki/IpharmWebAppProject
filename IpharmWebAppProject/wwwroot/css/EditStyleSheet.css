@@ -17,6 +17,10 @@
     text-shadow: 2px 2px #d5a3e1;
 }
 
+.title-other {
+    text-shadow: 2px 2px #face9e;
+}
+
 .title-div {
     display: flex;
 }

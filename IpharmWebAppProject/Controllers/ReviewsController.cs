@@ -54,7 +54,7 @@ namespace IpharmWebAppProject.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ReviewId,ProductId,Email,Title,Description,Rate")] Review review)
+        public async Task<IActionResult> Create([Bind("ReviewId,ProductId,UserEmail,Title,Description,Rate")] Review review)
         {
             if (ModelState.IsValid)
             {
@@ -86,7 +86,7 @@ namespace IpharmWebAppProject.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ReviewId,ProductId,Email,Title,Description,Rate")] Review review)
+        public async Task<IActionResult> Edit(int id, [Bind("ReviewId,ProductId,UserEmail,Title,Description,Rate")] Review review)
         {
             if (id != review.ReviewId)
             {

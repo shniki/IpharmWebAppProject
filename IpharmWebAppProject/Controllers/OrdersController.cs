@@ -32,6 +32,62 @@ namespace IpharmWebAppProject.Controllers
                 return View(await _context.Orders.Where(p=>p.Email== HttpContext.User.Claims.ElementAt(1).Value && p.Status!=Status.Cart).ToListAsync());
         }
 
+        //GET: Users with search
+        [HttpGet]
+        public IActionResult SearchId(string query, string status, string price, string date)
+        {
+            var orders = _context.Orders.Where(p => p.Status != Status.Cart);
+            var orders2 = _context.Orders.Where(p => p.Status != Status.Cart);
+            if (query != null && query != "")
+            {
+                orders = orders2.Where(p => (p.OrderId.ToString().Contains(query)));
+                orders2 = orders;
+            }
+            if (status != null && status != "")
+            {
+                orders = orders2.Where(p => (p.Status.ToString().Equals(status)));
+                orders2 = orders;
+            }
+            if (price != null && price != "1")
+            {
+                switch (price)
+                {
+                    case "2":
+                        orders = orders2.Where(p => (p.Price >= 0 && p.Price <= 25));
+                        break;
+                    case "3":
+                        orders = orders2.Where(p => (p.Price >= 25 && p.Price <= 50));
+                        break;
+                    case "4":
+                        orders = orders2.Where(p => (p.Price >= 50 && p.Price <= 100));
+                        break;
+                    case "5":
+                        orders = orders2.Where(p => (p.Price >= 100));
+                        break;
+                }
+                orders2 = orders;
+            }
+            if (price != null && price != "1")
+            {
+                switch (price)
+                {
+                    case "Week":
+                        orders = orders2.Where(p => (p.OrderDate.AddDays(7).CompareTo(DateTime.Today)==1));
+                        break;
+                    case "Month":
+                        orders = orders2.Where(p => (p.OrderDate.AddMonths(1).CompareTo(DateTime.Today) == 1));
+                        break;
+                    case "Year":
+                        orders = orders2.Where(p => (p.OrderDate.AddYears(1).CompareTo(DateTime.Today) == 1));
+                        break;
+                }
+                orders2 = orders;
+            }
+
+            var ret = orders2.ToList();
+            return PartialView("_OrdersListView", ret);
+        }
+
         // GET: Orders/Checkout
         public async Task<IActionResult> Checkout()
         {
@@ -91,7 +147,8 @@ namespace IpharmWebAppProject.Controllers
                                                                     Amount = 1});
                     }
                     mycart.Price += product.Price;
-
+                    product.Stock -= 1;
+                    
                     if(wishlist) //need to remove from wishlist
                     {
                         var mywishlist = await _context.WishLists.Include(o => o.Products).FirstOrDefaultAsync(m => (m.Email == HttpContext.User.Claims.ElementAt(1).Value));
@@ -109,9 +166,11 @@ namespace IpharmWebAppProject.Controllers
                         mycart.Price-=(product.Price*productexists.Amount);
                         mycart.Products.Remove(productexists);
                         _context.ProductInOrders.Remove(productexists);
+                        product.Stock += productexists.Amount;
                     }
                 }
                 _context.Orders.Update(mycart);
+                _context.Products.Update(product);
                 _context.SaveChanges();
             }
 
