@@ -22,7 +22,14 @@ namespace IpharmWebAppProject.Controllers
         // GET: Orders
         public async Task<IActionResult> Index()
         {
+            if (HttpContext.User == null || HttpContext.User.Claims == null || HttpContext.User.Claims.Count() == 0) //not logged in
+                return RedirectToAction("Login", "Users");
+
+            if (HttpContext.User != null && HttpContext.User.Claims != null && HttpContext.User.Claims.Count() > 0
+                && HttpContext.User.Claims.ElementAt(10).Value == "Manager") //logged in as manager
             return View(await _context.Orders.ToListAsync());
+            else
+                return View(await _context.Orders.Where(p=>p.Email== HttpContext.User.Claims.ElementAt(1).Value && p.Status!=Status.Cart).ToListAsync());
         }
 
         // GET: Orders/Checkout

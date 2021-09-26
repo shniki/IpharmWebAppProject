@@ -1,8 +1,6 @@
 ﻿@model IpharmWebAppProject.Models.User
 
-@{
-    ViewData["Title"] = "Login";
-}
+
 @{ ViewData["Title"] = "Login";
     Layout = "Login_layout"; }
 
@@ -10,8 +8,8 @@
 
 <div class="container" id="container">
     <div class="form-container sign-in-container">
-        <form asp-action="Login">
-            <h1>Login</h1>
+        <h1>Login</h1>
+        <form asp-action="Login" asp-route-returnUrl='@Context.Request.Query["ReturnUrl"]' method="post" class="login_form" name="form">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <span>
@@ -20,7 +18,7 @@
                     </svg>
                 </span>
                 <input type="email" autocomplete="off" asp-for="Email" placeholder="aaa@bbbb.com" class="form-control" />
-                <span  asp-validation-for="Email" class="text-danger"></span>
+                <span asp-validation-for="Email" class="text-danger"></span>
             </div>
 
             <div class="form-group space">
@@ -30,11 +28,12 @@
                     </svg>
                 </span>
                 <input type="password" autocomplete="off" asp-for="Password" placeholder="Password" class="form-control" />
-                <span  asp-validation-for="Password" class="text-danger"></span>
+                <span asp-validation-for="Password" class="text-danger"></span>
             </div>
             <div class="login">
-                <input type="submit" value="LOGIN" /><a asp-action="Login" asp-controller="Users"></a>
+                <input type="submit"  onclick="javascript:window.history.back(-1);return false;" value="LOGIN" /><a asp-action="Login" asp-controller="Users"></a>
             </div>
+          
             <div class="signup">
                 <p>  Don't have account? <a asp-action="Register" asp-controller="Users">Click Here</a> to register</p>
             </div>

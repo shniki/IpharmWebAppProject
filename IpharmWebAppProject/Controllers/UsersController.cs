@@ -98,10 +98,9 @@ namespace IpharmWebAppProject.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Login([Bind("Email,Password")] User user)
+        public IActionResult Login([Bind("Email,Password")] User user, string returnUrl)
         {
-            if (ModelState.IsValid)
-            {
+           
                 var q = from u in _context.Users
                         where u.Email == user.Email && u.Password == user.Password
                         select u;
@@ -110,13 +109,14 @@ namespace IpharmWebAppProject.Controllers
                     // HttpContext.Session.SetString("Email", q.First().Email);
 
                     Signin(q.First());
-                    
+                    if (!String.IsNullOrEmpty(returnUrl))
+                        return Redirect(returnUrl);
                     return RedirectToAction(nameof(Index), "Home");
                 }
                 else
                 {
                     ViewData["Error"] = "Username and/or password are incorrect";
-                }
+               
             }
             return View(user);
         }
