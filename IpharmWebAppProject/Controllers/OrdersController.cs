@@ -140,7 +140,8 @@ namespace IpharmWebAppProject.Controllers
                                                                     Amount = 1});
                     }
                     mycart.Price += product.Price;
-
+                    product.Stock -= 1;
+                    
                     if(wishlist) //need to remove from wishlist
                     {
                         var mywishlist = await _context.WishLists.Include(o => o.Products).FirstOrDefaultAsync(m => (m.Email == HttpContext.User.Claims.ElementAt(1).Value));
@@ -158,9 +159,11 @@ namespace IpharmWebAppProject.Controllers
                         mycart.Price-=(product.Price*productexists.Amount);
                         mycart.Products.Remove(productexists);
                         _context.ProductInOrders.Remove(productexists);
+                        product.Stock += productexists.Amount;
                     }
                 }
                 _context.Orders.Update(mycart);
+                _context.Products.Update(product);
                 _context.SaveChanges();
             }
 
