@@ -19,7 +19,7 @@ namespace IpharmWebAppProject.Models
         //user email
         [Required]
         [DataType(DataType.EmailAddress)]
-        public string Email { get; set; }
+        public string UserEmail { get; set; }
 
         [Required]
         [DataType(DataType.Text)]

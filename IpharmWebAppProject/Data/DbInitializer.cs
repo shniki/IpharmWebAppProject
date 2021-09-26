@@ -13,10 +13,10 @@ namespace IpharmWebAppProject.Data
             context.Database.EnsureCreated();
 
             //user create
-            /*if (context.Users.Any())
+            if (context.Users.Any())
             {
                 return; //DB exists
-            }*/
+            }
             var users = new User[]
             {   new User{Email="shnikimaor@gmail.com",
                     FirstName="Shani", LastName="Maor",

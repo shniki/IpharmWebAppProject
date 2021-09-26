@@ -250,7 +250,7 @@ namespace IpharmWebAppProject.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Details", new { id=id});
             }
             return View(user);
         }
