@@ -1,8 +1,37 @@
-﻿model IpharmWebAppProject.Models.Order
+﻿@model IpharmWebAppProject.Models.Order
 
 @{
     ViewData["Title"] = "Checkout";
 }
 
-<h1>Checkout</h1>
+<div class="titles">
+    <h1>
+        Thank you for your order!
+    </h1>
+    <p>
+        <div class="orderid">
+            Order Id: @Html.DisplayFor(model => model.OrderId)
+
+        </div>
+        <div class="currentdate">
+            Order Date:
+            <p id="date">
+                <script>
+            n = new Date();
+            y = n.getFullYear();
+            m = n.getMonth() + 1;
+            d = n.getDate();
+                    document.getElementById("date").innerHTML = d + "/" + m + "/" + y;
+                </script>
+            </p>
+
+
+        </div>
+
+
+</div>
+<div style="height: 200px;">
+
+</div>
+
 
