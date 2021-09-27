@@ -3,7 +3,7 @@
     padding: 0;
 }
 .bg-grey {
-    background: #292929;
+    background: #fffFff;
 }
 
 .logo-footer {
@@ -11,10 +11,10 @@
     margin-right:5px;
 }
 footer {
-   color: grey;
+   color: white;
    height:25vh;
   bottom:0px;
-   position:absolute;
+   position:unset;
 }
 
     footer p, footer a {
