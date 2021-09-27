@@ -236,6 +236,10 @@ namespace IpharmWebAppProject.Controllers
                 }
                 temp = products;
             }
+            ViewBag.searchSort = sort;
+            ViewBag.searchGender = gender;
+            ViewBag.searchPrice = price;
+            ViewBag.searchCategory = category;
             var ret = temp.ToList();
             return View(ret);
         }
