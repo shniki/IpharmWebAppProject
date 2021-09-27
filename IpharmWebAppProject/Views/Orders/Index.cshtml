@@ -13,7 +13,7 @@
                 $("#s-query").keyup(function () {
                     ajaxfunc();
                 });
-                $(".dropdown").change(function () {
+                $(".form-select").change(function () {
                     ajaxfunc();
                 });
             });
@@ -50,45 +50,37 @@
     <div class="form-group has-search">
         <input id="s-query" type="text" class="form-control" placeholder="Search by Id" autocomplete="off" />
     </div>
-
-    @*fix the DROPDOWNS*@
-
-    <div id="status" class="dropdown">
-        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
-            Status
-        </button>
-        <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton2">
-            <li><a value="" class="dropdown-item active" href="#">All</a></li>
-            <li><a value="Paid" class="dropdown-item" href="#">Paid</a></li>
-            <li><a value="Arrived" class="dropdown-item" href="#">Arrived</a></li>
-        </ul>
-    </div>
-
-    <div id="price" class="dropdown">
-        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
-            Price
-        </button>
-        <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton2">
-            <li><a value="1" class="dropdown-item active" href="#">0$+</a></li>
-            <li><a value="2" class="dropdown-item" href="#">0$-25$</a></li>
-            <li><a value="3" class="dropdown-item" href="#">25$-50$</a></li>
-            <li><a value="4" class="dropdown-item" href="#">50$-100$</a></li>
-            <li><a value="5" class="dropdown-item" href="#">100$+</a></li>
-        </ul>
-    </div>
-
-    <div id="date" class="dropdown">
-        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
-            Order Date
-        </button>
-        <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton2">
-            <li><a value="" class="dropdown-item active" href="#">All</a></li>
-            <li><a value="Week" class="dropdown-item" href="#">Last Week</a></li>
-            <li><a value="Month" class="dropdown-item" href="#">Last Month</a></li>
-            <li><a value="Year" class="dropdown-item" href="#">Last Year</a></li>
-        </ul>
-    </div>
 </form>
+
+
+<div class="tiny-container">
+    <div class="row">
+        <div class="col-2">
+            <select id="status" class="form-select">
+                <option value="">Status</option>
+                <option value="Paid">Paid</option>
+                <option value="Arrived">Arrived</option>
+            </select>
+        </div>
+        <div class="col-2">
+            <select id="price" class="form-select">
+                <option value="1">Price Range</option>
+                <option value="2">0$-25$</option>
+                <option value="3">25$-50$</option>
+                <option value="4">50$-100$</option>
+                <option value="5">100$+</option>
+            </select>
+        </div>
+        <div class="col-2">
+            <select id="date" class="form-select">
+                <option value="">Order Date</option>
+                <option value="Week">Last Week</option>
+                <option value="Month">Last Month</option>
+                <option value="Year">Last Year</option>
+            </select>
+        </div>
+    </div>
+</div>
 
 <div id="partial-load">
     @Html.Partial("~/Views/Orders/SearchId.cshtml")

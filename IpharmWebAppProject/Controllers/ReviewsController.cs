@@ -59,6 +59,16 @@ namespace IpharmWebAppProject.Controllers
             if (ModelState.IsValid)
             {
                 _context.Add(review);
+                var product=_context.Products.Include(p=>p.Reviews).Where(p => p.ProductId == review.ProductId).FirstOrDefault();
+                if (product.Reviews.Count()>1)
+                {
+                    product.Rate *= (product.Reviews.Count()-1);
+                    product.Rate += review.Rate;
+                    product.Rate /= (product.Reviews.Count());
+                }
+                else
+                product.Rate= review.Rate;
+                //product.Reviews.Add(review);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
@@ -140,7 +150,17 @@ namespace IpharmWebAppProject.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var review = await _context.Reviews.FindAsync(id);
+            var product = _context.Products.Include(p => p.Reviews).Where(p => p.ProductId == review.ProductId).FirstOrDefault();
+            //product.Reviews.Remove(review);
             _context.Reviews.Remove(review);
+            if (product.Reviews.Count() > 1)
+            {
+                product.Rate *= product.Reviews.Count();
+                product.Rate -= review.Rate;
+                product.Rate /= (product.Reviews.Count() - 1);
+            }
+            else
+                product.Rate = 0;
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }

@@ -30,7 +30,6 @@ namespace IpharmWebAppProject.Controllers
         [HttpGet]
         public IActionResult SearchIdOrName(string query)
         {
-
             if (query == null || query == "")
             {
                 var p = _context.Products.Where(p => p.Active == true)
@@ -160,14 +159,85 @@ namespace IpharmWebAppProject.Controllers
 
             return View(product);
         }
-        public async Task<IActionResult> Search(string query)
+        public async Task<IActionResult> Search(string query, string sort="0", string gender="0", string category="0", string price="0")
         {
+            ViewBag.query = query;
+            ViewBag.sort = sort;
+            ViewBag.gender = gender;
+            ViewBag.category = category;
+            ViewBag.price = price;
+
             if (query == null)
             {
-                return NotFound();
+                return RedirectToAction("Index", "Home");
             }
-            var products = await _context.Products.Where(c => c.Name.Contains(query)).ToListAsync();
-            return View(products);
+            var products = _context.Products.Where(c => c.Name.Contains(query));
+            var temp = products;
+            if (sort != null && sort != "0" && sort != "1")
+            {
+                switch (sort)
+                {
+                    case "2": products = from p in temp orderby p.Price descending select p; break;
+                    case "3": products = from p in temp orderby p.Price select p;  break;
+                    case "4": products = from p in temp orderby p.Rate descending select p; break;
+                }
+                temp = products;
+            }
+            if (price != null && price != "0")
+            {
+                switch (price)
+                {
+                    case "2":
+                        products = temp.Where(p => (p.Price >= 0 && p.Price <= 25));
+                        break;
+                    case "3":
+                        products = temp.Where(p => (p.Price >= 25 && p.Price <= 50));
+                        break;
+                    case "4":
+                        products = temp.Where(p => (p.Price >= 50 && p.Price <= 100));
+                        break;
+                    case "5":
+                        products = temp.Where(p => (p.Price >= 100));
+                        break;
+                }
+                temp = products;
+            }
+            if (gender != null && gender != "0")
+            {
+                switch (gender)
+                {
+                    case "1":
+                        products = temp.Where(p =>p.Gender==Genders.Women);
+                        break;
+                    case "2":
+                        products = temp.Where(p => p.Gender == Genders.Men);
+                        break;
+                    case "3":
+                        products = temp.Where( p => p.Gender == Genders.Unisex);
+                        break;
+
+                }
+                temp = products;
+            }
+            if (category != null && category != "0")
+            {
+                switch (category)
+                {
+                    case "1":
+                        products = temp.Where(p => p.Category == Categories.Skincare);
+                        break;
+                    case "2":
+                        products = temp.Where(p => p.Category == Categories.Haircare);
+                        break;
+                    case "3":
+                        products = temp.Where(p => p.Category == Categories.Makeup);
+                        break;
+
+                }
+                temp = products;
+            }
+            var ret = temp.ToList();
+            return View(ret);
         }
 
 

@@ -67,9 +67,9 @@ namespace IpharmWebAppProject.Controllers
                 }
                 orders2 = orders;
             }
-            if (price != null && price != "1")
+            if (date != null && date != "1")
             {
-                switch (price)
+                switch (date)
                 {
                     case "Week":
                         orders = orders2.Where(p => (p.OrderDate.AddDays(7).CompareTo(DateTime.Today)==1));

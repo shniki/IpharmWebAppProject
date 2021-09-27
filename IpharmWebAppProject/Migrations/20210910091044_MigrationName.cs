@@ -7,7 +7,7 @@ namespace IpharmWebAppProject.Migrations
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.CreateTable(
+            /*migrationBuilder.CreateTable(
                 name: "Products",
                 columns: table => new
                 {
@@ -182,12 +182,12 @@ namespace IpharmWebAppProject.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_Reviews_ProductId",
                 table: "Reviews",
-                column: "ProductId");
+                column: "ProductId");*/
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropTable(
+           /* migrationBuilder.DropTable(
                 name: "ProductInOrders");
 
             migrationBuilder.DropTable(
@@ -206,7 +206,7 @@ namespace IpharmWebAppProject.Migrations
                 name: "Products");
 
             migrationBuilder.DropTable(
-                name: "Users");
+                name: "Users");*/
         }
     }
 }

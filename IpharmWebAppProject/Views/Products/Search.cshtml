@@ -4,52 +4,91 @@
     ViewData["Title"] = "Search";
 }
 
-<h1>Search</h1>
+<head>
+    @section scripts{
+        <script>
+            $(document).ready(function () {
+                $(".form-select").change(function () {
+                    window.location.href = 'Search?' + 'query=@ViewBag.query'
+                        + '&sort=' + $("#sortby").val()
+                        + '&gender=' + $("#genderby").val()
+                        + '&category=' + $("#categoryby").val()
+                        + '&price=' + $("#priceby").val();
+                });
+            });
+        </script>
+    }
+</head>
+
+
+<div class="titles">
+    <h2>Search results for:  @ViewBag.query</h2>
+</div>
+
+<hr class="solid">
+
+<div class="tiny-container">
+    <div class="row">
+        <div class="col-2">
+            <select id="sortby" class="form-select">
+                <option value="0">Sort</option>
+                <option value="1">Recommended</option>
+                <option value="2">Price High to Low</option>
+                <option value="3">Price Low to High</option>
+                <option value="4">Top Rated</option>
+            </select>
+        </div>
+        <div class="col-2">
+            <select id="genderby" class="form-select">
+                <option value="0">Gender</option>
+                <option value="1">Women</option>
+                <option value="2">Men</option>
+                <option value="3">Unisex</option>
+            </select>
+        </div>
+        <div class="col-2">
+            <select id="categoryby" class="form-select">
+                <option value="0">Category</option>
+                <option value="1">Skincare</option>
+                <option value="2">Haircare</option>
+                <option value="3">Makeup</option>
+            </select>
+        </div>
+        <div class="col-2">
+            <select id="priceby" class="form-select">
+                <option value="0">Price Range</option>
+                <option value="2">0$-25$</option>
+                <option value="3">25$-50$</option>
+                <option value="4">50$-100$</option>
+                <option value="5">100$+</option>
+            </select>
+        </div>
+    </div>
+</div>
+
+<hr class="solid">
+@*<p style="text-align: center; margin-bottom: -40px;">@(Model.Count()) items found</p>*@
 
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Name)
+
+            </th>
+            <th>
+                Id
+            </th>
+            <th>
+                Product
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Price)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Amount)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Gender)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Category)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Type)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Brand)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Description)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Rate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.PicUrl1)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.PicUrl2)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.PicUrl3)
-            </th>
-            <th>
                 @Html.DisplayNameFor(model => model.Stock)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Active)
+                @Html.DisplayNameFor(model => model.Rate)
             </th>
             <th></th>
         </tr>
@@ -57,53 +96,35 @@
     <tbody>
         @foreach (var item in Model)
         {
-            <tr>
+            <tr id="prod-@(item.ProductId)">
                 <td>
-                    @Html.DisplayFor(modelItem => item.Name)
+                    <a asp-action="Details" asp-route-id="@item.ProductId">
+                        <img src=@Html.DisplayFor(modelItem => item.PicUrl1) width="100">
+                    </a>
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ProductId)
+                </td>
+                <td>
+                    <b>@Html.DisplayFor(modelItem => item.Name)</b> (@(Html.DisplayFor(modelItem => item.Amount))ml)
+                    <p>
+                        @item.Brand.ToUpper() |
+                        @Html.DisplayFor(modelItem => item.Category) |
+                        @Html.DisplayFor(modelItem => item.Type) |
+                        @Html.DisplayFor(modelItem => item.Gender)
+                    </p>
+                    <p>
+                        @Html.DisplayFor(modelItem => item.Description)
+                    </p>
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Price)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Amount)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Gender)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Category)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Type)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Brand)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Description)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Rate)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.PicUrl1)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.PicUrl2)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.PicUrl3)
-                </td>
-                <td>
                     @Html.DisplayFor(modelItem => item.Stock)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Active)
-                </td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@item.ProductId">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.ProductId">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.ProductId">Delete</a>
+                    @Html.DisplayFor(modelItem => item.Rate)/5
                 </td>
             </tr>
         }
