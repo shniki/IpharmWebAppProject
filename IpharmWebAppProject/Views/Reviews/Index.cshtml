@@ -4,50 +4,42 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<head>
+    <link rel="stylesheet" href="~/css/IndexStyleSheet.css" />
+    @section scripts{
+        <script>
+            $(document).ready(function () {
+                $("#s-query").keyup(function () {
+                    var id = $("#s-query").val();
+                    $.ajax({
+                        url: '@Url.Action("SearchTitle", "Reviews")',
+                        data: {
+                            query: $("#s-query").val() },
+                        //cache: false,
+                        type: "Get",
+                        dataType: "html",
+                        success: function (response) {
+                            $('#partial-load').html(response);
+                        },
+                        failure: function (response) {
+                            alert("f: " + response.responseText);
+                        },
+                        error: function (response) {
+                            alert("e: " + response.responseText);
+                        }
+                    });
+                });
+            });
+        </script>
+    }
+</head>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.UserEmail)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Title)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Description)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Rate)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.UserEmail)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Title)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Rate)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.ReviewId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.ReviewId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.ReviewId">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+<form class="search-space">
+    <div class="form-group has-search">
+        <input id="s-query" type="text" class="form-control" placeholder="Search by Title" autocomplete="off" />
+    </div>
+</form>
+
+<div id="partial-load">
+    @Html.Partial("~/Views/Reviews/SearchTitle.cshtml")
+</div>

@@ -70,6 +70,15 @@
     border: 2px solid #ff8361;
 }
 
+.arv{
+    background: #d5a3e1;
+    border: 2px solid #d5a3e1;
+}
+
+.fitted{
+    width: fit-content();
+}
+
 /*text area*/
 .form-group textarea {
     min-height: 86px;

@@ -70,6 +70,23 @@ namespace IpharmWebAppProject.Controllers
             return View(user);
         }
 
+        // GET: Users/PersonalArea
+        public async Task<IActionResult> PersonalArea()
+        {
+            if (HttpContext.User == null || HttpContext.User.Claims == null || HttpContext.User.Claims.Count() == 0) //not logged in
+                return RedirectToAction("Login", "Users");
+
+            var user = await _context.Users
+                .FirstOrDefaultAsync(m => m.Email == HttpContext.User.Claims.ElementAt(1).Value);
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            return View(user);
+        }
+
+
         // GET: Users/Register
         public IActionResult Register()
         {

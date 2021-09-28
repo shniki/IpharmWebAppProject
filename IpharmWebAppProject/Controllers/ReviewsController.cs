@@ -22,7 +22,33 @@ namespace IpharmWebAppProject.Controllers
         // GET: Reviews
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Reviews.ToListAsync());
+            if (HttpContext.User == null || HttpContext.User.Claims == null || HttpContext.User.Claims.Count() == 0) //not logged in
+                return RedirectToAction("Login", "Users");
+
+            if (HttpContext.User != null && HttpContext.User.Claims != null && HttpContext.User.Claims.Count() > 0
+                && HttpContext.User.Claims.ElementAt(10).Value == "Manager") //logged in as manager
+                return NotFound();
+
+            var rev = _context.Reviews.Where(p => p.UserEmail == HttpContext.User.Claims.ElementAt(1).Value).ToList();
+            return View(rev);
+        }
+
+        //GET: Reviews with search
+        [HttpGet]
+        public IActionResult SearchTitle(string query)
+        {
+
+            if (query == null || query == "")
+            {
+                var rev = _context.Reviews.Where(p => p.UserEmail == HttpContext.User.Claims.ElementAt(1).Value).ToList();
+
+                return PartialView("_ReviewsListView", rev);
+            }
+            var rev2 = _context.Reviews.Where(p => p.UserEmail == HttpContext.User.Claims.ElementAt(1).Value
+            &&p.Title.Contains(query)).ToList();
+
+
+            return PartialView("_ReviewsListView", rev2);
         }
 
         // GET: Reviews/Details/5
@@ -70,7 +96,7 @@ namespace IpharmWebAppProject.Controllers
                 product.Rate= review.Rate;
                 //product.Reviews.Add(review);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Details", "Products", new { id = review.ProductId });
             }
             return View(review);
         }

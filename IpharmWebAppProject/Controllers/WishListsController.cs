@@ -20,11 +20,14 @@ namespace IpharmWebAppProject.Controllers
         }
 
         // GET: WishLists
-        public async Task<IActionResult> Index(int? productid, bool addition)
+        public async Task<IActionResult> Index()
         {
-            if (HttpContext.User == null || HttpContext.User.Claims == null || HttpContext.User.Claims.Count() == 0) //not logged in
-                return RedirectToAction("Login", "Users");
+                return NotFound();
+        }
 
+        // GET: WishLists/Details/5
+        public async Task<IActionResult> Details(int? productid, bool addition)
+        {
             if (HttpContext.User != null && HttpContext.User.Claims != null && HttpContext.User.Claims.Count() > 0
                 && HttpContext.User.Claims.ElementAt(10).Value == "Manager") //logged in as manager
                 return NotFound();
@@ -76,31 +79,11 @@ namespace IpharmWebAppProject.Controllers
                     mywishlist.Products.Remove(p);
             }
 
-            _context.Update(mywishlist.Products);
+            //_context.Update(mywishlist.Products);
             _context.SaveChanges();
 
-            list = mywishlist.Products;
-
             //view wishlist only, without adding/removing products
-            return View(list);
-        }
-
-        // GET: WishLists/Details/5
-        public async Task<IActionResult> Details(string id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var wishList = await _context.WishLists
-                .FirstOrDefaultAsync(m => m.Email == id);
-            if (wishList == null)
-            {
-                return NotFound();
-            }
-
-            return View(wishList);
+            return View(mywishlist);
         }
 
         // GET: WishLists/Create

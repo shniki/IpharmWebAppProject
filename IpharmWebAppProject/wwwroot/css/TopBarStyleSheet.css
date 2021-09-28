@@ -4,11 +4,12 @@
 /*the top bar*/
 
 body {
-    overflow-x: hidden; /* Hide horizontal scrollbar */
+    overflow: hidden; /* Hide horizontal scrollbar */
 }
 
-main{
-    overflow:hidden;
+main {
+    overflow-y: hidden;
+    overflow-x: hidden;
 }
 
 header {

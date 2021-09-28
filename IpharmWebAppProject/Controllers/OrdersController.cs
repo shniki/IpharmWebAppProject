@@ -27,7 +27,7 @@ namespace IpharmWebAppProject.Controllers
 
             if (HttpContext.User != null && HttpContext.User.Claims != null && HttpContext.User.Claims.Count() > 0
                 && HttpContext.User.Claims.ElementAt(10).Value == "Manager") //logged in as manager
-            return View(await _context.Orders.ToListAsync());
+            return View(await _context.Orders.Where(p=> p.Status != Status.Cart).ToListAsync());
             else
                 return View(await _context.Orders.Where(p=>p.Email== HttpContext.User.Claims.ElementAt(1).Value && p.Status!=Status.Cart).ToListAsync());
         }
@@ -45,7 +45,15 @@ namespace IpharmWebAppProject.Controllers
             }
             if (status != null && status != "")
             {
-                orders = orders2.Where(p => (p.Status.ToString().Equals(status)));
+                switch (status)
+                {
+                    case "Paid":
+                        orders = orders2.Where(p => (p.Status==Status.Paid));
+                        break;
+                    case "Arrived":
+                        orders = orders2.Where(p => (p.Status==Status.Arrived));
+                        break;
+                }
                 orders2 = orders;
             }
             if (price != null && price != "1")
@@ -83,6 +91,10 @@ namespace IpharmWebAppProject.Controllers
                 }
                 orders2 = orders;
             }
+
+            if (HttpContext.User != null && HttpContext.User.Claims != null && HttpContext.User.Claims.Count() > 0
+                && HttpContext.User.Claims.ElementAt(10).Value == "Customer") //logged in as customer
+                        orders2.Where(p => p.Email == HttpContext.User.Claims.ElementAt(1).Value);
 
             var ret = orders2.ToList();
             return PartialView("_OrdersListView", ret);
@@ -185,14 +197,12 @@ namespace IpharmWebAppProject.Controllers
                 }
             }
 
-            _context.Update(mycart.Products);
+            //_context.Update(mycart.Products);
             _context.Orders.Update(mycart);
             _context.SaveChanges();
 
-            list = mycart.Products;
-
             //view cart only, without adding/removing products
-            return View(list);
+            return View(mycart);
         }
 
         // GET: Orders/Details/5
@@ -202,15 +212,22 @@ namespace IpharmWebAppProject.Controllers
             {
                 return NotFound();
             }
+            if (HttpContext.User == null || HttpContext.User.Claims == null || HttpContext.User.Claims.Count() == 0) //not logged in
+                return RedirectToAction("Login", "Users");
 
-            var order = await _context.Orders
+                var order = await _context.Orders
                 .FirstOrDefaultAsync(m => m.OrderId == id);
+
             if (order == null)
             {
                 return NotFound();
             }
 
-            return View(order);
+            if (HttpContext.User != null && HttpContext.User.Claims != null && HttpContext.User.Claims.Count() > 0
+                && (HttpContext.User.Claims.ElementAt(10).Value == "Manager" || HttpContext.User.Claims.ElementAt(1).Value == order.Email)) //logged in as manager or as user made
+                    return View(order);
+
+            return NotFound();
         }
 
         // GET: Orders/Create
@@ -285,6 +302,33 @@ namespace IpharmWebAppProject.Controllers
             }
             return View(order);
         }
+
+        //update status
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Arrived(int id)
+        {
+
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var order = await _context.Orders
+                .FirstOrDefaultAsync(m => m.OrderId == id);
+            if (order == null)
+            {
+                return NotFound();
+            }
+
+            order.Status = Status.Arrived;
+
+            _context.Update(order);
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction(nameof(Index));
+        }
+
 
         // GET: Orders/Delete/5
         public async Task<IActionResult> Delete(int? id)

@@ -1,0 +1,24 @@
+﻿@model IEnumerable<IpharmWebAppProject.Models.Review>
+
+<head>
+    <link rel="stylesheet" href="~/css/IndexStyleSheet.css" />
+    <link rel="stylesheet" href="~/css/ProductDetailsStyleSheet.css" />
+    <link rel="stylesheet" href="~/css/EditStyleSheet.css" />
+
+</head>
+
+@foreach (var rev in Model)
+{
+    <hr />
+    <section class="w3-center">
+        <h2>@(Html.DisplayFor(modelItem => rev.Title))</h2>
+        <div class="Stars" style="--rating: @(Html.DisplayFor(modelItem => rev.Rate));"
+             aria-label="Rating of this product is @(Html.DisplayFor(modelItem => rev.Rate)) out of 5.">
+        </div>
+        <h3>@(Html.DisplayFor(modelItem => rev.Description))</h3>
+        <form asp-action="Delete" asp-route-id="@rev.ReviewId" method="post">
+            <a asp-controller="Products" asp-action="Details" asp-route-id="@rev.ProductId" value="Product info" class="btn bt">Product info</a>
+            <input type="submit" value="Delete" class="btn bt del" />
+        </form>
+    </section>
+}

@@ -2,22 +2,29 @@
 
 <head>
     <link rel="stylesheet" href="~/css/IndexStyleSheet.css" />
+    <link rel="stylesheet" href="~/css/EditStyleSheet.css" />
 </head>
 
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Email)
+                Id
+            </th>
+            @if (Context.User.Claims.ElementAt(10).Value == "Manager") //Manager
+            {
+                <th>
+                    Email
+                </th>
+            }
+            <th>
+                Status
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Status)
+                Price
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Price)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.OrderDate)
+                Date
             </th>
             <th></th>
         </tr>
@@ -27,8 +34,14 @@
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Email)
+                    @Html.DisplayFor(modelItem => item.OrderId)
                 </td>
+                @if (Context.User.Claims.ElementAt(10).Value == "Manager") //Manager
+                {
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Email)
+                    </td>
+                }
                 <td>
                     @Html.DisplayFor(modelItem => item.Status)
                 </td>
@@ -39,9 +52,16 @@
                     @Html.DisplayFor(modelItem => item.OrderDate)
                 </td>
                 <td>
-                    <a asp-action="Edit" asp-route-id="@item.OrderId">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.OrderId">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.OrderId">Delete</a>
+                    <form asp-action="Arrived" asp-route-id="@item.OrderId" method="post">
+                        <a class="btn bt" asp-action="Details" asp-route-id="@item.OrderId">
+                            Details
+                        </a>
+                        @if (Context.User.Claims.ElementAt(10).Value == "Customer") //Costomer
+                        {
+
+                            <input type="submit" value="Arrived" class="btn bt arv" />
+                        }
+                    </form>
                 </td>
             </tr>
         }
