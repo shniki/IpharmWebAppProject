@@ -1,0 +1,39 @@
+﻿
+@import url('https://fonts.googleapis.com/css?family=Oswald:500');
+
+.bt {
+    font-family: 'Oswald', sans-serif;
+    margin-bottom: 10px;
+    padding: 5px;
+    border-radius: 3px;
+    letter-spacing: 1px;
+    color: black;
+    cursor: pointer;
+    font-size: 20px;
+    width: 29.4%;
+    border: 2px solid #000;
+}
+
+
+h1{
+
+    font-family:'Anton';
+    font-size:200px;
+    top:20px;
+}
+h3{
+
+    font-family:'Anton';
+    font-size:50px;
+    
+}
+
+.bt100 {
+    width: 100%;
+}
+
+.bt:hover {
+    border: 2px solid black;
+    text-decoration: none;
+    color: black;
+}

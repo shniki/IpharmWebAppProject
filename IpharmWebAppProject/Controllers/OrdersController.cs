@@ -255,17 +255,7 @@ namespace IpharmWebAppProject.Controllers
         // GET: Orders/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var order = await _context.Orders.FindAsync(id);
-            if (order == null)
-            {
-                return NotFound();
-            }
-            return View(order);
+            return RedirectToAction("NotFoundPage", "Home");
         }
 
         // POST: Orders/Edit/5
