@@ -233,3 +233,33 @@
 
     </section>
 }
+
+@if (Context.User != null && Context.User.Claims != null && Context.User.Claims.Count() > 0
+  && Context.User.Claims.ElementAt(10).Value == "Customer") //Customer
+{
+    <br />
+    <hr />
+    <section class="w3-center">
+        <form asp-controller="Review" asp-action="Create">
+            <h2>Add Your Review</h2>
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="ProductId" value="@(Model.ProductId)" class="form-control" />
+            <input type="hidden" value="@(Context.User.Claims.ElementAt(1).Value)" class="form-control" />
+            <div class="form-group">
+                <input  placeholder="Title" class="form-control" />
+                <span  class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <textarea asp-for="Description" placeholder="Description" class="form-control"></textarea>
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input asp-for="Rate" placeholder="Rate" class="form-control" />
+                <span asp-validation-for="Rate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Add" class="btn bt" />
+            </div>
+        </form>
+    </section>
+}

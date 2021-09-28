@@ -4,34 +4,27 @@
     ViewData["Title"] = "Checkout";
 }
 
-<div class="titles">
-    <h1>
-        Thank you for your order!
-    </h1>
-    <p>
+<head>
+    <link rel="stylesheet" href="~/css/EditStyleSheet.css" />
+</head>
+
+<div class="title-div" >
+    <a class="title-edit title-other" style=" color: #F5F5F5;">Thank you for your order!</a>
+    <p style=" font-family: 'Oswald', sans-serif; ">
         <div class="orderid">
             Order Id: @Html.DisplayFor(model => model.OrderId)
 
         </div>
         <div class="currentdate">
             Order Date:
-            <p id="date">
-                <script>
+    <p id="date" style=" font-family: 'Oswald', sans-serif; ">
+        <script>
             n = new Date();
             y = n.getFullYear();
             m = n.getMonth() + 1;
             d = n.getDate();
-                    document.getElementById("date").innerHTML = d + "/" + m + "/" + y;
-                </script>
-            </p>
-
-
-        </div>
-
-
+            document.getElementById("date").innerHTML = d + "/" + m + "/" + y;
+        </script>
+    </p>
 </div>
-<div style="height: 200px;">
-
-</div>
-
 
