@@ -233,7 +233,8 @@ namespace IpharmWebAppProject.Controllers
         // GET: Orders/Create
         public IActionResult Create()
         {
-            return View();
+            return RedirectToAction("NotFoundPage", "Home");
+
         }
 
         // POST: Orders/Create
@@ -323,19 +324,8 @@ namespace IpharmWebAppProject.Controllers
         // GET: Orders/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
+            return RedirectToAction("NotFoundPage", "Home");
 
-            var order = await _context.Orders
-                .FirstOrDefaultAsync(m => m.OrderId == id);
-            if (order == null)
-            {
-                return NotFound();
-            }
-
-            return View(order);
         }
 
         // POST: Orders/Delete/5

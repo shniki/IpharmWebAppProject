@@ -22,7 +22,7 @@ namespace IpharmWebAppProject.Controllers
         // GET: WishLists
         public async Task<IActionResult> Index()
         {
-                return NotFound();
+            return RedirectToAction("NotFoundPage", "Home");
         }
 
         // GET: WishLists/Details/5
@@ -89,7 +89,7 @@ namespace IpharmWebAppProject.Controllers
         // GET: WishLists/Create
         public IActionResult Create()
         {
-            return View();
+            return RedirectToAction("NotFoundPage", "Home");
         }
 
         // POST: WishLists/Create
@@ -111,17 +111,8 @@ namespace IpharmWebAppProject.Controllers
         // GET: WishLists/Edit/5
         public async Task<IActionResult> Edit(string id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
+            return RedirectToAction("NotFoundPage", "Home");
 
-            var wishList = await _context.WishLists.FindAsync(id);
-            if (wishList == null)
-            {
-                return NotFound();
-            }
-            return View(wishList);
         }
 
         // POST: WishLists/Edit/5
@@ -162,19 +153,8 @@ namespace IpharmWebAppProject.Controllers
         // GET: WishLists/Delete/5
         public async Task<IActionResult> Delete(string id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
+            return RedirectToAction("NotFoundPage", "Home");
 
-            var wishList = await _context.WishLists
-                .FirstOrDefaultAsync(m => m.Email == id);
-            if (wishList == null)
-            {
-                return NotFound();
-            }
-
-            return View(wishList);
         }
 
         // POST: WishLists/Delete/5

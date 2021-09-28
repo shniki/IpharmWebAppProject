@@ -275,19 +275,8 @@ namespace IpharmWebAppProject.Controllers
         // GET: Users/Delete/5
         public async Task<IActionResult> Delete(string id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
+            return RedirectToAction("NotFoundPage", "Home");
 
-            var user = await _context.Users
-                .FirstOrDefaultAsync(m => m.Email == id);
-            if (user == null)
-            {
-                return NotFound();
-            }
-
-            return View(user);
         }
 
         // POST: Users/Delete/5
