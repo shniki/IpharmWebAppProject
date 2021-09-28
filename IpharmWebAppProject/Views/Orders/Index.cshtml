@@ -7,6 +7,7 @@
 
 <head>
     <link rel="stylesheet" href="~/css/StyleSearchPage.css" />
+    <link rel="stylesheet" href="~/css/EditStyleSheet.css" />
     @section scripts{
         <script>
             $(document).ready(function () {
@@ -46,19 +47,19 @@
     }
 </head>
 
+    @if (Context.User.Claims.ElementAt(10).Value == "Customer") //Customer
+    {
+    <div class="title-div">
+        <a class="title-edit" style=" color: #F5F5F5; ">My Last Orders</a>
+    </div>    }
+
+
 <form class="search-space">
     <div class="form-group has-search">
         <input id="s-query" type="text" class="form-control" placeholder="Search by Id" autocomplete="off" />
     </div>
 </form>
 
-<div class="titles">
-    @if (Context.User.Claims.ElementAt(10).Value == "Customer") //Customer
-    {
-        <h2>My last orders..</h2>
-    }
-
-</div>
 <hr class="solid">
 
 <div class="tiny-container">

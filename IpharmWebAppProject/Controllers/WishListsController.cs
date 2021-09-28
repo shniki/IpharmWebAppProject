@@ -28,13 +28,16 @@ namespace IpharmWebAppProject.Controllers
         // GET: WishLists/Details/5
         public async Task<IActionResult> Details(int? productid, bool addition)
         {
+            if (HttpContext.User == null || HttpContext.User.Claims == null || HttpContext.User.Claims.Count() == 0) //not logged in
+                return RedirectToAction("Login", "Users");
+
             if (HttpContext.User != null && HttpContext.User.Claims != null && HttpContext.User.Claims.Count() > 0
                 && HttpContext.User.Claims.ElementAt(10).Value == "Manager") //logged in as manager
                 return NotFound();
 
             //find user's cart in orders
-            var mywishlist = await _context.WishLists.Include(wl => wl.Products)
-                .FirstOrDefaultAsync(m => (m.Email == HttpContext.User.Claims.ElementAt(1).Value));
+            var mywishlist = _context.WishLists.Include(wl => wl.Products).ThenInclude(p=>p.Product)
+                .FirstOrDefault(m => (m.Email == HttpContext.User.Claims.ElementAt(1).Value));
 
             if (mywishlist.Products == null)
             {
@@ -43,7 +46,7 @@ namespace IpharmWebAppProject.Controllers
 
             if (productid != null) //there's a product
             {
-                ProductInWishList productexists = (from p in mywishlist.Products where p.ProductId == productid select p).First();
+                ProductInWishList productexists = mywishlist.Products.Where(p => p.ProductId == productid).FirstOrDefault();
                 Product product = _context.Products.Find(productid);
 
                 if (addition) //add product

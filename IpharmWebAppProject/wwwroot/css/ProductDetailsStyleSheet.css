@@ -156,3 +156,9 @@
 .w3-center .bold {
     font-weight: bold;
 }
+
+/*add review*/
+.adding h2, .adding h3, .adding textarea, .adding input, .select h2, .adding button {
+    margin-top: 10px;
+    margin-bottom: 10px;
+} 

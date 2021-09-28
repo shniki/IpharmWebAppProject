@@ -33,16 +33,14 @@ h2 {
 }
 
 #products th {
-    border: 1px solid #d2a194;
 }
 .table {
-    border: 1px solid #d2a194;
 }
     body {
     min-height: 1000px;
 }
 hr.solid {
-    border-top: 1px solid #d2a194;
+
 }
 .form-select {
     width: 200px;

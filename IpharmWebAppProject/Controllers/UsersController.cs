@@ -78,6 +78,10 @@ namespace IpharmWebAppProject.Controllers
 
             var user = await _context.Users
                 .FirstOrDefaultAsync(m => m.Email == HttpContext.User.Claims.ElementAt(1).Value);
+
+            if (!user.Active)
+                return RedirectToAction("Logout");
+
             if (user == null)
             {
                 return NotFound();
@@ -160,7 +164,7 @@ namespace IpharmWebAppProject.Controllers
         {
            
                 var q = from u in _context.Users
-                        where u.Email == user.Email && u.Password == user.Password
+                        where u.Email == user.Email && u.Password == user.Password && user.Active
                         select u;
                 if (q.Count() > 0)
                 {
@@ -222,14 +226,12 @@ namespace IpharmWebAppProject.Controllers
                 authProperties);
         }
         // GET: Users/Edit/5
-        public async Task<IActionResult> Edit(string id)
+        public async Task<IActionResult> Edit()
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
+            if (HttpContext.User == null || HttpContext.User.Claims == null || HttpContext.User.Claims.Count() == 0) //not logged in
+                return RedirectToAction("Login", "Users");
 
-            var user = await _context.Users.FindAsync(id);
+            var user = await _context.Users.FindAsync(HttpContext.User.Claims.ElementAt(1).Value);
             if (user == null)
             {
                 return NotFound();
@@ -267,7 +269,7 @@ namespace IpharmWebAppProject.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction("Details", new { id=id});
+                return RedirectToAction("PersonalArea");
             }
             return View(user);
         }

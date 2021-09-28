@@ -6,6 +6,7 @@
 
 <head>
     <link href="~/css/StyleSearchPage.css" rel="stylesheet" />
+    <link href="~/css/EditStyleSheet.css" rel="stylesheet" />
     @section scripts{
         <script>
             $(document).ready(function () {
@@ -21,12 +22,9 @@
     }
 </head>
 
-
-<div class="titles">
-    <h2>Search results for:  @ViewBag.query</h2>
+<div class="title-div">
+    <a class="title-edit" style=" color: #F5F5F5;  margin-bottom:20px;">Search results for:  @ViewBag.query</a>
 </div>
-
-<hr class="solid">
 
 <div class="tiny-container">
     <div class="row">
@@ -74,7 +72,6 @@
     </div>
 </div>
 
-<hr class="solid">
 @*<p style="text-align: center; margin-bottom: -40px;">@(Model.Count()) items found</p>*@
 
 <table class="table" id="products">

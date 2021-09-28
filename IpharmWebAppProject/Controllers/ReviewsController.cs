@@ -101,6 +101,37 @@ namespace IpharmWebAppProject.Controllers
             return View(review);
         }
 
+        public async Task<IActionResult> Submitted(int id, string title, string desc, int rate)
+        {
+            if (HttpContext.User != null && HttpContext.User.Claims != null && HttpContext.User.Claims.Count() > 0 && HttpContext.User.Claims.ElementAt(10).Value == "Customer")
+            {
+                Review review = new Review();
+                review.ProductId = id;
+                review.UserEmail = HttpContext.User.Claims.ElementAt(1).Value;
+                review.Title = title;
+                review.Description = desc;
+                review.Rate = rate;
+
+                _context.Add(review);
+                var product = _context.Products.Include(p => p.Reviews).Where(p => p.ProductId == review.ProductId).FirstOrDefault();
+                if (product.Reviews.Count() > 1)
+                {
+                    product.Rate *= (product.Reviews.Count() - 1);
+                    product.Rate += review.Rate;
+                    product.Rate /= (product.Reviews.Count());
+                }
+                else
+                    product.Rate = review.Rate;
+                //product.Reviews.Add(review);
+                await _context.SaveChangesAsync();
+                return RedirectToAction("Details", "Products", new { id = review.ProductId });
+            }
+            else if (HttpContext.User != null && HttpContext.User.Claims != null && HttpContext.User.Claims.Count() > 0 && HttpContext.User.Claims.ElementAt(10).Value == "Customer")
+                return NotFound();
+            else
+                return RedirectToAction("Login", "Users");
+        }
+
         // GET: Reviews/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {

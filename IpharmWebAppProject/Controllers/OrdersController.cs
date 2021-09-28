@@ -133,8 +133,8 @@ namespace IpharmWebAppProject.Controllers
                 return NotFound();
 
             //find user's cart in orders
-            var mycart = await _context.Orders.Include(o => o.Products)
-                .FirstOrDefaultAsync(m => (m.Email == HttpContext.User.Claims.ElementAt(1).Value && m.Status==Status.Cart));
+            var mycart = _context.Orders.Include(o => o.Products).ThenInclude(p=>p.Product)
+                .FirstOrDefault(m => (m.Email == HttpContext.User.Claims.ElementAt(1).Value && m.Status==Status.Cart));
             
             if (mycart.Products == null)
             {
@@ -143,7 +143,7 @@ namespace IpharmWebAppProject.Controllers
 
             if (productid!=null) //there's a product
             {
-                ProductInOrder productexists = (from p in mycart.Products where p.ProductId == productid select p).First();
+                ProductInOrder productexists = mycart.Products.Where(p=>p.ProductId == productid).FirstOrDefault();
                 Product product = _context.Products.Find(productid);
 
                 if (addition) //add product
@@ -154,21 +154,23 @@ namespace IpharmWebAppProject.Controllers
                     }
                     else //not in cart
                     {
-                        mycart.Products.Add(new ProductInOrder() {  ProductId=productid.Value, Product= product,
-                                                                    OrderId=mycart.OrderId, Order=mycart,
-                                                                    Amount = 1});
+                        mycart.Products.Add(new ProductInOrder()
+                        {
+                            ProductId = productid.Value,
+                            Product = product,
+                            OrderId = mycart.OrderId,
+                            Order = mycart,
+                            Amount = 1
+                        });
                     }
                     mycart.Price += product.Price;
                     product.Stock -= 1;
                     
                     if(wishlist) //need to remove from wishlist
                     {
-                        var mywishlist = await _context.WishLists.Include(o => o.Products).FirstOrDefaultAsync(m => (m.Email == HttpContext.User.Claims.ElementAt(1).Value));
+                        var mywishlist = _context.WishLists.Include(o => o.Products).FirstOrDefault(m => (m.Email == HttpContext.User.Claims.ElementAt(1).Value));
                         ProductInWishList productwl = (from p in mywishlist.Products where p.ProductId == productid select p).First();
-                        mywishlist.Products.Remove(productwl);
                         _context.ProductInWishLists.Remove(productwl);
-                        _context.WishLists.Update(mywishlist);
-                        _context.SaveChanges();
                     }
                 }
                 else //remove product
@@ -182,6 +184,7 @@ namespace IpharmWebAppProject.Controllers
                     }
                 }
                 _context.Orders.Update(mycart);
+                _context.SaveChanges();
                 _context.Products.Update(product);
                 _context.SaveChanges();
             }
@@ -215,14 +218,14 @@ namespace IpharmWebAppProject.Controllers
             if (HttpContext.User == null || HttpContext.User.Claims == null || HttpContext.User.Claims.Count() == 0) //not logged in
                 return RedirectToAction("Login", "Users");
 
-                var order = await _context.Orders
+                var order = await _context.Orders.Include(r=>r.Products)
                 .FirstOrDefaultAsync(m => m.OrderId == id);
 
             if (order == null)
             {
                 return NotFound();
             }
-            ViewBag.listProducts = order.Products;
+            //ViewBag.listProducts = order.Products;
             if (HttpContext.User != null && HttpContext.User.Claims != null && HttpContext.User.Claims.Count() > 0
                 && (HttpContext.User.Claims.ElementAt(10).Value == "Manager" || HttpContext.User.Claims.ElementAt(1).Value == order.Email)) //logged in as manager or as user made
                     return View(order);
@@ -325,7 +328,14 @@ namespace IpharmWebAppProject.Controllers
         public async Task<IActionResult> Delete(int? id)
         {
             return RedirectToAction("NotFoundPage", "Home");
+            /*var review = await _context.Orders
+    .FirstOrDefaultAsync(m => m.OrderId == id);
+            if (review == null)
+            {
+                return NotFound();
+            }
 
+            return View(review);*/
         }
 
         // POST: Orders/Delete/5
