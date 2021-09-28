@@ -5,6 +5,7 @@
 }
 
 <head>
+    <link href="~/css/StyleSearchPage.css" rel="stylesheet" />
     @section scripts{
         <script>
             $(document).ready(function () {
@@ -37,6 +38,8 @@
                 <option value="3">Price Low to High</option>
                 <option value="4">Top Rated</option>
             </select>
+            <script>document.getElementById("sortby").selectedIndex =@(ViewBag.searchSort)</script>
+
         </div>
         <div class="col-2">
             <select id="genderby" class="form-select">
@@ -45,6 +48,7 @@
                 <option value="2">Men</option>
                 <option value="3">Unisex</option>
             </select>
+            <script>document.getElementById("genderby").selectedIndex =@(ViewBag.searchGender)</script>
         </div>
         <div class="col-2">
             <select id="categoryby" class="form-select">
@@ -53,6 +57,8 @@
                 <option value="2">Haircare</option>
                 <option value="3">Makeup</option>
             </select>
+            <script>document.getElementById("categoryby").selectedIndex =@(ViewBag.searchCategory)</script>
+
         </div>
         <div class="col-2">
             <select id="priceby" class="form-select">
@@ -62,6 +68,8 @@
                 <option value="4">50$-100$</option>
                 <option value="5">100$+</option>
             </select>
+            <script>document.getElementById("priceby").selectedIndex =@(ViewBag.searchPrice)</script>
+
         </div>
     </div>
 </div>
@@ -69,9 +77,9 @@
 <hr class="solid">
 @*<p style="text-align: center; margin-bottom: -40px;">@(Model.Count()) items found</p>*@
 
-<table class="table">
-    <thead>
-        <tr>
+<table class="table" id="products">
+    <thead >
+        <tr >
             <th>
 
             </th>
@@ -90,7 +98,7 @@
             <th>
                 @Html.DisplayNameFor(model => model.Rate)
             </th>
-            <th></th>
+            
         </tr>
     </thead>
     <tbody>
