@@ -50,8 +50,7 @@
     cursor: pointer;
     font-size: 20px;
     width: 49.4%;
-    border: 2px solid #F5F5F5;
-
+    border: 2px solid #d0cbcb;
 }
 
 
@@ -70,9 +69,9 @@
     border: 2px solid #ff8361;
 }
 
-.arv{
-    background: #d5a3e1;
-    border: 2px solid #d5a3e1;
+.arv {
+    background: #21d794;
+    border: 2px solid #21d794;
 }
 
 .fitted{

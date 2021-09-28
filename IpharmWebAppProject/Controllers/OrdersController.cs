@@ -222,7 +222,7 @@ namespace IpharmWebAppProject.Controllers
             {
                 return NotFound();
             }
-
+            ViewBag.listProducts = order.Products;
             if (HttpContext.User != null && HttpContext.User.Claims != null && HttpContext.User.Claims.Count() > 0
                 && (HttpContext.User.Claims.ElementAt(10).Value == "Manager" || HttpContext.User.Claims.ElementAt(1).Value == order.Email)) //logged in as manager or as user made
                     return View(order);

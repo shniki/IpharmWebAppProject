@@ -52,6 +52,13 @@
     </div>
 </form>
 
+<div class="titles">
+    @if (Context.User.Claims.ElementAt(10).Value == "Customer") //Customer
+    {
+        <h2>My last orders..</h2>
+    }
+
+</div>
 <hr class="solid">
 
 <div class="tiny-container">

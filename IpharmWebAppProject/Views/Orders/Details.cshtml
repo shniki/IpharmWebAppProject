@@ -4,39 +4,68 @@
     ViewData["Title"] = "Details";
 }
 
-<h1>Details</h1>
 
+<link rel="stylesheet" href="~/css/EditStyleSheet.css" />
+<link rel="stylesheet" href="~/css/StyleSearchPage.css" />
+
+<div class="titles">
+
+    <h3>Order Details</h3>
+
+
+</div>
+<hr class="solid">
 <div>
-    <h4>Order</h4>
-    <hr />
+
     <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Email)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Email)
-        </dd>
-        <dt class = "col-sm-2">
+        @if (Context.User.Claims.ElementAt(10).Value == "Manager") //Manager
+        {
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Email)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Email)
+            </dd>
+        }
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Status)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Status)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Price)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Price)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.OrderDate)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.OrderDate)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Products)
+        </dt>
+        <dd class="col-sm-10">
+
+            @*@foreach (var item in Model.Products)
+                {
+                    <ul>
+                        <li>
+                            <img src=@Html.DisplayFor(modelitem => item.Product.PicUrl1) width="100">
+                        </li>
+                    </ul>
+
+                }*@
+
         </dd>
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.OrderId">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    @*<a asp-action="Edit" asp-route-id="@Model.OrderId">Edit</a>*@
+    <a class="btn bt" asp-action="Index">
+        Back to List
+    </a>
 </div>

@@ -4,7 +4,7 @@
 /*the top bar*/
 
 body {
-    overflow: hidden; /* Hide horizontal scrollbar */
+    /*overflow: hidden;*/ /* Hide horizontal scrollbar */
 }
 
 main {
