@@ -234,9 +234,9 @@
     </section>
 }
 
-@*if (Context.User != null && Context.User.Claims != null && Context.User.Claims.Count() > 0
+@if (Context.User != null && Context.User.Claims != null && Context.User.Claims.Count() > 0
 && Context.User.Claims.ElementAt(10).Value == "Customer") //Customer
-{*@
+{
     <br />
     <hr />
     <section class="w3-center adding">
@@ -255,16 +255,23 @@
         <button onclick="Add()" class="btn bt edit">Submit</button>
     </section>
 
-<script>
-    var error = document.getElementById("r-error");
-    var title = document.getElementById("r-title");
-    var description = document.getElementById("r-description");
-    var rate = document.getElementById("r-rate");
+    <script>
 
-    function Add() {;
-        if (!title.val())
+    function Add() {
+        var error = document.getElementById("r-error");
+        var title = document.getElementById("r-title").value;
+        var description = document.getElementById("r-description").value;
+        var rate = document.getElementById("r-rate").value;
+        if (title == "" || description == "" || rate == "")
             error.style.display = "block";
-        else 
+        else {
             error.style.display = "none";
+            window.location.href = '/Reviews/Submitted?'
+                + 'id=' + @(Model.ProductId)
+                + '&title=' + title
+                + '&desc=' + description +
+                '&rate=' + rate;
+        }
     }
-</script>
+    </script>
+}
