@@ -39,6 +39,7 @@ namespace IpharmWebAppProject.Models
 
         //password
         [Required(ErrorMessage = "Password is required")]
+        [MinLength(5, ErrorMessage = "Your password is too short")]
         [DataType(DataType.Password, ErrorMessage = "Password isn't valid")]
         public string Password { get; set; }
 
