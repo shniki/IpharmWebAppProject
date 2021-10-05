@@ -21,8 +21,8 @@
     }
     updateTitle();
 
-    window.model = @(ViewBag.posts).replace(/&quot;/g, '"'); //api.post
-    window.posts = JSON.parse(window.model).statuses;
+    window.model = @(Html.Raw(Json.Serialize(Model)))//api.post
+    window.posts = JSON.parse(window.model.posts).statuses;
 
     for (let i = 0; i < (window.posts.length < 3 ? window.posts.length : 3); i++) {
         let text = window.posts[i].text;

@@ -24,8 +24,7 @@ namespace IpharmWebAppProject.Controllers
         public IActionResult Index()
         {
             API api = new API();
-            ViewBag.posts = api.posts;
-            return View();
+            return View(api);
         }
         //[Authorize]
         public IActionResult Privacy()
