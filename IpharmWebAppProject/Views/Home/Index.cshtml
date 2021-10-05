@@ -3,10 +3,17 @@
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <h1 id="title" class="display-4"></h1>
 </div>
 
 <script>
-    window.isNight = (new Date()).getHours() > (new Date((await(await fetch("https://api.sunrise-sunset.org/json?lat=32.0178&lng=34.8442&formatted=0")).json()).results.sunset)).getHours();
+    async function updateTitle() {
+        let hourNow = (new Date()).getHours();
+        let res = await fetch("https://api.sunrise-sunset.org/json?lat=32.0178&lng=34.8442&formatted=0");
+        let sunset = (await res.json()).results.sunset;
+        let sunsethour = (new Date(sunset)).getHours();
+        let title = hourNow > sunsethour ? 'Good Night' : 'Good Morning';
+        $('#title').text(title);
+    }
+    updateTitle();
 </script>

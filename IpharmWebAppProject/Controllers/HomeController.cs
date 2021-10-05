@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 
 namespace IpharmWebAppProject.Controllers
@@ -14,10 +15,29 @@ namespace IpharmWebAppProject.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly string _posts;
+
+        private string getPosts()
+        {
+            var url = "https://api.twitter.com/1.1/search/tweets.json?q=%23superbowl&result_type=recent";
+
+            var httpRequest = (HttpWebRequest)WebRequest.Create(url);
+
+            httpRequest.Headers["Authorization"] = "Bearer AAAAAAAAAAAAAAAAAAAAABWVUQEAAAAA3pjPn0RXe93LEdgfdW7f1JdHhbI%3DTtCR0sZtohOeFmmo20FuQeBaXWnp26tWTktL4ZA20ziM81e5VA";
+
+
+            var httpResponse = (HttpWebResponse)httpRequest.GetResponse();
+            using (var streamReader = new System.IO.StreamReader(httpResponse.GetResponseStream()))
+            {
+                var result = streamReader.ReadToEnd();
+                return result;
+            }
+        }
 
         public HomeController(ILogger<HomeController> logger)
         {
             _logger = logger;
+            _posts = getPosts();
         }
 
         public IActionResult Index()
