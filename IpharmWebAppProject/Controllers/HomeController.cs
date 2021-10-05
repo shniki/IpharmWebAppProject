@@ -19,11 +19,12 @@ namespace IpharmWebAppProject.Controllers
         public HomeController(ILogger<HomeController> logger)
         {
             _logger = logger;
-            API api = new API();
         }
 
         public IActionResult Index()
         {
+            API api = new API();
+            ViewBag.posts = api.posts;
             return View();
         }
         //[Authorize]
