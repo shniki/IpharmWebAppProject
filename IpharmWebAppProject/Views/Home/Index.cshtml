@@ -1,9 +1,13 @@
-﻿@{
+﻿@model IpharmWebAppProject.Models.API
+
+@{
     ViewData["Title"] = "Home Page";
 }
 
 <div class="text-center">
-    <h1 id="title" class="display-4"></h1>
+    <h1 id="title" class="display-4"></h1><br />
+    <h4>What people say about us:</h4>
+    <ul id="posts" class="list-group"></ul>
 </div>
 
 <script>
@@ -16,4 +20,12 @@
         $('#title').text(title);
     }
     updateTitle();
+
+    window.model = '{ "statuses": [ { "text": "test1" }, { "text": "test2" } ] }'; //@Html.Raw(Json.Serialize(Model));
+    window.posts = JSON.parse(window.model).statuses;
+
+    for (let i = 0; i < (window.posts.length < 3 ? window.posts.length : 3); i++) {
+        let text = window.posts[i].text;
+        $("#posts").append($(`<li class="list-group-item">${text}</li>`));
+    }
 </script>
