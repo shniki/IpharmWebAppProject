@@ -21,11 +21,18 @@
     }
     updateTitle();
 
-    window.model = @(Html.Raw(Json.Serialize(Model)))//api.post
-    window.posts = JSON.parse(window.model.posts).statuses;
+    function filterPosts(post) {
+        let regex = new RegExp("^[a-zA-Z]+$");
+        if (regex.test(post.text[0]))
+            return post.text;
+        return "";
+    }
+
+    window.model = @(Html.Raw(Json.Serialize(Model))); //api.post
+    window.posts = [...new Set(JSON.parse(window.model.posts).statuses.map(filterPosts))];
 
     for (let i = 0; i < (window.posts.length < 3 ? window.posts.length : 3); i++) {
-        let text = window.posts[i].text;
+        let text = window.posts[i];
         $("#posts").append($(`<li class="list-group-item">${text}</li>`));
     }
 </script>

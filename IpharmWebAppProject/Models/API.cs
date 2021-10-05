@@ -13,7 +13,7 @@ namespace IpharmWebAppProject.Models
 
         private string getPosts()
         {
-            var url = "https://api.twitter.com/1.1/search/tweets.json?q=%23pharm&result_type=recent";
+            var url = "https://api.twitter.com/1.1/search/tweets.json?q=pharm&result_type=recent";
 
             var httpRequest = (HttpWebRequest)WebRequest.Create(url);
 
