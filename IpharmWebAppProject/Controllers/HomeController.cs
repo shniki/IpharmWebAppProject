@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 
 namespace IpharmWebAppProject.Controllers
@@ -22,7 +23,8 @@ namespace IpharmWebAppProject.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            API api = new API();
+            return View(api);
         }
         //[Authorize]
         public IActionResult Privacy()

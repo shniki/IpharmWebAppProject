@@ -11,10 +11,10 @@
     margin-right:5px;
 }
 footer {
-   color: #3c3c3c;
-   height:25vh;
-  bottom:0px;
-   position:unset;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
 }
 
     footer p, footer a {

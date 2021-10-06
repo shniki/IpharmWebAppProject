@@ -1,8 +1,38 @@
-﻿@{
+﻿@model IpharmWebAppProject.Models.API
+
+@{
     ViewData["Title"] = "Home Page";
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <h1 id="title" class="display-4"></h1><br />
+    <h4>What people say about us:</h4>
+    <ul id="posts" class="list-group"></ul>
 </div>
+
+<script>
+    async function updateTitle() {
+        let hourNow = (new Date()).getHours();
+        let res = await fetch("https://api.sunrise-sunset.org/json?lat=32.0178&lng=34.8442&formatted=0");
+        let sunset = (await res.json()).results.sunset;
+        let sunsethour = (new Date(sunset)).getHours();
+        let title = hourNow > sunsethour ? 'Good Night' : 'Good Morning';
+        $('#title').text(title);
+    }
+    updateTitle();
+
+    function filterPosts(post) {
+        let regex = new RegExp("^[a-zA-Z]+$");
+        if (regex.test(post.text[0]))
+            return post.text;
+        return "";
+    }
+
+    window.model = @(Html.Raw(Json.Serialize(Model))); //api.post
+    window.posts = [...new Set(JSON.parse(window.model.posts).statuses.map(filterPosts))];
+
+    for (let i = 0; i < (window.posts.length < 3 ? window.posts.length : 3); i++) {
+        let text = window.posts[i];
+        $("#posts").append($(`<li class="list-group-item">${text}</li>`));
+    }
+</script>
