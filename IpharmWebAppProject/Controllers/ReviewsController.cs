@@ -101,6 +101,7 @@ namespace IpharmWebAppProject.Controllers
             return View(review);
         }
 
+        [HttpPost]
         public async Task<IActionResult> Submitted(int id, string title, string desc, int rate)
         {
             if (HttpContext.User != null && HttpContext.User.Claims != null && HttpContext.User.Claims.Count() > 0 && HttpContext.User.Claims.ElementAt(10).Value == "Customer")

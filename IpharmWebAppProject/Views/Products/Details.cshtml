@@ -266,11 +266,11 @@
             error.style.display = "block";
         else {
             error.style.display = "none";
-            window.location.href = '/Reviews/Submitted?'
+            fetch('/Reviews/Submitted?'
                 + 'id=' + @(Model.ProductId)
                 + '&title=' + title
                 + '&desc=' + description +
-                '&rate=' + rate;
+                '&rate=' + rate, { method: 'POST' }).then(() => location.reload());
         }
     }
     </script>
