@@ -5,9 +5,10 @@
 }
 <head>
     <meta charset="utf-8" />
-    <link rel="stylesheet" href="~/css/SignUp.css" />
+
     @{ ViewData["Title"] = "Login";
         Layout = "Login_layout"; }
+    <link rel="stylesheet" href="~/css/SignUp.css" />
 
 </head>
 
@@ -17,6 +18,7 @@
     </div>
     <form asp-action="Register">
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        
         <div class="user-details">
             <div class="input-box">
                 <span class="details">First Name</span>
@@ -71,17 +73,20 @@
 
         </div>
         <div class="button">
-            <input type="submit" value="Register" />
+            <input type="submit" value="Register" /><a asp-action="Register" asp-controller="Users"></a>
+
+            @if (ViewBag.Error != null)
+            {
+                <div class="text-danger">@ViewBag.Error</div>
+            }
         </div>
+       
+
     </form>
 
 </body>
            
-        @if(ViewBag.Error!=null)
-            {
-                <div class="text-danger">@ViewBag.Error</div>
-            }
- 
+      
 <div>
     <a asp-action="Login">Click here to login</a>
 </div>
