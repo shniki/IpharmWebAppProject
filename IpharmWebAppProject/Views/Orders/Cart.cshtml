@@ -13,11 +13,11 @@
 
             if (subtotal> 20) {
                 delivery.text('free');
-                total.text(subtotal +'$');
+                total.text((Math.floor(subtotal * 100) / 100).toFixed(2) + '$');
             }
             else {
                 delivery.text('5$');
-                var sum = parseFloat(subtotal) + 5;
+                var sum = (Math.floor(parseFloat(subtotal + 5) * 100) / 100).toFixed(2);
                 total.text(sum.toString() + '$');
             }
            

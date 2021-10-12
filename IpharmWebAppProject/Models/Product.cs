@@ -65,7 +65,7 @@ namespace IpharmWebAppProject.Models
 
         //activation
         [Required(ErrorMessage = "Stock is required")]
-        [Range(0, 999, ErrorMessage = "Stock range is between 0 to 999 items")]
+        [Range(1, 999, ErrorMessage = "Stock range is between 1 to 999 items")]
         public int Stock { get; set; } //>=0
 
         public bool Active { get; set; } = true;
