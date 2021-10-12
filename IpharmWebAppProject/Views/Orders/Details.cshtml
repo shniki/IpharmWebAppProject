@@ -50,14 +50,12 @@
 
             @foreach (var item in Model.Products.ToList())
                 {
-                    <ul>
-                        <li>
                             <a asp-controller="Products"
                                asp-action="Details"
                                asp-route-id="@item.ProductId"
-                               ><img src=@Html.DisplayFor(modelitem => item.Product.PicUrl1) width="100"></a>
-                        </li>
-                    </ul>
+                               ><img src=@Html.DisplayFor(modelitem => item.Product.PicUrl1) width="100">
+                            </a>
+                       
 
                 }
 
@@ -65,7 +63,7 @@
     </dl>
 </div>
 <div>
-    @*<a asp-action="Edit" asp-route-id="@Model.OrderId">Edit</a>*@
+ 
     <a class="btn bt" asp-action="Index">
         Back to List
     </a>

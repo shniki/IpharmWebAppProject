@@ -50,7 +50,7 @@ namespace IpharmWebAppProject.Models
 
         //adress
         [Required(ErrorMessage = "Postal code is required")]
-        [RegularExpression(@"\d{5}$",ErrorMessage ="potal code isn't valid")]
+        [RegularExpression(@"\d{7}$",ErrorMessage ="potal code isn't valid")]
         public string PostalCode { get; set; }
 
         [Required(ErrorMessage = "Country is required")]
