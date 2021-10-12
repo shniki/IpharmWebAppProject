@@ -5,16 +5,16 @@
 
 h1 {
     font-weight: bold;
-    margin: 0;
+    margin-top: 50px;
 }
 input[type="submit"] {
-    background: #FF416C;
+    background: #d5a3e1;
     border: 1px solid #FF4B2B;
-    margin-top:10px;
+    margin-top: 10px;
 }
 
     input[type="submit"]:hover {
-        background: #fc6084;
+        background: #ffc2df;
     }
 
     input[type="submit"]:active{
@@ -26,14 +26,14 @@ input[type="submit"] {
   
     .login {
         color: white;
-        margin: 20px 0;
+        margin: 10px 0;
         font-family: 'Poppins', sans-serif;
     }
     p{
         margin-top:40px;
     }
     .signup{
-        margin-bottom:8px;
+        margin-bottom:10px;
     }
 
 form {
@@ -52,7 +52,7 @@ form {
     height: 40px;
     width: 100%;
     background: rgba(255,255,255,0.94);
-    margin-top: 5px;
+    margin-top: 18px;
 }
 
     .form-group input {
@@ -92,8 +92,8 @@ form {
     overflow: hidden;
     width: 768px;
     max-width: 100%;
-    min-height: 480px;
-    margin-top:80px;
+    min-height: 450px;
+    margin-top: 80px;
 }
 
 .form-container {
@@ -150,8 +150,8 @@ form {
 
 .overlay {
     background: #FF416C;
-    background: -webkit-linear-gradient(to right, #FF4B2B, #FF416C);
-    background: linear-gradient(to right, #FF4B2B, #FF416C);
+    background: -webkit-linear-gradient(to right, #d5a3e1, #ffc2df);
+    background: linear-gradient(to right, #d5a3e1, #ffc2df);
     background-repeat: no-repeat;
     background-size: cover;
     background-position: 0 0;
