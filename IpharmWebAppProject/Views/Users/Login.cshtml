@@ -6,7 +6,7 @@
 
 <link rel="stylesheet" href="~/css/Login.css" />
 
-<div class="container" id="container">
+<div class="container2" id="container">
     <div class="form-container sign-in-container">
         
         <form asp-action="Login" asp-route-returnUrl='@Context.Request.Query["ReturnUrl"]' method="post" class="login_form" name="form">
@@ -30,7 +30,7 @@
                 }
             </div>
 
-            <div class="login">
+            <div class="reactivate">
                 <input type="submit" value="REACTIVATE" /><a asp-action="Reactivate" asp-controller="Users"></a>
             </div>
 

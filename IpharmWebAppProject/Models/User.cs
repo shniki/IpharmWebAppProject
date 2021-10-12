@@ -11,7 +11,8 @@ namespace IpharmWebAppProject.Models
     {
         [Key]
         [Required(ErrorMessage = "Email is required")]
-        [DataType(DataType.EmailAddress)]
+        [DataType(DataType.EmailAddress,ErrorMessage ="please enter a valid email")]
+      [RegularExpression("^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$", ErrorMessage ="Email is'nt valid")]
         public string Email { get; set; }
 
         //name
@@ -19,12 +20,14 @@ namespace IpharmWebAppProject.Models
         [DataType(DataType.Text)]
         [RegularExpression(@"^[a-zA-Z''-'\s]{1,40}$",
          ErrorMessage = "Characters are not allowed")]
+        [MinLength(2, ErrorMessage = "Name is'nt valid")]
         public string FirstName { get; set; }
 
         [Required(ErrorMessage = "Last name is required")]
         [DataType(DataType.Text)]
         [RegularExpression(@"^[a-zA-Z''-'\s]{1,40}$",
          ErrorMessage = "Characters are not allowed")]
+        [MinLength(2,ErrorMessage ="Name is'nt valid")]
         public string LastName { get; set; }
 
         //birthday
@@ -35,6 +38,8 @@ namespace IpharmWebAppProject.Models
         //mobile
         [Required(ErrorMessage = "Phone is required")]
         [DataType(DataType.PhoneNumber,ErrorMessage = "Phone isn't valid")]
+        [RegularExpression(@"^(\0 ? 1\s)?\(?\d{3}\)?[\s.-]\d{3}[\s.-]\d{ 4}$",
+         ErrorMessage = "Phone isn't valid")]
         public string Mobile { get; set; }
 
         //password
@@ -45,7 +50,7 @@ namespace IpharmWebAppProject.Models
 
         //adress
         [Required(ErrorMessage = "Postal code is required")]
-        [DataType(DataType.PostalCode, ErrorMessage = "Postal code isn't valid")]
+        [RegularExpression(@"\d{5}$",ErrorMessage ="potal code isn't valid")]
         public string PostalCode { get; set; }
 
         [Required(ErrorMessage = "Country is required")]
