@@ -171,7 +171,7 @@ namespace IpharmWebAppProject.Controllers
             {
                 return RedirectToAction("Index", "Home");
             }
-            var products = _context.Products.Where(c => c.Name.Contains(query));
+            var products = _context.Products.Where(c => c.Name.Contains(query)&&c.Active);
             var temp = products;
             if (sort != null && sort != "0" && sort != "1")
             {
@@ -187,16 +187,16 @@ namespace IpharmWebAppProject.Controllers
             {
                 switch (price)
                 {
-                    case "2":
+                    case "1":
                         products = temp.Where(p => (p.Price >= 0 && p.Price <= 25));
                         break;
-                    case "3":
+                    case "2":
                         products = temp.Where(p => (p.Price >= 25 && p.Price <= 50));
                         break;
-                    case "4":
+                    case "3":
                         products = temp.Where(p => (p.Price >= 50 && p.Price <= 100));
                         break;
-                    case "5":
+                    case "4":
                         products = temp.Where(p => (p.Price >= 100));
                         break;
                 }
@@ -244,6 +244,173 @@ namespace IpharmWebAppProject.Controllers
             return View(ret);
         }
 
+        public async Task<IActionResult> Category(string category, string sort = "0", string gender = "0", string price = "0")
+        {
+            ViewBag.sort = sort;
+            ViewBag.gender = gender;
+            ViewBag.category = category;
+            ViewBag.price = price;
+
+            if (category == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+            Categories categoryval = Categories.Skincare;
+            switch (category)
+            {
+                case "Skincare":
+                    categoryval = Categories.Skincare;
+                    break;
+                case "Haircare":
+                    categoryval = Categories.Haircare;
+                    break;
+                case "Makeup":
+                    categoryval = Categories.Makeup;
+                    break;
+            }
+
+            var products = _context.Products.Where(c => c.Category==categoryval &&c.Active);
+            var temp = products;
+            if (sort != null && sort != "0" && sort != "1")
+            {
+                switch (sort)
+                {
+                    case "2": products = from p in temp orderby p.Price descending select p; break;
+                    case "3": products = from p in temp orderby p.Price select p; break;
+                    case "4": products = from p in temp orderby p.Rate descending select p; break;
+                }
+                temp = products;
+            }
+            if (price != null && price != "0")
+            {
+                switch (price)
+                {
+                    case "1":
+                        products = temp.Where(p => (p.Price >= 0 && p.Price <= 25));
+                        break;
+                    case "2":
+                        products = temp.Where(p => (p.Price >= 25 && p.Price <= 50));
+                        break;
+                    case "3":
+                        products = temp.Where(p => (p.Price >= 50 && p.Price <= 100));
+                        break;
+                    case "4":
+                        products = temp.Where(p => (p.Price >= 100));
+                        break;
+                }
+                temp = products;
+            }
+            if (gender != null && gender != "0")
+            {
+                switch (gender)
+                {
+                    case "1":
+                        products = temp.Where(p => p.Gender == Genders.Women);
+                        break;
+                    case "2":
+                        products = temp.Where(p => p.Gender == Genders.Men);
+                        break;
+                    case "3":
+                        products = temp.Where(p => p.Gender == Genders.Unisex);
+                        break;
+
+                }
+                temp = products;
+            }
+
+            ViewBag.searchSort = sort;
+            ViewBag.searchGender = gender;
+            ViewBag.searchPrice = price;
+            ViewBag.searchCategory = category;
+            var ret = temp.ToList();
+            return View(ret);
+        }
+
+        public async Task<IActionResult> Brand(string brand, string sort = "0", string gender = "0", string category = "0", string price = "0")
+        {
+            ViewBag.brand = brand;
+            ViewBag.sort = sort;
+            ViewBag.gender = gender;
+            ViewBag.category = category;
+            ViewBag.price = price;
+
+            if (brand == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            var products = _context.Products.Where(c => c.Brand.Equals(brand) && c.Active);
+            var temp = products;
+            if (sort != null && sort != "0" && sort != "1")
+            {
+                switch (sort)
+                {
+                    case "2": products = from p in temp orderby p.Price descending select p; break;
+                    case "3": products = from p in temp orderby p.Price select p; break;
+                    case "4": products = from p in temp orderby p.Rate descending select p; break;
+                }
+                temp = products;
+            }
+            if (price != null && price != "0")
+            {
+                switch (price)
+                {
+                    case "1":
+                        products = temp.Where(p => (p.Price >= 0 && p.Price <= 25));
+                        break;
+                    case "2":
+                        products = temp.Where(p => (p.Price >= 25 && p.Price <= 50));
+                        break;
+                    case "3":
+                        products = temp.Where(p => (p.Price >= 50 && p.Price <= 100));
+                        break;
+                    case "4":
+                        products = temp.Where(p => (p.Price >= 100));
+                        break;
+                }
+                temp = products;
+            }
+            if (gender != null && gender != "0")
+            {
+                switch (gender)
+                {
+                    case "1":
+                        products = temp.Where(p => p.Gender == Genders.Women);
+                        break;
+                    case "2":
+                        products = temp.Where(p => p.Gender == Genders.Men);
+                        break;
+                    case "3":
+                        products = temp.Where(p => p.Gender == Genders.Unisex);
+                        break;
+
+                }
+                temp = products;
+            }
+            if (category != null && category != "0")
+            {
+                switch (category)
+                {
+                    case "1":
+                        products = temp.Where(p => p.Category == Categories.Skincare);
+                        break;
+                    case "2":
+                        products = temp.Where(p => p.Category == Categories.Haircare);
+                        break;
+                    case "3":
+                        products = temp.Where(p => p.Category == Categories.Makeup);
+                        break;
+
+                }
+                temp = products;
+            }
+            ViewBag.searchSort = sort;
+            ViewBag.searchGender = gender;
+            ViewBag.searchPrice = price;
+            ViewBag.searchCategory = category;
+            var ret = temp.ToList();
+            return View(ret);
+        }
 
 
         // POST: Products/Delete/5
