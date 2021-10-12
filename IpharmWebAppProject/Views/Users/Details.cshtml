@@ -27,34 +27,34 @@
             @Html.DisplayFor(model => model.Type)
         </dd>
     }
-        <dt class="col-sm-2">
-            Email:
-        </dt>
-        <dd class="col-10">
-            @Html.DisplayFor(model => model.Email)
-        </dd>
+    <dt class="col-sm-2">
+        Email:
+    </dt>
+    <dd class="col-10">
+        @Html.DisplayFor(model => model.Email)
+    </dd>
 
-        <dt class="col-sm-2">
-            Mobile:
-        </dt>
-        <dd class="col-10">
-            @Html.DisplayFor(model => model.Mobile)
-        </dd>
+    <dt class="col-sm-2">
+        Mobile:
+    </dt>
+    <dd class="col-10">
+        @Html.DisplayFor(model => model.Mobile)
+    </dd>
 
-        <dt class="col-sm-2">
-            Birthday:
-        </dt>
-        <dd class="col-sm-10">
-            @Model.Birthday.ToShortDateString()
-        </dd>
+    <dt class="col-sm-2">
+        Birthday:
+    </dt>
+    <dd class="col-sm-10">
+        @Model.Birthday.ToShortDateString()
+    </dd>
 
-        <dt class="col-sm-2">
-            Adress:
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Country), @Html.DisplayFor(model => model.City), @Html.DisplayFor(model => model.Adress),  @Html.DisplayFor(model => model.PostalCode)
-        </dd>
-    </dl>
+    <dt class="col-sm-2">
+        Adress:
+    </dt>
+    <dd class="col-sm-10">
+        @Html.DisplayFor(model => model.Country), @Html.DisplayFor(model => model.City), @Html.DisplayFor(model => model.Adress),  @Html.DisplayFor(model => model.PostalCode)
+    </dd>
+</dl>
 <div>
     @*<a asp-action="Edit" asp-route-id="@Model.OrderId">Edit</a>*@
     <a class="btn bt" asp-action="Index">
