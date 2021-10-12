@@ -12,12 +12,8 @@
 <div class="title-div">
     <a class="title-edit" style="        color: #F5F5F5;
         text-shadow: 2px 2px #face9e; margin-bottom:20px;
-    ">Personal Area</a>
+    ">@Html.DisplayFor(model => model.FirstName) @Html.DisplayFor(model => model.LastName)</a>
 </div>
-
-<h2>
-    @Html.DisplayFor(model => model.FirstName) @Html.DisplayFor(model => model.LastName)
-</h2>
 
 <dl class="row">
     <dt class="col-3">

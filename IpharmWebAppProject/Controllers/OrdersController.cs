@@ -220,7 +220,7 @@ namespace IpharmWebAppProject.Controllers
             if (HttpContext.User == null || HttpContext.User.Claims == null || HttpContext.User.Claims.Count() == 0) //not logged in
                 return RedirectToAction("Login", "Users");
 
-                var order = await _context.Orders.Include(r=>r.Products)
+                var order = await _context.Orders.Include(r=>r.Products).ThenInclude(p=>p.Product)
                 .FirstOrDefaultAsync(m => m.OrderId == id);
 
             if (order == null)

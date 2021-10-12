@@ -124,12 +124,12 @@
             </div>
 
             <nav class="top-nav">
-                <a id="new-a" href="#">New</a>
-                <a id="friends-a" href="#">FRIENDS COLLECTION</a>
+                <a id="new-a">New</a>
+                <a id="friends-a">FRIENDS COLLECTION</a>
                 <a id="brands-a" href="#">Brands</a>
-                <a id="skincare-a" href="#">Skincare</a>
-                <a id="haircare-a" href="#">Haircare</a>
-                <a id="makeup-a" href="#">Makeup</a>
+                <a asp-controller="Products" asp-action="Category" asp-route-category="Skincare" id="skincare-a">Skincare</a>
+                <a asp-controller="Products" asp-action="Category" asp-route-category="Haircare" id="haircare-a">Haircare</a>
+                <a asp-controller="Products" asp-action="Category" asp-route-category="Makeup"id ="makeup-a">Makeup</a>
             </nav>
         </div>
     </header>

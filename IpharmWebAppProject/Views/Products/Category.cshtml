@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<IpharmWebAppProject.Models.Product>
 
 @{
-    ViewData["Title"] = "Search";
+    ViewData["Title"] = ViewBag.searchCategory;
 }
 
 <head>
@@ -12,10 +12,9 @@
         <script>
             $(document).ready(function () {
                 $(".form-select").change(function () {
-                    window.location.href = 'Search?' + 'query=@ViewBag.query'
+                    window.location.href = 'Category?' + 'category=@ViewBag.searchCategory'
                         + '&sort=' + $("#sortby").val()
                         + '&gender=' + $("#genderby").val()
-                        + '&category=' + $("#categoryby").val()
                         + '&price=' + $("#priceby").val();
                 });
             });
@@ -24,10 +23,30 @@
 </head>
 
 <div class="title-div">
-    <a class="title-edit" style=" color: #F5F5F5;  margin-bottom:20px;">Search results for:  @ViewBag.query</a>
+    @if (ViewBag.searchCategory == "Skincare")
+    {
+    <a class="title-edit" style="text-shadow: 2px 2px #ffc2df;
+        color: #F5F5F5;
+        margin-bottom: 20px;">Skincare</a>
+    }
+    else
+    {
+        if (ViewBag.searchCategory == "Haircare")
+        {
+<a class="title-edit" style="text-shadow: 2px 2px #88e3e7;
+        color: #F5F5F5;
+        margin-bottom: 20px;">Haircare</a>
+        }
+        else //=="Makeup"
+        {
+        <a class="title-edit" style="text-shadow: 2px 2px #ede882;
+        color: #F5F5F5;
+        margin-bottom: 20px;">Makeup</a>
+    }
+}
 </div>
 
-<div class="tiny-container">
+<div class="tiny-container rowsmall">
     <div class="row">
         <div class="col-2">
             <select id="sortby" class="form-select">
@@ -50,16 +69,6 @@
             <script>document.getElementById("genderby").selectedIndex =@(ViewBag.searchGender)</script>
         </div>
         <div class="col-2">
-            <select id="categoryby" class="form-select">
-                <option value="0">Category</option>
-                <option value="1">Skincare</option>
-                <option value="2">Haircare</option>
-                <option value="3">Makeup</option>
-            </select>
-            <script>document.getElementById("categoryby").selectedIndex =@(ViewBag.searchCategory)</script>
-
-        </div>
-        <div class="col-2">
             <select id="priceby" class="form-select">
                 <option value="0">Price Range</option>
                 <option value="1">0$-25$</option>
@@ -79,16 +88,16 @@
     <div class="row">
         @foreach (var item in Model)
         {
-        <div onclick="Product(@(item.ProductId))" class="col-4 item">
-            <div class="img"><img src="@Html.DisplayFor(modelItem => item.PicUrl1)" /></div>
-            <div class="namep">
-                <p>@Html.DisplayFor(modelItem => item.Name)</p>
-                <div class="Stars" style="--rating: @(Html.DisplayFor(modelItem => item.Rate));"
-                     aria-label="Rating of this product is @(Html.DisplayFor(modelItem => item.Rate)) out of 5.">
+            <div onclick="Product(@(item.ProductId))" class="col-4 item">
+                <div class="img"><img src="@Html.DisplayFor(modelItem => item.PicUrl1)" /></div>
+                <div class="namep">
+                    <p>@Html.DisplayFor(modelItem => item.Name)</p>
+                    <div class="Stars" style="--rating: @(Html.DisplayFor(modelItem => item.Rate));"
+                         aria-label="Rating of this product is @(Html.DisplayFor(modelItem => item.Rate)) out of 5.">
+                    </div>
+                    <p>@Html.DisplayFor(modelItem => item.Price)$</p>
                 </div>
-                <p>@Html.DisplayFor(modelItem => item.Price)$</p>
             </div>
-        </div>
         }
     </div>
 </div>

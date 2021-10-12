@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<IpharmWebAppProject.Models.Product>
 
 @{
-    ViewData["Title"] = "Search";
+    ViewData["Title"] = ViewBag.brand;
 }
 
 <head>
@@ -12,7 +12,7 @@
         <script>
             $(document).ready(function () {
                 $(".form-select").change(function () {
-                    window.location.href = 'Search?' + 'query=@ViewBag.query'
+                    window.location.href = 'Brand?' + 'brand=@ViewBag.brand'
                         + '&sort=' + $("#sortby").val()
                         + '&gender=' + $("#genderby").val()
                         + '&category=' + $("#categoryby").val()
@@ -24,7 +24,9 @@
 </head>
 
 <div class="title-div">
-    <a class="title-edit" style=" color: #F5F5F5;  margin-bottom:20px;">Search results for:  @ViewBag.query</a>
+    <a class="title-edit" style="text-shadow: 2px 2px #aaeed5;
+        color: #F5F5F5;
+        margin-bottom: 20px;">@ViewBag.brand</a>
 </div>
 
 <div class="tiny-container">
@@ -79,16 +81,16 @@
     <div class="row">
         @foreach (var item in Model)
         {
-        <div onclick="Product(@(item.ProductId))" class="col-4 item">
-            <div class="img"><img src="@Html.DisplayFor(modelItem => item.PicUrl1)" /></div>
-            <div class="namep">
-                <p>@Html.DisplayFor(modelItem => item.Name)</p>
-                <div class="Stars" style="--rating: @(Html.DisplayFor(modelItem => item.Rate));"
-                     aria-label="Rating of this product is @(Html.DisplayFor(modelItem => item.Rate)) out of 5.">
+            <div onclick="Product(@(item.ProductId))" class="col-4 item">
+                <div class="img"><img src="@Html.DisplayFor(modelItem => item.PicUrl1)" /></div>
+                <div class="namep">
+                    <p>@Html.DisplayFor(modelItem => item.Name)</p>
+                    <div class="Stars" style="--rating: @(Html.DisplayFor(modelItem => item.Rate));"
+                         aria-label="Rating of this product is @(Html.DisplayFor(modelItem => item.Rate)) out of 5.">
+                    </div>
+                    <p>@Html.DisplayFor(modelItem => item.Price)$</p>
                 </div>
-                <p>@Html.DisplayFor(modelItem => item.Price)$</p>
             </div>
-        </div>
         }
     </div>
 </div>
