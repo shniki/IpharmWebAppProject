@@ -62,7 +62,7 @@
             </div>
             <div class="input-box">
                 <span class="details">Birthday</span>
-                <input type="date" max='@DateTime.Now.ToString("dd/MM/yyyy")' asp-for="Birthday" class="form-control" />
+                <input type="date" max='@DateTime.Now.ToString("yyyy-MM-dd")' asp-for="Birthday" class="form-control" />
                 <span asp-validation-for="Birthday" class="text-danger"></span>
             </div>
             <div class="input-box">

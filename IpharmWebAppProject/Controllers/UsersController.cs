@@ -183,6 +183,33 @@ namespace IpharmWebAppProject.Controllers
             return View(user);
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Reactivate([Bind("Email,Password")] User user, string returnUrl)
+        {
+
+            var q = from u in _context.Users
+                    where u.Email == user.Email && u.Password == user.Password && !user.Active
+                    select u;
+            if (q.Count() > 0)
+            {
+                // HttpContext.Session.SetString("Email", q.First().Email);
+                q.First().Active = true;
+                _context.Users.UpdateRange();
+                Signin(q.First());
+                if (!String.IsNullOrEmpty(returnUrl))
+                    return Redirect(returnUrl);
+                return RedirectToAction(nameof(Index), "Home");
+            }
+            else
+            {
+                ViewData["Error"] = "Username and/or password are incorrect";
+
+            }
+            return View(user);
+        }
+
+
         private async void Signin(User account)
         {
             List<User> list = _context.Users.ToList();

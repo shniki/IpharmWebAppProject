@@ -29,7 +29,11 @@
                     <div class="text-danger">@ViewBag.Error</div>
                 }
             </div>
-          
+
+            <div class="login">
+                <input type="submit" value="REACTIVATE" /><a asp-action="Reactivate" asp-controller="Users"></a>
+            </div>
+
             <div class="signup">
                 <p>  Don't have account? <a asp-action="Register" asp-controller="Users">Click Here</a> to register</p>
             </div>
