@@ -21,7 +21,6 @@ namespace IpharmWebAppProject.Models
         public string Name { get; set; }
 
         [Required(ErrorMessage = "Price is required")]
-        [DataType(DataType.Currency,ErrorMessage = "Price isn't valid")]
         [Range(0.01, 1000, ErrorMessage = "Price range is between 0$ to 1000$")]
         public float Price { get; set; } //$ >0
 

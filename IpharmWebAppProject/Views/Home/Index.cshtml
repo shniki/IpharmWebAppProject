@@ -29,7 +29,7 @@
     }
 
     window.model = @(Html.Raw(Json.Serialize(Model))); //api.post
-    window.posts = [...new Set(JSON.parse(window.model.posts).statuses.map(filterPosts))];
+    window.posts = [...new Set(JSON.parse(window.model.posts).statuses.map(filterPosts).filter((post) => post != ""))];
 
     for (let i = 0; i < (window.posts.length < 3 ? window.posts.length : 3); i++) {
         let text = window.posts[i];

@@ -4,6 +4,27 @@
     ViewData["Title"] = "Cart";
 }
 <link href="~/css/cart.css" rel="stylesheet" />
+<head>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var subtotal = parseFloat($('#sub').val());
+            var delivery = $('#basket-Delivery');
+            var total = $('#basket-total');
+
+            if (subtotal> 20) {
+                delivery.text('free');
+                total.text(subtotal +'$');
+            }
+            else {
+                delivery.text('5$');
+                var sum = parseFloat(subtotal) + 5;
+                total.text(sum.toString() + '$');
+            }
+           
+
+        });
+    </script>
+</head>
 
 <table class="table" id="products">
     <thead>
@@ -38,7 +59,7 @@
                     @Html.DisplayFor(modelItem => item.Product.Name)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Product.Price)
+                    @Html.DisplayFor(modelItem => item.Product.Price)$
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Amount)
@@ -68,15 +89,22 @@
         </div>
         <div class="summary-subtotal">
             <div class="subtotal-title">Subtotal</div>
-            <div class="subtotal-value final-value" id="basket-subtotal"> @Html.DisplayFor(modelItem => Model.Price)</div>
+            <div class="subtotal-value final-value" value="@(Model.Price)" id="basket-subtotal"> @Html.DisplayFor(modelItem => Model.Price)$</div>
+            <input id="sub" type="hidden" value="@(Model.Price)" />
             <div class="summary-promo hide">
 
             </div>
         </div>
+        <div class="summary-subtotal">
+            <div class="subtotal-title">Delivery</div>
+            <div class="subtotal-value final-value" id="basket-Delivery"> </div>
+            <div class="summary-promo hide">
 
+            </div>
+        </div>
         <div class="summary-total">
-            <div class="total-title">Total</div>
-            <div class="total-value final-value" id="basket-total">130.00</div>
+            <div class="total-title">TOTAL TO PAY</div>
+            <div class="total-value final-value" id="basket-total"></div>
         </div>
         <div class="summary-checkout">
             <a asp-controller="Orders" asp-action="Checkout" type="button" class="checkout-cta">Checkout</a>
