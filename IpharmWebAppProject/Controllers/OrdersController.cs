@@ -114,6 +114,8 @@ namespace IpharmWebAppProject.Controllers
 
             myOrder.Status = Status.Paid;
             myOrder.OrderDate = DateTime.Now;
+            if (myOrder.Price <= 20)
+                myOrder.Price = myOrder.Price + 5;
 
             _context.Orders.Update(myOrder);
             _context.Orders.Add(new Order { Email = HttpContext.User.Claims.ElementAt(1).Value, Price = 0, Status = Status.Cart, Products = new List<ProductInOrder>() });
