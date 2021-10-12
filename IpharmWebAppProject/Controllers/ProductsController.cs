@@ -412,6 +412,106 @@ namespace IpharmWebAppProject.Controllers
             return View(ret);
         }
 
+        public async Task<IActionResult> New(string sort = "0", string gender = "0", string category = "0", string price = "0")
+        {
+            ViewBag.sort = sort;
+            ViewBag.gender = gender;
+            ViewBag.category = category;
+            ViewBag.price = price;
+
+            var products = (from p in _context.Products where p.Active orderby p.ProductId descending select p).Take(9);
+            var temp = products;
+            if (sort != null && sort != "0" && sort != "1")
+            {
+                switch (sort)
+                {
+                    case "2": products = from p in temp orderby p.Price descending select p; break;
+                    case "3": products = from p in temp orderby p.Price select p; break;
+                    case "4": products = from p in temp orderby p.Rate descending select p; break;
+                }
+                temp = products;
+            }
+            if (price != null && price != "0")
+            {
+                switch (price)
+                {
+                    case "1":
+                        products = temp.Where(p => (p.Price >= 0 && p.Price <= 25));
+                        break;
+                    case "2":
+                        products = temp.Where(p => (p.Price >= 25 && p.Price <= 50));
+                        break;
+                    case "3":
+                        products = temp.Where(p => (p.Price >= 50 && p.Price <= 100));
+                        break;
+                    case "4":
+                        products = temp.Where(p => (p.Price >= 100));
+                        break;
+                }
+                temp = products;
+            }
+            if (gender != null && gender != "0")
+            {
+                switch (gender)
+                {
+                    case "1":
+                        products = temp.Where(p => p.Gender == Genders.Women);
+                        break;
+                    case "2":
+                        products = temp.Where(p => p.Gender == Genders.Men);
+                        break;
+                    case "3":
+                        products = temp.Where(p => p.Gender == Genders.Unisex);
+                        break;
+
+                }
+                temp = products;
+            }
+            if (category != null && category != "0")
+            {
+                switch (category)
+                {
+                    case "1":
+                        products = temp.Where(p => p.Category == Categories.Skincare);
+                        break;
+                    case "2":
+                        products = temp.Where(p => p.Category == Categories.Haircare);
+                        break;
+                    case "3":
+                        products = temp.Where(p => p.Category == Categories.Makeup);
+                        break;
+
+                }
+                temp = products;
+            }
+            ViewBag.searchSort = sort;
+            ViewBag.searchGender = gender;
+            ViewBag.searchPrice = price;
+            ViewBag.searchCategory = category;
+            var ret = temp.ToList();
+            return View(ret);
+        }
+
+        public async Task<IActionResult> FriendsCollection()
+        {
+            var products = _context.Products.Where(c => c.Name.Contains("friends") && c.Active).ToList();
+            return View(products);
+        }
+
+        public async Task<IActionResult> AllBrands()
+        {
+            var brands = (from prd in _context.Products
+                          where prd.Active
+                          group prd by prd.Brand into prdb
+                          select new { Brand = prdb.Key }).ToList();
+            List<String> ret = new List<string>();
+            foreach (var item in brands)
+            {
+                ret.Add(item.Brand);
+            }
+            return View(ret);
+        }
+
 
         // POST: Products/Delete/5
         [HttpPost, ActionName("Delete")]

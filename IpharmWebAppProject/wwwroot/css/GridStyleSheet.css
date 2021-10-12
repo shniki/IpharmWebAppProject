@@ -6,6 +6,7 @@
     /*box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);*/
     position: relative;
     margin: 20px auto;
+    cursor: pointer;
 }
 
 .rowsmall {
@@ -74,4 +75,23 @@
     font-family: 'Oswald', sans-serif;
     padding: 5px;
     margin-top: 360px;
+}
+
+/*friends font*/
+@font-face {
+    font-family: 'friends';
+    src: url('fonts/GABRWFFR.TTF');
+    font-style: normal;
+}
+
+.friends-title {
+    text-shadow: 2px 2px #d5a3e1;
+    color: #F5F5F5 !important;
+    font-family: friends;
+    margin-bottom: 20px;
+}
+
+#videoplayer{
+
+width:100%
 }

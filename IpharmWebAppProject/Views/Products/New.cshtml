@@ -1,0 +1,102 @@
+﻿@model IEnumerable<IpharmWebAppProject.Models.Product>
+
+@{
+    ViewData["Title"] = "New";
+}
+
+<head>
+    <link href="~/css/StyleSearchPage.css" rel="stylesheet" />
+    <link href="~/css/EditStyleSheet.css" rel="stylesheet" />
+    <link href="~/css/GridStyleSheet.css" rel="stylesheet" />
+    @section scripts{
+        <script>
+            $(document).ready(function () {
+                $(".form-select").change(function () {
+                    window.location.href = 'New?'
+                        + '&sort=' + $("#sortby").val()
+                        + '&gender=' + $("#genderby").val()
+                        + '&category=' + $("#categoryby").val()
+                        + '&price=' + $("#priceby").val();
+                });
+            });
+        </script>
+    }
+</head>
+
+<div class="title-div">
+    <a class="title-edit" style="        text-shadow: 2px 2px #face9e;
+        color: #F5F5F5;
+        margin-bottom: 20px;">New</a>
+    </div>
+
+    <div class="tiny-container">
+        <div class="row">
+            <div class="col-2">
+                <select id="sortby" class="form-select">
+                    <option value="0">Sort</option>
+                    <option value="1">Recommended</option>
+                    <option value="2">Price High to Low</option>
+                    <option value="3">Price Low to High</option>
+                    <option value="4">Top Rated</option>
+                </select>
+                <script>document.getElementById("sortby").selectedIndex =@(ViewBag.searchSort)</script>
+
+            </div>
+            <div class="col-2">
+                <select id="genderby" class="form-select">
+                    <option value="0">Gender</option>
+                    <option value="1">Women</option>
+                    <option value="2">Men</option>
+                    <option value="3">Unisex</option>
+                </select>
+                <script>document.getElementById("genderby").selectedIndex =@(ViewBag.searchGender)</script>
+            </div>
+            <div class="col-2">
+                <select id="categoryby" class="form-select">
+                    <option value="0">Category</option>
+                    <option value="1">Skincare</option>
+                    <option value="2">Haircare</option>
+                    <option value="3">Makeup</option>
+                </select>
+                <script>document.getElementById("categoryby").selectedIndex =@(ViewBag.searchCategory)</script>
+
+            </div>
+            <div class="col-2">
+                <select id="priceby" class="form-select">
+                    <option value="0">Price Range</option>
+                    <option value="1">0$-25$</option>
+                    <option value="2">25$-50$</option>
+                    <option value="3">50$-100$</option>
+                    <option value="4">100$+</option>
+                </select>
+                <script>document.getElementById("priceby").selectedIndex =@(ViewBag.searchPrice)</script>
+
+            </div>
+        </div>
+    </div>
+
+    @*<p style="text-align: center; margin-bottom: -40px;">@(Model.Count()) items found</p>*@
+
+    <div class="small-container">
+        <div class="row">
+            @foreach (var item in Model)
+            {
+                <div onclick="Product(@(item.ProductId))" class="col-4 item">
+                    <div class="img"><img src="@Html.DisplayFor(modelItem => item.PicUrl1)" /></div>
+                    <div class="namep">
+                        <p>@Html.DisplayFor(modelItem => item.Name)</p>
+                        <div class="Stars" style="--rating: @(Html.DisplayFor(modelItem => item.Rate));"
+                             aria-label="Rating of this product is @(Html.DisplayFor(modelItem => item.Rate)) out of 5.">
+                        </div>
+                        <p>@Html.DisplayFor(modelItem => item.Price)$</p>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+
+    <script>
+    function Product(id) {
+        window.location.href = 'Details/' + id;
+    }
+    </script>

@@ -124,9 +124,9 @@
             </div>
 
             <nav class="top-nav">
-                <a id="new-a">New</a>
-                <a id="friends-a">FRIENDS COLLECTION</a>
-                <a id="brands-a" href="#">Brands</a>
+                <a asp-controller="Products" asp-action="New" id="new-a">New</a>
+                <a asp-controller="Products" asp-action="FriendsCollection" id="friends-a">FRIENDS COLLECTION</a>
+                <a asp-controller="Products" asp-action="AllBrands" id="brands-a">Brands</a>
                 <a asp-controller="Products" asp-action="Category" asp-route-category="Skincare" id="skincare-a">Skincare</a>
                 <a asp-controller="Products" asp-action="Category" asp-route-category="Haircare" id="haircare-a">Haircare</a>
                 <a asp-controller="Products" asp-action="Category" asp-route-category="Makeup"id ="makeup-a">Makeup</a>
@@ -137,11 +137,14 @@
     <div class="container">
         <main role="main">
             @RenderBody()
+            <br /><br />
+            <br /><br />
+            <br /><br />
         </main>
     </div>
 
 
-    <footer class="container-fluid bg-grey py-5 ">
+   @* <footer class="container-fluid bg-grey py-5 ">
         <div class="container">
             <div class="row">
                 <div class="col-md-6">
@@ -200,14 +203,13 @@
                                     </svg>
                                 </a>
                             </p>-->
-                            @*<img src="~/img/Logo .png" class="w-50 logo-footer">*@
                         </div>
                     </div>
                 </div>
             </div>
         </div>
 
-    </footer>
+    </footer>*@
                   
                             <script src="~/lib/jquery/dist/jquery.min.js"></script>
                             <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>

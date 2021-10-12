@@ -1,0 +1,22 @@
+﻿@model List<String>
+
+@{
+    ViewData["Title"] = "All Brands";
+}
+
+<head>
+    <link href="~/css/EditStyleSheet.css" rel="stylesheet" />
+</head>
+
+<div class="title-div">
+    <a class="title-edit" style="        text-shadow: 2px 2px #aaeed5;
+        color: #F5F5F5;
+        margin-bottom: 20px;">Brands</a>
+</div>
+
+<div class="brandslist">
+    @foreach (var item in Model)
+    {
+        <p><a class="brandnames" asp-action="Brand" asp-route-brand="@item">@item</a></p>
+    }
+</div>

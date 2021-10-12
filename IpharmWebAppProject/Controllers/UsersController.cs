@@ -296,6 +296,8 @@ namespace IpharmWebAppProject.Controllers
                         throw;
                     }
                 }
+                if (!user.Active)
+                    return RedirectToAction("Logout");
                 return RedirectToAction("PersonalArea");
             }
             return View(user);

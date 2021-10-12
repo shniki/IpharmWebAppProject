@@ -1,0 +1,43 @@
+﻿@model IEnumerable<IpharmWebAppProject.Models.Product>
+
+@{
+    ViewData["Title"] = "Friends Collection";
+}
+
+<head>
+    <link href="~/css/StyleSearchPage.css" rel="stylesheet" />
+    <link href="~/css/EditStyleSheet.css" rel="stylesheet" />
+    <link href="~/css/GridStyleSheet.css" rel="stylesheet" />
+</head>
+
+<div class="title-div">
+    <a class="title-edit friends-title">Friends Collection</a>
+</div>
+
+<video id="videoplayer" src="@Url.Content("~/video/friends theme song.mp4")" controls loop></video>
+
+@*<p style="text-align: center; margin-bottom: -40px;">@(Model.Count()) items found</p>*@
+
+<div class="small-container">
+    <div class="row">
+        @foreach (var item in Model)
+        {
+            <div onclick="Product(@(item.ProductId))" class="col-4 item">
+                <div class="img"><img src="@Html.DisplayFor(modelItem => item.PicUrl1)" /></div>
+                <div class="namep">
+                    <p>@Html.DisplayFor(modelItem => item.Name)</p>
+                    <div class="Stars" style="--rating: @(Html.DisplayFor(modelItem => item.Rate));"
+                         aria-label="Rating of this product is @(Html.DisplayFor(modelItem => item.Rate)) out of 5.">
+                    </div>
+                    <p>@Html.DisplayFor(modelItem => item.Price)$</p>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+<script>
+    function Product(id) {
+        window.location.href = 'Details/' + id;
+    }
+</script>
