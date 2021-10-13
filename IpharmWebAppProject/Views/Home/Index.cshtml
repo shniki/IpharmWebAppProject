@@ -10,17 +10,6 @@
 
 <div class="text-center">
     <h1 id="title" class="display-4"></h1><br />
-                                          <section class="gallery">
-                                              <div class="container">
-                                                  <div class="grid">
-                                                      <div class="column-xs-12 column-md-4">
-                                                          <figure class="img-container">
-                                                              <img src="https://images.unsplash.com/photo-1617778368431-f97343a411ac?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=774&q=80" />
-                                                          </figure>
-                                                      </div>
-                                                  </div>
-                                              </div>
-                                          </section>
 
     <h4 id="twitter-title">What people say about us:</h4>
     <ul id="posts" class="list-group"></ul>
@@ -48,7 +37,7 @@
     window.model = @(Html.Raw(Json.Serialize(Model))); //api.post
     window.posts = [...new Set(JSON.parse(window.model.posts).statuses.map(filterPosts).filter((post) => post != ""))];
 
-    for (let i = 0; i < (window.posts.length < 6 ? window.posts.length : 6); i++) {
+    for (let i = 0; i < (window.posts.length < 4 ? window.posts.length : 4); i++) {
         let text = window.posts[i];
         $("#posts").append($(`<li class="list-group-item"><i class="fab fa-twitter"></i>    ${text}</li>`));
     }
