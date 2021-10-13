@@ -14,9 +14,12 @@
     async function updateTitle() {
         let hourNow = (new Date()).getHours();
         let res = await fetch("https://api.sunrise-sunset.org/json?lat=32.0178&lng=34.8442&formatted=0");
-        let sunset = (await res.json()).results.sunset;
+        let results = (await res.json()).results;
+        let sunrise = results.sunrise;
+        let sunrisehour = (new Date(sunrise)).getHours();
+        let sunset = results.sunset;
         let sunsethour = (new Date(sunset)).getHours();
-        let title = hourNow > sunsethour ? 'Good Night' : 'Good Morning';
+        let title = (hourNow > sunsethour && hourNow < sunrisehour) ? '🌙 Good Night' : '☀️ Good Morning';
         $('#title').text(title);
     }
     updateTitle();

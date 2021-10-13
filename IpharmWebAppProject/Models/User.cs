@@ -37,8 +37,9 @@ namespace IpharmWebAppProject.Models
 
         //mobile
         [Required(ErrorMessage = "Mobile is required")]
-        //[DataType(DataType.PhoneNumber,ErrorMessage = "Mobile isn't valid")]
-        //[RegularExpression(@"^(\0 ? 1\s)?\(?\d{3}\)?[\s.-]\d{3}[\s.-]\d{ 4}$",ErrorMessage = "Mobile isn't valid")]
+        [MinLength(10, ErrorMessage = "Mobile isn't valid")]
+        [DataType(DataType.PhoneNumber,ErrorMessage = "Mobile isn't valid")]
+        [RegularExpression(@"^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$", ErrorMessage = "Mobile isn't valid")]
         public string Mobile { get; set; }
 
         //password
