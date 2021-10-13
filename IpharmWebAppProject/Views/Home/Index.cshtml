@@ -31,11 +31,9 @@
         let hourNow = (new Date()).getHours();
         let res = await fetch("https://api.sunrise-sunset.org/json?lat=32.0178&lng=34.8442&formatted=0");
         let results = (await res.json()).results;
-        let sunrise = results.sunrise;
-        let sunrisehour = (new Date(sunrise)).getHours();
-        let sunset = results.sunset;
-        let sunsethour = (new Date(sunset)).getHours();
-        let title = (hourNow > sunsethour && hourNow < sunrisehour) ? 'Good Night from iPharm' : 'Good Morning from iPharm';
+        let sunrisehour = (new Date(results.sunrise)).getHours();
+        let sunsethour = (new Date(results.sunset)).getHours();
+        let title = (hourNow > sunrisehour && hourNow < sunsethour) ? 'Good Morning from iPharm' : 'Good Night from iPharm';
         $('#title').text(title);
     }
     updateTitle();
@@ -50,7 +48,7 @@
     window.model = @(Html.Raw(Json.Serialize(Model))); //api.post
     window.posts = [...new Set(JSON.parse(window.model.posts).statuses.map(filterPosts).filter((post) => post != ""))];
 
-    for (let i = 0; i < (window.posts.length < 3 ? window.posts.length : 3); i++) {
+    for (let i = 0; i < (window.posts.length < 6 ? window.posts.length : 6); i++) {
         let text = window.posts[i];
         $("#posts").append($(`<li class="list-group-item"><i class="fab fa-twitter"></i>    ${text}</li>`));
     }
