@@ -35,7 +35,11 @@ input[type="submit"] {
     .signup{
         margin-bottom:10px;
     }
+    .reactivate{
+        color:#222;
+        text-align: center;
 
+    }
 form {
     background-color: #FFFFFF;
     display: flex;
