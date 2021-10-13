@@ -33,7 +33,7 @@ namespace IpharmWebAppProject.Controllers
 
             if (HttpContext.User != null && HttpContext.User.Claims != null && HttpContext.User.Claims.Count() > 0
                 && HttpContext.User.Claims.ElementAt(10).Value == "Manager") //logged in as manager
-                return NotFound();
+                return RedirectToAction("Index", "Home");
 
             //find user's cart in orders
             var mywishlist = _context.WishLists.Include(wl => wl.Products).ThenInclude(p=>p.Product)
@@ -129,7 +129,7 @@ namespace IpharmWebAppProject.Controllers
         {
             if (id != wishList.Email)
             {
-                return NotFound();
+                return RedirectToAction("NotFoundPage", "Home");
             }
 
             if (ModelState.IsValid)
@@ -143,7 +143,7 @@ namespace IpharmWebAppProject.Controllers
                 {
                     if (!WishListExists(wishList.Email))
                     {
-                        return NotFound();
+                        return RedirectToAction("NotFoundPage", "Home");
                     }
                     else
                     {

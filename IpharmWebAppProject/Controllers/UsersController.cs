@@ -57,14 +57,15 @@ namespace IpharmWebAppProject.Controllers
         {
             if (id == null)
             {
-                return NotFound();
+                return RedirectToAction("NotFoundPage", "Home");
             }
 
             var user = await _context.Users
                 .FirstOrDefaultAsync(m => m.Email == id);
             if (user == null)
             {
-                return NotFound();
+                return RedirectToAction("NotFoundPage", "Home");
+
             }
 
             return View(user);
@@ -84,7 +85,8 @@ namespace IpharmWebAppProject.Controllers
 
             if (user == null)
             {
-                return NotFound();
+                return RedirectToAction("NotFoundPage", "Home");
+
             }
 
             return View(user);
@@ -280,7 +282,7 @@ namespace IpharmWebAppProject.Controllers
             var user = await _context.Users.FindAsync(HttpContext.User.Claims.ElementAt(1).Value);
             if (user == null)
             {
-                return NotFound();
+                return RedirectToAction("NotFoundPage", "Home");
             }
             return View(user);
         }
@@ -294,7 +296,7 @@ namespace IpharmWebAppProject.Controllers
         {
             if (id != user.Email)
             {
-                return NotFound();
+                return RedirectToAction("NotFoundPage", "Home");
             }
 
             if (ModelState.IsValid)

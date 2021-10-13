@@ -51,14 +51,14 @@ namespace IpharmWebAppProject.Controllers
         {
             if (id == null)
             {
-                return NotFound();
+                return RedirectToAction("NotFoundPage", "Home");
             }
 
             var product = await _context.Products.Include(r => r.Reviews)
                 .FirstOrDefaultAsync(m => m.ProductId == id && m.Active);
             if (product == null)
             {
-                return NotFound();
+                return RedirectToAction("NotFoundPage", "Home");
             }
 
             return View(product);
@@ -95,7 +95,7 @@ namespace IpharmWebAppProject.Controllers
         {
             if (id == null)
             {
-                return NotFound();
+                return RedirectToAction("NotFoundPage", "Home");
             }
 
             //ViewBag.brands = await _context.Products.GroupBy(p => p.Brand).Select(g => g.Key).ToListAsync();
@@ -104,7 +104,7 @@ namespace IpharmWebAppProject.Controllers
             var product = await _context.Products.FindAsync(id);
             if (product == null)
             {
-                return NotFound();
+                return RedirectToAction("NotFoundPage", "Home");
             }
             return View(product);
         }
@@ -118,7 +118,7 @@ namespace IpharmWebAppProject.Controllers
         {
             if (id != product.ProductId)
             {
-                return NotFound();
+                return RedirectToAction("NotFoundPage", "Home");
             }
 
             if (ModelState.IsValid)
@@ -132,7 +132,7 @@ namespace IpharmWebAppProject.Controllers
                 {
                     if (!ProductExists(product.ProductId))
                     {
-                        return NotFound();
+                        return RedirectToAction("NotFoundPage", "Home");
                     }
                     else
                     {
@@ -149,14 +149,14 @@ namespace IpharmWebAppProject.Controllers
         {
             if (id == null)
             {
-                return NotFound();
+                return RedirectToAction("NotFoundPage", "Home");
             }
 
             var product = await _context.Products
                 .FirstOrDefaultAsync(m => m.ProductId == id);
             if (product == null)
             {
-                return NotFound();
+                return RedirectToAction("NotFoundPage", "Home");
             }
 
             return View(product);
@@ -255,7 +255,7 @@ namespace IpharmWebAppProject.Controllers
 
             if (category == null)
             {
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("NotFoundPage", "Home");
             }
 
             Categories categoryval = Categories.Skincare;
@@ -339,7 +339,7 @@ namespace IpharmWebAppProject.Controllers
 
             if (brand == null)
             {
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("NotFoundPage", "Home");
             }
             var products = _context.Products.Where(c => c.Brand.Equals(brand) && c.Active);
             var temp = products;
@@ -539,7 +539,7 @@ namespace IpharmWebAppProject.Controllers
 
             if (HttpContext.User != null && HttpContext.User.Claims != null && HttpContext.User.Claims.Count() > 0
                 && HttpContext.User.Claims.ElementAt(10).Value == "Customer") //logged in as customer
-                return NotFound();
+                return RedirectToAction("Index", "Home");
 
             //statistic 1 - profit each month
             ICollection<Stat> statistic1 = new Collection<Stat>();

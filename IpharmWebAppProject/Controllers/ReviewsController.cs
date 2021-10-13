@@ -27,7 +27,7 @@ namespace IpharmWebAppProject.Controllers
 
             if (HttpContext.User != null && HttpContext.User.Claims != null && HttpContext.User.Claims.Count() > 0
                 && HttpContext.User.Claims.ElementAt(10).Value == "Manager") //logged in as manager
-                return NotFound();
+                return RedirectToAction("Index", "Home");
 
             var rev = _context.Reviews.Where(p => p.UserEmail == HttpContext.User.Claims.ElementAt(1).Value).ToList();
             return View(rev);
@@ -56,14 +56,14 @@ namespace IpharmWebAppProject.Controllers
         {
             if (id == null)
             {
-                return NotFound();
+                return RedirectToAction("NotFoundPage", "Home");
             }
 
             var review = await _context.Reviews
                 .FirstOrDefaultAsync(m => m.ReviewId == id);
             if (review == null)
             {
-                return NotFound();
+                return RedirectToAction("NotFoundPage", "Home");
             }
 
             return View(review);
@@ -138,13 +138,13 @@ namespace IpharmWebAppProject.Controllers
         {
             if (id == null)
             {
-                return NotFound();
+                return RedirectToAction("NotFoundPage", "Home");
             }
 
             var review = await _context.Reviews.FindAsync(id);
             if (review == null)
             {
-                return NotFound();
+                return RedirectToAction("NotFoundPage", "Home");
             }
             return View(review);
         }
@@ -158,7 +158,7 @@ namespace IpharmWebAppProject.Controllers
         {
             if (id != review.ReviewId)
             {
-                return NotFound();
+                return RedirectToAction("NotFoundPage", "Home");
             }
 
             if (ModelState.IsValid)
@@ -172,7 +172,7 @@ namespace IpharmWebAppProject.Controllers
                 {
                     if (!ReviewExists(review.ReviewId))
                     {
-                        return NotFound();
+                        return RedirectToAction("NotFoundPage", "Home");
                     }
                     else
                     {
@@ -189,14 +189,14 @@ namespace IpharmWebAppProject.Controllers
         {
             if (id == null)
             {
-                return NotFound();
+                return RedirectToAction("NotFoundPage", "Home");
             }
 
             var review = await _context.Reviews
                 .FirstOrDefaultAsync(m => m.ReviewId == id);
             if (review == null)
             {
-                return NotFound();
+                return RedirectToAction("NotFoundPage", "Home");
             }
 
             return View(review);

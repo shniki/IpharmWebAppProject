@@ -108,7 +108,7 @@ namespace IpharmWebAppProject.Controllers
 
             if (HttpContext.User != null && HttpContext.User.Claims != null && HttpContext.User.Claims.Count() > 0
                 && HttpContext.User.Claims.ElementAt(10).Value == "Manager") //logged in as manager
-                return NotFound();
+                  return RedirectToAction(nameof(Index), "Home");
 
             var myOrder = await _context.Orders.Where(o => o.Email == HttpContext.User.Claims.ElementAt(1).Value && o.Status == Status.Cart).FirstOrDefaultAsync();
 
@@ -132,7 +132,7 @@ namespace IpharmWebAppProject.Controllers
 
             if (HttpContext.User != null && HttpContext.User.Claims != null && HttpContext.User.Claims.Count() > 0
                 && HttpContext.User.Claims.ElementAt(10).Value=="Manager") //logged in as manager
-                return NotFound();
+                return RedirectToAction(nameof(Index), "Home");
 
             //find user's cart in orders
             var mycart = _context.Orders.Include(o => o.Products).ThenInclude(p=>p.Product)
@@ -217,7 +217,7 @@ namespace IpharmWebAppProject.Controllers
         {
             if (id == null)
             {
-                return NotFound();
+                return RedirectToAction("NotFoundPage", "Home");
             }
             if (HttpContext.User == null || HttpContext.User.Claims == null || HttpContext.User.Claims.Count() == 0) //not logged in
                 return RedirectToAction("Login", "Users");
@@ -227,14 +227,14 @@ namespace IpharmWebAppProject.Controllers
 
             if (order == null)
             {
-                return NotFound();
+                return RedirectToAction("NotFoundPage", "Home");
             }
             //ViewBag.listProducts = order.Products;
             if (HttpContext.User != null && HttpContext.User.Claims != null && HttpContext.User.Claims.Count() > 0
                 && (HttpContext.User.Claims.ElementAt(10).Value == "Manager" || HttpContext.User.Claims.ElementAt(1).Value == order.Email)) //logged in as manager or as user made
                     return View(order);
 
-            return NotFound();
+            return RedirectToAction("NotFoundPage", "Home");
         }
 
         // GET: Orders/Create
@@ -304,7 +304,7 @@ namespace IpharmWebAppProject.Controllers
         //update status
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Arrived(int id)
+        public async Task<IActionResult> Arrived(int? id)
         {
 
             if (id == null)
@@ -333,10 +333,10 @@ namespace IpharmWebAppProject.Controllers
         {
             //return RedirectToAction("NotFoundPage", "Home");
             var review = await _context.Orders
-    .FirstOrDefaultAsync(m => m.OrderId == id);
+             .FirstOrDefaultAsync(m => m.OrderId == id);
             if (review == null)
             {
-                return NotFound();
+                return RedirectToAction("NotFoundPage", "Home");
             }
 
             return View(review);

@@ -31,7 +31,7 @@ namespace IpharmWebAppProject.Controllers
         {
             if (id == null)
             {
-                return NotFound();
+                return RedirectToAction("NotFoundPage", "Home");
             }
 
             var productInOrder = await _context.ProductInOrders
@@ -40,7 +40,7 @@ namespace IpharmWebAppProject.Controllers
                 .FirstOrDefaultAsync(m => m.ProductInOrderId == id);
             if (productInOrder == null)
             {
-                return NotFound();
+                return RedirectToAction("NotFoundPage", "Home");
             }
 
             return View(productInOrder);
@@ -77,13 +77,13 @@ namespace IpharmWebAppProject.Controllers
         {
             if (id == null)
             {
-                return NotFound();
+                return RedirectToAction("NotFoundPage", "Home");
             }
 
             var productInOrder = await _context.ProductInOrders.FindAsync(id);
             if (productInOrder == null)
             {
-                return NotFound();
+                return RedirectToAction("NotFoundPage", "Home");
             }
             ViewData["OrderId"] = new SelectList(_context.Orders, "OrderId", "OrderId", productInOrder.OrderId);
             ViewData["ProductId"] = new SelectList(_context.Products, "ProductId", "ProductId", productInOrder.ProductId);
@@ -99,7 +99,7 @@ namespace IpharmWebAppProject.Controllers
         {
             if (id != productInOrder.ProductInOrderId)
             {
-                return NotFound();
+                return RedirectToAction("NotFoundPage", "Home");
             }
 
             if (ModelState.IsValid)
@@ -113,7 +113,7 @@ namespace IpharmWebAppProject.Controllers
                 {
                     if (!ProductInOrderExists(productInOrder.ProductInOrderId))
                     {
-                        return NotFound();
+                        return RedirectToAction("NotFoundPage", "Home");
                     }
                     else
                     {
@@ -132,7 +132,7 @@ namespace IpharmWebAppProject.Controllers
         {
             if (id == null)
             {
-                return NotFound();
+                return RedirectToAction("NotFoundPage", "Home");
             }
 
             var productInOrder = await _context.ProductInOrders
@@ -141,7 +141,7 @@ namespace IpharmWebAppProject.Controllers
                 .FirstOrDefaultAsync(m => m.ProductInOrderId == id);
             if (productInOrder == null)
             {
-                return NotFound();
+                return RedirectToAction("NotFoundPage", "Home");
             }
 
             return View(productInOrder);

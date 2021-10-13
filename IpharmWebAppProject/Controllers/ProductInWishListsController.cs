@@ -31,7 +31,7 @@ namespace IpharmWebAppProject.Controllers
         {
             if (id == null)
             {
-                return NotFound();
+                return RedirectToAction("NotFoundPage", "Home");
             }
 
             var productInWishList = await _context.ProductInWishLists
@@ -39,7 +39,7 @@ namespace IpharmWebAppProject.Controllers
                 .FirstOrDefaultAsync(m => m.ProductInWishListId == id);
             if (productInWishList == null)
             {
-                return NotFound();
+                return RedirectToAction("NotFoundPage", "Home");
             }
 
             return View(productInWishList);
@@ -74,13 +74,13 @@ namespace IpharmWebAppProject.Controllers
         {
             if (id == null)
             {
-                return NotFound();
+                return RedirectToAction("NotFoundPage", "Home");
             }
 
             var productInWishList = await _context.ProductInWishLists.FindAsync(id);
             if (productInWishList == null)
             {
-                return NotFound();
+                return RedirectToAction("NotFoundPage", "Home");
             }
             ViewData["ProductId"] = new SelectList(_context.Products, "ProductId", "ProductId", productInWishList.ProductId);
             return View(productInWishList);
@@ -95,7 +95,7 @@ namespace IpharmWebAppProject.Controllers
         {
             if (id != productInWishList.ProductInWishListId)
             {
-                return NotFound();
+                return RedirectToAction("NotFoundPage", "Home");
             }
 
             if (ModelState.IsValid)
@@ -109,7 +109,7 @@ namespace IpharmWebAppProject.Controllers
                 {
                     if (!ProductInWishListExists(productInWishList.ProductInWishListId))
                     {
-                        return NotFound();
+                        return RedirectToAction("NotFoundPage", "Home");
                     }
                     else
                     {
@@ -127,7 +127,7 @@ namespace IpharmWebAppProject.Controllers
         {
             if (id == null)
             {
-                return NotFound();
+                return RedirectToAction("NotFoundPage", "Home");
             }
 
             var productInWishList = await _context.ProductInWishLists
@@ -135,7 +135,7 @@ namespace IpharmWebAppProject.Controllers
                 .FirstOrDefaultAsync(m => m.ProductInWishListId == id);
             if (productInWishList == null)
             {
-                return NotFound();
+                return RedirectToAction("NotFoundPage", "Home");
             }
 
             return View(productInWishList);

@@ -30,10 +30,6 @@
                 }
             </div>
 
-            <div class="reactivate">
-                <input asp-action="Reactivate" asp-controller="Users" type="submit" value="REACTIVATE" />
-            </div>
-
             <div class="signup">
                 <p>  Don't have account? <a asp-action="Register" asp-controller="Users">Click Here</a> to register</p>
             </div>
@@ -44,6 +40,9 @@
             <div class="overlay-panel overlay-right">
                 <h1>Hello, Friend!</h1>
                 <p>Enter your personal details and start journey with us :)</p>
+                <div class="reactivate">
+                    <p> Have you recently deleted your account? click here  to reactivate your account <input asp-action="Reactivate" asp-controller="Users" type="submit" value="REACTIVATE" /></p>
+                </div>
             </div>
         </div>
        
