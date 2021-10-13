@@ -10,9 +10,18 @@
     <link href="~/css/GridStyleSheet.css" rel="stylesheet" />
     @section scripts{
         <script>
+            function decodeHtml(html) {
+                var txt = document.createElement("textarea");
+                txt.innerHTML = html;
+                return txt.value;
+            }
+
             $(document).ready(function () {
+                let query = "@ViewBag.query";
+                let decoded = decodeHtml(decodeURIComponent(query));
+                $(title).append(decoded);
                 $(".form-select").change(function () {
-                    window.location.href = 'Search?' + 'query=@ViewBag.query'
+                    window.location.href = 'Search?' + `query=${decoded}`
                         + '&sort=' + $("#sortby").val()
                         + '&gender=' + $("#genderby").val()
                         + '&category=' + $("#categoryby").val()
@@ -24,7 +33,7 @@
 </head>
 
 <div class="title-div">
-    <a class="title-edit" style=" color: #F5F5F5;  margin-bottom:20px;">Search results for:  @ViewBag.query</a>
+    <a id="title" class="title-edit" style=" color: #F5F5F5;  margin-bottom:20px;">Search results for: </a>
 </div>
 
 <div class="tiny-container">

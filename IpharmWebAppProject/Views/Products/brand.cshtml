@@ -10,9 +10,17 @@
     <link href="~/css/GridStyleSheet.css" rel="stylesheet" />
     @section scripts{
         <script>
+            function decodeHtml(html) {
+                var txt = document.createElement("textarea");
+                txt.innerHTML = html;
+                return txt.value;
+            }
+
             $(document).ready(function () {
+                let brand = "@ViewBag.brand";
+                let decoded = decodeHtml(brand);
                 $(".form-select").change(function () {
-                    window.location.href = 'Brand?' + 'brand=@ViewBag.brand'
+                    window.location.href = 'Brand?' + `brand=${decoded}`
                         + '&sort=' + $("#sortby").val()
                         + '&gender=' + $("#genderby").val()
                         + '&category=' + $("#categoryby").val()
