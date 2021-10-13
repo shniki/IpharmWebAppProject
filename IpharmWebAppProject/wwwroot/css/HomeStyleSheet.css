@@ -1,0 +1,48 @@
+﻿#title {
+    text-shadow: 2px 2px #ede882;
+    color: #F5F5F5 !important;
+    text-decoration: none;
+    font-family: 'Oswald', sans-serif;
+    font-size: 100px;
+    text-align: center;
+    font-style: italic;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 20px;
+}
+
+#twitter-title {
+    text-shadow: 2px 2px #88e3e7;
+    color: #F5F5F5 !important;
+    text-decoration: none;
+    font-family: 'Oswald', sans-serif;
+    font-size: 50px;
+    text-align: center;
+    font-style: italic;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 20px;
+}
+/*grid*/
+
+.img-container {
+    margin-left: -16px;
+    width: 100%;
+    height: 500px;
+    overflow: hidden;
+}
+
+.text-center img {
+    width: 100%;
+    height: 500px;
+    object-fit: cover;
+}
+
+/*twitter*/
+.list-group {
+    flex-direction: row;
+}
+
+.list-group-item {
+    border: none;
+}

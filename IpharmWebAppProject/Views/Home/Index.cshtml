@@ -4,9 +4,25 @@
     ViewData["Title"] = "Home Page";
 }
 
+<head>
+    <link href="~/css/HomeStyleSheet.css" rel="stylesheet" />
+</head>
+
 <div class="text-center">
     <h1 id="title" class="display-4"></h1><br />
-    <h4>What people say about us:</h4>
+                                          <section class="gallery">
+                                              <div class="container">
+                                                  <div class="grid">
+                                                      <div class="column-xs-12 column-md-4">
+                                                          <figure class="img-container">
+                                                              <img src="https://images.unsplash.com/photo-1617778368431-f97343a411ac?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=774&q=80" />
+                                                          </figure>
+                                                      </div>
+                                                  </div>
+                                              </div>
+                                          </section>
+
+    <h4 id="twitter-title">What people say about us:</h4>
     <ul id="posts" class="list-group"></ul>
 </div>
 
@@ -19,7 +35,7 @@
         let sunrisehour = (new Date(sunrise)).getHours();
         let sunset = results.sunset;
         let sunsethour = (new Date(sunset)).getHours();
-        let title = (hourNow > sunsethour && hourNow < sunrisehour) ? '🌙 Good Night' : '☀️ Good Morning';
+        let title = (hourNow > sunsethour && hourNow < sunrisehour) ? 'Good Night from iPharm' : 'Good Morning from iPharm';
         $('#title').text(title);
     }
     updateTitle();
@@ -36,6 +52,6 @@
 
     for (let i = 0; i < (window.posts.length < 3 ? window.posts.length : 3); i++) {
         let text = window.posts[i];
-        $("#posts").append($(`<li class="list-group-item">${text}</li>`));
+        $("#posts").append($(`<li class="list-group-item"><i class="fab fa-twitter"></i>    ${text}</li>`));
     }
 </script>

@@ -331,15 +331,15 @@ namespace IpharmWebAppProject.Controllers
         // GET: Orders/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
-            //return RedirectToAction("NotFoundPage", "Home");
-            var review = await _context.Orders
+            return RedirectToAction("NotFoundPage", "Home");
+            /*var review = await _context.Orders
     .FirstOrDefaultAsync(m => m.OrderId == id);
             if (review == null)
             {
                 return NotFound();
             }
 
-            return View(review);
+            return View(review);*/
         }
 
         // POST: Orders/Delete/5

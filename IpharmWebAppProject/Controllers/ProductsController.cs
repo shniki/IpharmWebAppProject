@@ -512,7 +512,6 @@ namespace IpharmWebAppProject.Controllers
             return View(ret);
         }
 
-
         // POST: Products/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
