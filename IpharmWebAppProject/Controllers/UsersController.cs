@@ -79,8 +79,8 @@ namespace IpharmWebAppProject.Controllers
             var user = await _context.Users
                 .FirstOrDefaultAsync(m => m.Email == HttpContext.User.Claims.ElementAt(1).Value);
 
-            if (!user.Active)
-                return RedirectToAction("Logout");
+ //           if (!user.Active)
+ //               return RedirectToAction("Logout");
 
             if (user == null)
             {
@@ -164,12 +164,12 @@ namespace IpharmWebAppProject.Controllers
         {
            
                 var q = from u in _context.Users
-                        where u.Email == user.Email && u.Password == user.Password && user.Active
+                        where u.Email == user.Email && u.Password == user.Password
                         select u;
-                if (q.Count() > 0)
+                if (q.Count() > 0 && q.First().Active)
                 {
                     // HttpContext.Session.SetString("Email", q.First().Email);
-
+                    
                     Signin(q.First());
                     if (!String.IsNullOrEmpty(returnUrl))
                         return Redirect(returnUrl);
@@ -187,15 +187,14 @@ namespace IpharmWebAppProject.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Reactivate([Bind("Email,Password")] User user, string returnUrl)
         {
-
-            var q = from u in _context.Users
-                    where u.Email == user.Email && u.Password == user.Password && !user.Active
-                    select u;
-            if (q.Count() > 0)
+            var q = _context.Users.Where(p => p.Email == user.Email && p.Password == user.Password);
+            if (q.Any())
             {
                 // HttpContext.Session.SetString("Email", q.First().Email);
-                q.First().Active = true;
-                _context.Users.UpdateRange();
+                var myuser = q.FirstOrDefault();
+                myuser.Active = true;
+                _context.Users.Update(myuser);
+                _context.SaveChanges();
                 Signin(q.First());
                 if (!String.IsNullOrEmpty(returnUrl))
                     return Redirect(returnUrl);
@@ -207,6 +206,19 @@ namespace IpharmWebAppProject.Controllers
 
             }
             return View(user);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Unactivate()
+        {
+            var user = (from u in _context.Users
+                    where u.Email == HttpContext.User.Claims.ElementAt(1).Value
+                    select u).FirstOrDefault();
+            user.Active = false;
+            _context.Update(user);
+            _context.SaveChanges();
+            return RedirectToAction("Logout");
         }
 
 

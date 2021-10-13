@@ -2,6 +2,10 @@
     border-radius: 10px;
 }
 
+.rowsmall {
+    margin-left: 19%;
+}
+
 .table tr, .table td {
     vertical-align: middle;
 }

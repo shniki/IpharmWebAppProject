@@ -1,4 +1,7 @@
-﻿
+﻿tr td img {
+    border-radius: 10px;
+}
+
 .basket,
 aside {
     padding: 0 1rem;

@@ -1,0 +1,11 @@
+﻿
+a {
+    border-radius: 10px;
+}
+img {
+    border-radius: 10px;
+}
+
+a:hover{
+    text-decoration:none;
+}

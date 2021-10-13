@@ -36,10 +36,9 @@ namespace IpharmWebAppProject.Models
         public DateTime Birthday { get; set; }
 
         //mobile
-        [Required(ErrorMessage = "Phone is required")]
-        [DataType(DataType.PhoneNumber,ErrorMessage = "Phone isn't valid")]
-        [RegularExpression(@"^(\0 ? 1\s)?\(?\d{3}\)?[\s.-]\d{3}[\s.-]\d{ 4}$",
-         ErrorMessage = "Phone isn't valid")]
+        [Required(ErrorMessage = "Mobile is required")]
+        //[DataType(DataType.PhoneNumber,ErrorMessage = "Mobile isn't valid")]
+        //[RegularExpression(@"^(\0 ? 1\s)?\(?\d{3}\)?[\s.-]\d{3}[\s.-]\d{ 4}$",ErrorMessage = "Mobile isn't valid")]
         public string Mobile { get; set; }
 
         //password

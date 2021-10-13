@@ -23,7 +23,7 @@
             </div>
 
             <div class="login">
-                <input type="submit" value="LOGIN" /><a asp-action="Login" asp-controller="Users"></a>
+                <input asp-action="Login" asp-controller="Users" type="submit" value="LOGIN" />
                 @if (ViewBag.Error != null)
                 {
                     <div class="text-danger">@ViewBag.Error</div>
@@ -31,7 +31,7 @@
             </div>
 
             <div class="reactivate">
-                <input type="submit" value="REACTIVATE" /><a asp-action="Reactivate" asp-controller="Users"></a>
+                <input asp-action="Reactivate" asp-controller="Users" type="submit" value="REACTIVATE" />
             </div>
 
             <div class="signup">

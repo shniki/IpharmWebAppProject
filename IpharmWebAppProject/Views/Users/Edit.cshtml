@@ -15,7 +15,7 @@
 
 <br />
 <div class="row">
-    <form asp-action="Edit" method="post">
+    <form asp-action="Edit" asp-route-id="@Context.User.Claims.ElementAt(1).Value" method="post">
         <div class="left-col-4">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Email" />
@@ -68,7 +68,7 @@
             </div>
             <div class="form-group">
                 <input type="submit" value="Save" class="btn bt" />
-                <input asp-route-Active=false type="submit" value="Delete" class="btn bt del" />
+                <input asp-action="Unactivate" type="submit" value="Delete" class="btn bt del" />
             </div>
         </div>
     </form>
