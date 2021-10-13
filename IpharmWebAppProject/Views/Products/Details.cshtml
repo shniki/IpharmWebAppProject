@@ -143,35 +143,39 @@
         @if (Model.Stock == 0)
         {
             <h3 class="alert1">Item is out of stock!</h3>
+        }
+        @if (Context.User != null && Context.User.Claims != null && Context.User.Claims.Count() > 0 && Context.User.Claims.ElementAt(10).Value == "Manager")
+        {
             <div class="buttons">
-                <a class="bt btn cart">Add to cart</a>
-                <a asp-controller="WishLists" asp-action="Index"
-                   asp-route-productid="@Model.ProductId" asp-route-addition="true"
-                   class="bt btn wishlist"><span>♥</span></a>
+                <a asp-controller="Products" asp-action="Edit"
+                   asp-route-id="@Model.ProductId"
+                   class="bt btn edit">Edit</a>
             </div>
         }
         else
         {
-            @if (Context.User != null && Context.User.Claims != null && Context.User.Claims.Count() > 0 && Context.User.Claims.ElementAt(10).Value == "Manager")
+            @if (Model.Stock == 0)
             {
                 <div class="buttons">
-                    <a asp-controller="Products" asp-action="Edit"
-                       asp-route-id="@Model.ProductId"
-                       class="bt btn edit">Edit</a>
-                </div>
-            }
-            else
-            {
-                <div class="buttons">
-                    <a asp-controller="Orders" asp-action="Cart"
-                       asp-route-productid="@Model.ProductId" asp-route-addition="true" asp-route-wishlist="false"
-                       class="bt btn cart">Add to cart</a>
+                    <a class="bt btn cart">Add to cart</a>
                     <a asp-controller="WishLists" asp-action="Details"
                        asp-route-productid="@Model.ProductId" asp-route-addition="true"
                        class="bt btn wishlist"><span>♥</span></a>
                 </div>
             }
+            else
+            {
+            <div class="buttons">
+                <a asp-controller="Orders" asp-action="Cart"
+                   asp-route-productid="@Model.ProductId" asp-route-addition="true" asp-route-wishlist="false"
+                   class="bt btn cart">Add to cart</a>
+                <a asp-controller="WishLists" asp-action="Details"
+                   asp-route-productid="@Model.ProductId" asp-route-addition="true"
+                   class="bt btn wishlist"><span>♥</span></a>
+            </div>
+            }
         }
+
 
         <dl class="row">
             <dt class="col-sm-1">
@@ -213,7 +217,7 @@
          aria-label="Rating of this product is @(Html.DisplayFor(model => model.Rate)) out of 5.">
     </div>
 
-    <h1>@(Html.DisplayFor(model => model.Rate)) out of 5 stars</h1>
+    <h1>@String.Format("{0:0.00}", Model.Rate) out of 5 stars</h1>
     <h2>@(Model.Reviews.Count()) Reviews</h2>
 
 

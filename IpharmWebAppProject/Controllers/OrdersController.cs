@@ -173,6 +173,8 @@ namespace IpharmWebAppProject.Controllers
                         var mywishlist = _context.WishLists.Include(o => o.Products).FirstOrDefault(m => (m.Email == HttpContext.User.Claims.ElementAt(1).Value));
                         ProductInWishList productwl = (from p in mywishlist.Products where p.ProductId == productid select p).First();
                         _context.ProductInWishLists.Remove(productwl);
+                        mywishlist.Counter -= 1;
+                        _context.Update(mywishlist);
                     }
                 }
                 else //remove product
@@ -329,15 +331,15 @@ namespace IpharmWebAppProject.Controllers
         // GET: Orders/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
-            return RedirectToAction("NotFoundPage", "Home");
-            /*var review = await _context.Orders
+            //return RedirectToAction("NotFoundPage", "Home");
+            var review = await _context.Orders
     .FirstOrDefaultAsync(m => m.OrderId == id);
             if (review == null)
             {
                 return NotFound();
             }
 
-            return View(review);*/
+            return View(review);
         }
 
         // POST: Orders/Delete/5

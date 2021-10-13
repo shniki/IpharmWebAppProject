@@ -6,6 +6,7 @@
 
 <head>
     <link rel="stylesheet" href="~/css/EditStyleSheet.css" />
+    <link rel="stylesheet" href="~/css/GridStyleSheet.css" />
 </head>
 
 
@@ -15,3 +16,62 @@
         margin-bottom: 20px;
 ">Wishlist</a>
 </div>
+
+<div class="small-container">
+    <div class="row">
+        @foreach (var item in Model.Products)
+        {
+            <div class="col-4 item">
+                <div onclick="Product(@(item.ProductId))" class="img"><img src="@Html.DisplayFor(modelItem => item.Product.PicUrl1)" /></div>
+                <div class="namep">
+                    <p>@Html.DisplayFor(modelItem => item.Product.Name)</p>
+                    <div class="Stars" style="--rating: @(Html.DisplayFor(modelItem => item.Product.Rate));"
+                         aria-label="Rating of this product is @(Html.DisplayFor(modelItem => item.Product.Rate)) out of 5.">
+                    </div>
+                    <p>@Html.DisplayFor(modelItem => item.Product.Price)$</p>
+                </div>
+                <div class="buttons">
+                    @if (item.Product.Stock == 0)
+                    {
+                        <a class="bt btn del">OUT OF STOCK!</a>
+                    }
+                    else
+                    {
+                        <a asp-controller="Orders" asp-action="Cart"
+                           asp-route-productid="@item.ProductId" asp-route-addition="true" asp-route-wishlist="true"
+                           class="bt btn cart">Add to cart</a>
+                    }
+                    <a asp-controller="WishLists" asp-action="Details"
+                       asp-route-productid="@item.ProductId" asp-route-addition="false"
+                       class="bt btn wishlist"><span>♥</span></a>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+
+
+<script>
+    function Product(id) {
+        window.location.href = 'Details/' + id;
+    }
+</script>

@@ -60,6 +60,7 @@ namespace IpharmWebAppProject.Controllers
                             WishListId = mywishlist.Email,
                             WishList = mywishlist
                         });
+                        mywishlist.Counter += 1;
                     }
                 }
                 else //remove product
@@ -69,6 +70,7 @@ namespace IpharmWebAppProject.Controllers
                         mywishlist.Products.Remove(productexists);
                         _context.ProductInWishLists.Remove(productexists);
                     }
+                    mywishlist.Counter -= 1;
                 }
                 _context.WishLists.Update(mywishlist);
                 _context.SaveChanges();

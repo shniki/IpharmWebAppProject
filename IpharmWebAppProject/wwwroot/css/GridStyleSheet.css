@@ -1,7 +1,7 @@
 ﻿.item {
     background: #fff;
     padding: 15px;
-    height: 500px;
+    height: 600px;
     border-radius: 6px;
     /*box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);*/
     position: relative;
@@ -94,4 +94,59 @@
 #videoplayer{
 
 width:100%
+}
+
+/*buttons*/
+
+
+/*buttons*/
+
+.buttons {
+    margin-left: 27px;
+    width: 100%;
+    position: sticky;
+}
+
+.bt {
+    font-family: 'Oswald', sans-serif;
+    margin-bottom: 20px;
+    padding: 10px;
+    border-radius: 4px;
+    letter-spacing: 1px;
+    color: black;
+    cursor: pointer;
+    font-size: 20px;
+}
+
+.alert1 {
+    color: red;
+    font-size: 15px;
+}
+
+.edit {
+    width: 70%;
+    border: 2px solid #F5F5F5;
+}
+
+.wishlist {
+    width: 20%;
+    border: 2px solid #F5F5F5;
+}
+
+.bt:hover {
+    border: 2px solid black;
+    text-decoration: none;
+    color: black;
+}
+
+.cart {
+    width: 70%;
+    background: #46ff9c;
+    border: 2px solid #46ff9c;
+}
+
+.btndel {
+    width: 70%;
+    background: #ff8361;
+    border: 2px solid #ff8361;
 }

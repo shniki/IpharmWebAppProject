@@ -166,14 +166,21 @@ namespace IpharmWebAppProject.Controllers
                 var q = from u in _context.Users
                         where u.Email == user.Email && u.Password == user.Password
                         select u;
-                if (q.Count() > 0 && q.First().Active)
+                if (q.Count() > 0)
                 {
-                    // HttpContext.Session.SetString("Email", q.First().Email);
-                    
+                // HttpContext.Session.SetString("Email", q.First().Email);
+                if (!q.First().Active)
+                {
+                    ViewData["Error"] = "Please reactivate your account";
+
+                }
+                else
+                {
                     Signin(q.First());
                     if (!String.IsNullOrEmpty(returnUrl))
                         return Redirect(returnUrl);
                     return RedirectToAction(nameof(Index), "Home");
+                }
                 }
                 else
                 {
