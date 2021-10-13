@@ -20,14 +20,14 @@ namespace IpharmWebAppProject.Models
         [DataType(DataType.Text)]
         [RegularExpression(@"^[a-zA-Z''-'\s]{1,40}$",
          ErrorMessage = "Characters are not allowed")]
-        [MinLength(2, ErrorMessage = "Name is'nt valid")]
+        [MinLength(2, ErrorMessage = "Name isn't valid")]
         public string FirstName { get; set; }
 
         [Required(ErrorMessage = "Last name is required")]
         [DataType(DataType.Text)]
         [RegularExpression(@"^[a-zA-Z''-'\s]{1,40}$",
          ErrorMessage = "Characters are not allowed")]
-        [MinLength(2,ErrorMessage ="Name is'nt valid")]
+        [MinLength(2,ErrorMessage ="Name isn't valid")]
         public string LastName { get; set; }
 
         //birthday
@@ -53,11 +53,15 @@ namespace IpharmWebAppProject.Models
         public string PostalCode { get; set; }
 
         [Required(ErrorMessage = "Country is required")]
-        [DataType(DataType.Text,ErrorMessage = "Country isn't valid")]
+        [DataType(DataType.Text)]
+        [RegularExpression(@"^[a-zA-Z''-'\s]{1,40}$",
+         ErrorMessage = "Characters are not allowed")]
         public string Country { get; set; }
 
         [Required(ErrorMessage = "City is required")]
-        [DataType(DataType.Text, ErrorMessage = "City isn't valid")]
+        [DataType(DataType.Text)]
+        [RegularExpression(@"^[a-zA-Z''-'\s]{1,40}$",
+         ErrorMessage = "Characters are not allowed")]
         public string City { get; set; }
 
         [Required(ErrorMessage = "Adress is required")]
