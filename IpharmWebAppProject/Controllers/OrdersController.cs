@@ -184,7 +184,7 @@ namespace IpharmWebAppProject.Controllers
                 {
                     if (productexists != null) //in cart
                     {
-                        if (one) //delete one
+                        if (one && productexists.Amount!=1) //delete one
                         {
                             mycart.Price -= product.Price;
                             productexists.Amount -= 1;
