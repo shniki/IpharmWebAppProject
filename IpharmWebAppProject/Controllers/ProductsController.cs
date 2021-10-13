@@ -8,6 +8,8 @@ using Microsoft.EntityFrameworkCore;
 using IpharmWebAppProject.Data;
 using IpharmWebAppProject.Models;
 using System.Collections.ObjectModel;
+using System.IO;
+using System.Web;
 
 namespace IpharmWebAppProject.Controllers
 {
@@ -161,7 +163,7 @@ namespace IpharmWebAppProject.Controllers
         }
         public async Task<IActionResult> Search(string query, string sort="0", string gender="0", string category="0", string price="0")
         {
-            ViewBag.query = query;
+            ViewBag.query = HttpUtility.UrlEncode(query);
             ViewBag.sort = sort;
             ViewBag.gender = gender;
             ViewBag.category = category;
