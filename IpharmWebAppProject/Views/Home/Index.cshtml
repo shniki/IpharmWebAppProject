@@ -10,6 +10,7 @@
 
 <div class="text-center">
     <h1 id="title" class="display-4"></h1><br />
+    <img id="img" src="https://images.unsplash.com/photo-1594465919760-441fe5908ab0?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;ixlib=rb-1.2.1&amp;auto=format&amp;fit=crop&amp;w=1064&amp;q=80"/>
     <h4 id="twitter-title">What people say about us:</h4>
     <ul id="posts" class="list-group"></ul>
 </div>
@@ -32,7 +33,7 @@
             return post.text;
         return "";
     }
-
+    
     window.model = @(Html.Raw(Json.Serialize(Model))); //api.post
     window.posts = [...new Set(JSON.parse(window.model.posts).statuses.map(filterPosts).filter((post) => post != ""))];
 

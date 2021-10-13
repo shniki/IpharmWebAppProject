@@ -27,7 +27,16 @@
 .list-group {
     flex-direction: row;
 }
-
+#img{
+    border-radius:10px;
+    border:2px solid #000000;
+    width:900px;
+    height:1000px;
+}
+h4{
+    margin-top:10px;
+    margin-bottom:0px;
+}
 .list-group-item {
     border: none;
 }
