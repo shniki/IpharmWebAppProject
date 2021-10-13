@@ -109,8 +109,11 @@ namespace IpharmWebAppProject.Controllers
             if (HttpContext.User != null && HttpContext.User.Claims != null && HttpContext.User.Claims.Count() > 0
                 && HttpContext.User.Claims.ElementAt(10).Value == "Manager") //logged in as manager
                   return RedirectToAction(nameof(Index), "Home");
-
+            
             var myOrder = await _context.Orders.Where(o => o.Email == HttpContext.User.Claims.ElementAt(1).Value && o.Status == Status.Cart).FirstOrDefaultAsync();
+
+            if (myOrder.Price == 0)
+                return RedirectToAction("Cart", "Orders");
 
             myOrder.Status = Status.Paid;
             myOrder.OrderDate = DateTime.Now;
@@ -125,7 +128,7 @@ namespace IpharmWebAppProject.Controllers
         }
 
         // Post: Orders/Cart
-        public async Task<IActionResult> Cart(int? productid, bool addition, bool wishlist)
+        public async Task<IActionResult> Cart(int? productid, bool addition, bool wishlist, bool one=false)
         {
             if (HttpContext.User == null || HttpContext.User.Claims == null || HttpContext.User.Claims.Count() == 0) //not logged in
                 return RedirectToAction("Login", "Users");
@@ -181,10 +184,19 @@ namespace IpharmWebAppProject.Controllers
                 {
                     if (productexists != null) //in cart
                     {
-                        mycart.Price-=(product.Price*productexists.Amount);
-                        mycart.Products.Remove(productexists);
-                        _context.ProductInOrders.Remove(productexists);
-                        product.Stock += productexists.Amount;
+                        if (one) //delete one
+                        {
+                            mycart.Price -= product.Price;
+                            productexists.Amount -= 1;
+                            product.Stock += 1;
+                        }
+                        else //delete all
+                        {
+                            mycart.Price -= (product.Price * productexists.Amount);
+                            mycart.Products.Remove(productexists);
+                            _context.ProductInOrders.Remove(productexists);
+                            product.Stock += productexists.Amount;
+                        }
                     }
                 }
                 _context.Orders.Update(mycart);
@@ -331,15 +343,15 @@ namespace IpharmWebAppProject.Controllers
         // GET: Orders/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
-            //return RedirectToAction("NotFoundPage", "Home");
-            var review = await _context.Orders
+            return RedirectToAction("NotFoundPage", "Home");
+            /*var review = await _context.Orders
              .FirstOrDefaultAsync(m => m.OrderId == id);
             if (review == null)
             {
                 return RedirectToAction("NotFoundPage", "Home");
             }
 
-            return View(review);
+            return View(review);*/
         }
 
         // POST: Orders/Delete/5

@@ -102,7 +102,7 @@ namespace IpharmWebAppProject.Controllers
             ViewBag.types = await _context.Products.GroupBy(p => p.Type).Select(g => g.Key).ToListAsync();
 
             var product = await _context.Products.FindAsync(id);
-            if (product == null)
+            if (product == null || product.Active==false)
             {
                 return RedirectToAction("NotFoundPage", "Home");
             }

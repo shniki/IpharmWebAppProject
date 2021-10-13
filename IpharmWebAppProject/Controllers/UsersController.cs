@@ -292,11 +292,11 @@ namespace IpharmWebAppProject.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(string id, [Bind("Email,FirstName,LastName,Birthday,Mobile,Password,PostalCode,Country,City,Adress,Type,Active")] User user)
+        public async Task<IActionResult> Edit(string Email, [Bind("Email,FirstName,LastName,Birthday,Mobile,Password,PostalCode,Country,City,Adress,Type,Active")] User user)
         {
-            if (id != user.Email)
+            if (Email != user.Email)
             {
-                return RedirectToAction("NotFoundPage", "Home");
+                return RedirectToAction("Index", "Home");
             }
 
             if (ModelState.IsValid)
@@ -310,7 +310,7 @@ namespace IpharmWebAppProject.Controllers
                 {
                     if (!UserExists(user.Email))
                     {
-                        return NotFound();
+                        return RedirectToAction("Index", "Home");
                     }
                     else
                     {
