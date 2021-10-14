@@ -148,6 +148,7 @@ namespace IpharmWebAppProject.Controllers
         public async Task<IActionResult> Logout()
         {
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+
             return RedirectToAction("Index", "Home");
         }
 
@@ -164,8 +165,9 @@ namespace IpharmWebAppProject.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Login([Bind("Email,Password")] User user, string returnUrl)
         {
-           
-                var q = from u in _context.Users
+            if (HttpContext.User != null && HttpContext.User.Claims != null && HttpContext.User.Claims.Count() > 0) //logged in
+                return RedirectToAction("PersonalInfo", "Users");
+            var q = from u in _context.Users
                         where u.Email == user.Email && u.Password == user.Password
                         select u;
                 if (q.Count() > 0)
@@ -292,7 +294,7 @@ namespace IpharmWebAppProject.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(string Email, [Bind("Email,FirstName,LastName,Birthday,Mobile,Password,PostalCode,Country,City,Adress,Type,Active")] User user)
+        public async Task<IActionResult> Edit(string Email, [Bind("Email,FirstName,LastName,Birthday,Mobile,Password,PostalCode,Country,City,Adress,Type,Active")] User? user)
         {
             if (Email != user.Email)
             {

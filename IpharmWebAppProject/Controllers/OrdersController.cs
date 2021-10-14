@@ -150,6 +150,8 @@ namespace IpharmWebAppProject.Controllers
             {
                 ProductInOrder productexists = mycart.Products.Where(p=>p.ProductId == productid).FirstOrDefault();
                 Product product = _context.Products.Find(productid);
+                if(product.Stock<=0)
+                    return View(mycart);
 
                 if (addition) //add product
                 {
